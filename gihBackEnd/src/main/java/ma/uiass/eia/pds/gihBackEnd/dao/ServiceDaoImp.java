@@ -38,4 +38,9 @@ public class ServiceDaoImp implements Dao<Service> {
         Query query = entityManager.createQuery("from Service");
         return query.getResultList();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }

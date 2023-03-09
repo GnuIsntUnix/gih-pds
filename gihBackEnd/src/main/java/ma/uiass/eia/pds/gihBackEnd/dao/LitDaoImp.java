@@ -44,8 +44,8 @@ public class LitDaoImp implements Dao<Lit>{
         entityManager.remove(getById(id));
     }
 
-    public List<Lit> getAllByChambre(int id) {
-        Query query = entityManager.createQuery("from Lit where idChambre =" + id);
-        return query.getResultList();
-    }
+//    public List<Lit> getAllByChambre(int id) {
+//        Query query = entityManager.createQuery("from Lit where idChambre =" + id);
+//        return query.getResultList();
+//    }
 }

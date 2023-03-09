@@ -39,4 +39,9 @@ public class MarqueDaoImp implements Dao<Marque> {
         Query query = entityManager.createQuery("from Marque");
         return query.getResultList();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }
