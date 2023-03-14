@@ -38,4 +38,9 @@ public class ChambreDaoImp implements Dao<Chambre>{
         Query query = entityManager.createQuery("from Chambre");
         return query.getResultList();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }
