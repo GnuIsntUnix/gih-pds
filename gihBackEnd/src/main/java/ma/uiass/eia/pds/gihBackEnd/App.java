@@ -24,18 +24,18 @@ public class App
         ResourceConfig config = new ResourceConfig().packages("ma.uiass.eia.pds.gihBackEnd","com.fasterxml.jackson.jaxrs.json.provider").register(JacksonFeature.class);
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
         //------------------------------------------------------------------------------------------------------------//
-//        Dao<Service> serviceDao = new ServiceDaoImp();
-//        Dao<Chambre> chambreDao = new ChambreDaoImp();
-//        Dao<Marque> marqueDao = new MarqueDaoImp();
-//        Dao<TypeLit> typeLitDao = new TypeLitDaoImp();
-//        Dao<Batiment> batimentDao = new BatimentDaoImp();
-//        Dao<Lit> litDao = new LitDaoImp();
+        Dao<Service> serviceDao = new ServiceDaoImp();
+        Dao<Espace> espaceDao = new EspaceDaoImp();
+        Dao<Marque> marqueDao = new MarqueDaoImp();
+        Dao<TypeLit> typeLitDao = new TypeLitDaoImp();
+        Dao<Batiment> batimentDao = new BatimentDaoImp();
+        Dao<Lit> litDao = new LitDaoImp();
 //        serviceDao.create(new Service("CARDIO", "Cardiologie"));
-//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
-//        chambreDao.create(new Chambre(10, batimentDao.getById(1), "single", 2));
 //        marqueDao.create(new Marque("Hamid"));
+//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
 //        typeLitDao.create(new TypeLit("Urgence"));
-//        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), chambreDao.getById(1)));
-
+//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+//        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
+//        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), chambreDao.getById(1)))
     }
 }

@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class TypeLit {
     @Column(name = "Nom")
     private String nomTypeLit;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "typeLit")
     private List<Lit> lits;
 
@@ -84,5 +87,10 @@ public class TypeLit {
 
     public void setEquipements(List<Equipement> equipements) {
         this.equipements = equipements;
+    }
+
+    @Override
+    public String toString() {
+        return nomTypeLit;
     }
 }
