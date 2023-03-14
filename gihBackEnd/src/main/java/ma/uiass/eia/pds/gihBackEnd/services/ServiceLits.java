@@ -11,13 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceLits {
-    private Dao<Lit> litDao;
+    private Dao<Lit> litDaoImp;
 
     public ServiceLits() {
-        litDao = new LitDaoImp();
+        litDaoImp = new LitDaoImp();
     }
-
-    public LitDaoImp litDaoImp;
 
     public void deleteById(int id){
 

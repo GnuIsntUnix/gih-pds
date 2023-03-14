@@ -26,7 +26,7 @@ public class Service extends Instances implements Serializable {
 
 
     @OneToMany(mappedBy = "service")
-    //@Fetch(FetchMode.SELECT)
+
     private List<Batiment> batiments;
 
     public Service() {

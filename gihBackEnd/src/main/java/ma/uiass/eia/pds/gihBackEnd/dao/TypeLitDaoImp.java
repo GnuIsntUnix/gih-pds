@@ -39,4 +39,9 @@ public class TypeLitDaoImp implements Dao<TypeLit> {
         Query query = entityManager.createQuery("from TypeLit");
         return query.getResultList();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }

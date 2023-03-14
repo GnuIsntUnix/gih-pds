@@ -1,4 +1,4 @@
-package com.example.demo;
+package ma.uiass.eia.pds.gihFrontEnd;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ public class MenuController {
     private BorderPane centerBorder;
 
     public void onLitClick(ActionEvent event) throws IOException {
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("affichageLits.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("affichageLits.fxml"));
         centerBorder.setCenter(fxmlLoader);
     }
 }

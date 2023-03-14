@@ -40,4 +40,9 @@ public class BatimentDaoImp implements Dao<Batiment>{
         Query query = entityManager.createQuery("from Chambre");
         return query.getResultList();
     }
+
+    @Override
+    public void delete(int id) {
+
+    }
 }

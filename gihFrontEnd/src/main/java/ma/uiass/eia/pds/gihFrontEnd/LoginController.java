@@ -1,4 +1,4 @@
-package com.example.demo;
+package ma.uiass.eia.pds.gihFrontEnd;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

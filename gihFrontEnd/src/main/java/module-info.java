@@ -7,5 +7,5 @@ module gihFrontEnd {
     requires de.jensd.fx.glyphs.fontawesome;
 
     opens ma.uiass.eia.pds.gihFrontEnd to javafx.fxml;
-    exports ma.uiass.eia.pds.gihFrontEnd to javafx.graphics;
+    exports ma.uiass.eia.pds.gihFrontEnd;
 }

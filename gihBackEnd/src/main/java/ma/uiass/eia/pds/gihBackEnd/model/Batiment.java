@@ -24,13 +24,13 @@ public class Batiment extends Instances {
     private Service service;
 
     @OneToMany(mappedBy = "batiment")
-    private List<Chambre> chambres;
+    private List<Espace> espaces;
 
 
-    public Batiment(String nomBatiment, Service service, List<Chambre> chambres) {
+    public Batiment(String nomBatiment, Service service, List<Espace> espaces) {
         this.nomBatiment = nomBatiment;
         this.service = service;
-        this.chambres = chambres;
+        this.espaces = espaces;
     }
 
     public Batiment(String nomBatiment, Service service) {
@@ -57,12 +57,12 @@ public class Batiment extends Instances {
         this.nomBatiment = nomBatiment;
     }
 
-    public List<Chambre> getChambres() {
-        return chambres;
+    public List<Espace> getEspaces() {
+        return espaces;
     }
 
-    public void setChambres(List<Chambre> chambres) {
-        this.chambres = chambres;
+    public void setEspaces(List<Espace> espaces) {
+        this.espaces = espaces;
     }
 
     public Service getService() {
