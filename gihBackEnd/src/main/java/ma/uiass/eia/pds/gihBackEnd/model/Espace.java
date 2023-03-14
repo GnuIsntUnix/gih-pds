@@ -10,11 +10,14 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Type", length = 255)
 public abstract class Espace {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     protected int idEspace;
 
+    @Column(name = "Type", insertable = false, updatable = false)
+    private String type;
     @Column(name = "Numero")
     protected int numEspace;
 
@@ -26,23 +29,34 @@ public abstract class Espace {
     @Column(name = "Etage")
     protected int etage;
 
+    @JsonIgnore
     @OneToMany(mappedBy="espace")
     protected List<Lit> lits ;
 
-    public Espace(int numEspace, Batiment batiment, int etage, List<Lit> lits) {
+    public Espace(String type, int numEspace, Batiment batiment, int etage, List<Lit> lits) {
+        this.type = type;
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
         this.lits = lits;
     }
 
-    public Espace(int numEspace, Batiment batiment, int etage) {
+    public Espace(String type, int numEspace, Batiment batiment, int etage) {
+        this.type = type;
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
     }
 
     public Espace() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getIdEspace() {
@@ -83,5 +97,10 @@ public abstract class Espace {
 
     public void setLits(List<Lit> lits) {
         this.lits = lits;
+    }
+
+    @Override
+    public String toString() {
+        return type + " " + numEspace;
     }
 }

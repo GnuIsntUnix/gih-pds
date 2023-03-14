@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class Marque implements Serializable{
     @Column(name="Nom")
     private String nomMarque;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "marque")
     private List<Lit> lits;
 
@@ -58,4 +61,8 @@ public class Marque implements Serializable{
 
     }
 
+    @Override
+    public String toString() {
+        return nomMarque;
+    }
 }

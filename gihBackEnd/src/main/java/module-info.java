@@ -28,6 +28,7 @@ module gihBackEnd {
     requires org.hibernate.commons.annotations;
     requires org.hibernate.validator;
     requires org.hibernate.orm.core;
+    requires com.google.gson;
 
     opens ma.uiass.eia.pds.gihBackEnd.model to org.hibernate.orm.core, com.google.gson;
     opens ma.uiass.eia.pds.gihBackEnd.controller to org.glassfish.hk2.locator, jersey.server;

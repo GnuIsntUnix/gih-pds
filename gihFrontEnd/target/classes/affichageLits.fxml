@@ -27,12 +27,12 @@
          <children>
             <TableView fx:id="tblLits" prefHeight="214.0" prefWidth="600.0" GridPane.rowIndex="1">
               <columns>
-                <TableColumn prefWidth="55.20001220703125" text="Id" />
-                <TableColumn prefWidth="92.79998779296875" text="Etat" />
-                  <TableColumn prefWidth="99.20001220703125" text="Marque" />
-                  <TableColumn fx:id="actionsColumn" prefWidth="116.79998779296875" text="Type" />
-                  <TableColumn prefWidth="116.0" text="Espace" />
-                  <TableColumn prefWidth="120.800048828125" text="Action" />
+                <TableColumn fx:id="idCol" prefWidth="55.20001220703125" text="Id" />
+                <TableColumn fx:id="etatCol" prefWidth="92.79998779296875" text="Etat" />
+                  <TableColumn fx:id="marqueCol" prefWidth="99.20001220703125" text="Marque" />
+                  <TableColumn fx:id="typeCol" prefWidth="116.79998779296875" text="Type" />
+                  <TableColumn fx:id="espaceCol" prefWidth="116.0" text="Espace" />
+                  <TableColumn fx:id="actionsCol" prefWidth="120.800048828125" text="Actions" />
               </columns>
             </TableView>
          </children>

@@ -35,7 +35,7 @@ public class LitDaoImp implements Dao<Lit>{
 
     @Override
     public List<Lit> getAll() {
-        Query query = entityManager.createQuery("from Lit");
+        Query query = entityManager.createQuery("from Lit", Lit.class);
         return query.getResultList();
     }
 
