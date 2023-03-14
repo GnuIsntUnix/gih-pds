@@ -2,22 +2,23 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import javax.persistence.*;
 import ma.uiass.eia.pds.gihBackEnd.model.Chambre;
+import ma.uiass.eia.pds.gihBackEnd.model.Espace;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
-public class ChambreDaoImp implements Dao<Chambre>{
+public class EspaceDaoImp implements Dao<Espace>{
     private EntityManager entityManager;
 
-    public ChambreDaoImp() {
+    public EspaceDaoImp() {
         entityManager = HibernateUtil.getEntityManager();
     }
 
-    public void create(Chambre chambre) {
+    public void create(Espace espace) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            this.entityManager.persist(chambre);
+            this.entityManager.persist(espace);
             transaction.commit();
         }
         catch (Exception e) {
@@ -29,13 +30,13 @@ public class ChambreDaoImp implements Dao<Chambre>{
     }
 
     @Override
-    public Chambre getById(int id) {
-        return entityManager.find(Chambre.class, id);
+    public Espace getById(int id) {
+        return entityManager.find(Espace.class, id);
     }
 
     @Override
-    public List<Chambre> getAll() {
-        Query query = entityManager.createQuery("from Chambre");
+    public List<Espace> getAll() {
+        Query query = entityManager.createQuery("from Espace");
         return query.getResultList();
     }
 

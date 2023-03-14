@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TLit")
-public class Lit {
+public class Lit extends Emplacement{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,15 +28,15 @@ public class Lit {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "idChambre", referencedColumnName = "Id")
-    private Chambre chambre;
+    @JoinColumn(name = "idEspace", referencedColumnName = "Id")
+    private Espace espace;
     //constructor    public Lit(int n_lit, EtatLit etat, Marque marque, TypeLit tpl, Chambre chambre) {
 
-    public Lit(EtatLit etat, Marque marque, TypeLit typeLit, Chambre chambre) {
+    public Lit(EtatLit etat, Marque marque, TypeLit typeLit, Espace espace) {
         Etat = etat;
         this.marque = marque;
         this.typeLit = typeLit;
-        this.chambre = chambre;
+        this.espace = espace;
     }
 
     public Lit() {
@@ -74,11 +74,11 @@ public class Lit {
         this.typeLit = typeLit;
     }
 
-    public Chambre getChambre() {
-        return chambre;
+    public Espace getEspace() {
+        return espace;
     }
 
-    public void setChambre(Chambre chambre) {
-        this.chambre = chambre;
+    public void setEspace(Espace espace) {
+        this.espace = espace;
     }
 }
