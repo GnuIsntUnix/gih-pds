@@ -1,12 +1,16 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
+import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
 import ma.uiass.eia.pds.gihBackEnd.dao.MarqueDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Marque;
 
 import java.util.List;
 
 public class ServiceMarque {
-    MarqueDaoImp marqueDaoImp= new MarqueDaoImp();
+    private Dao<Marque> marqueDaoImp;
+    public ServiceMarque(){
+        marqueDaoImp= new MarqueDaoImp();
+    }
     public void deleteById(int id){
         marqueDaoImp.delete(id);
     }

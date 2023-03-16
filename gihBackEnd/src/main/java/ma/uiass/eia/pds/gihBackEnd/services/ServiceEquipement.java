@@ -1,12 +1,16 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
+import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
 import ma.uiass.eia.pds.gihBackEnd.dao.EquipementDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Equipement;
 
 import java.util.List;
 
 public class ServiceEquipement {
-    EquipementDaoImp equipementDaoImp = new EquipementDaoImp();
+    private Dao<Equipement> equipementDaoImp;
+    public ServiceEquipement(){
+        equipementDaoImp = new EquipementDaoImp();
+    }
 
     public void add(Equipement equipement){
         equipementDaoImp.create(equipement);
