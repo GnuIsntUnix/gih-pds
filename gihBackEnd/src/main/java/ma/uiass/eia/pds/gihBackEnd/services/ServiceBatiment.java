@@ -1,4 +1,4 @@
-package ma.uiass.eia.pds.gihBackEnd.metier;
+package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.BatimentDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
@@ -10,8 +10,7 @@ public class ServiceBatiment {
     BatimentDaoImp batimentDaoImp=new BatimentDaoImp();
     public ServiceDaoImp serviceDaoImp = new ServiceDaoImp();
     public void deleteById(int id){
-        Batiment batiment = batimentDaoImp.getById(id);
-        batimentDaoImp.delete(batiment);
+        batimentDaoImp.delete(id);
     }
     public void add(Batiment batiment){
         batimentDaoImp.create(batiment);
