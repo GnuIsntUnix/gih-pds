@@ -25,8 +25,7 @@ public class Service extends Instances implements Serializable {
     private String nomService;
 
 
-    @OneToMany(mappedBy = "service")
-
+    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER)
     private List<Batiment> batiments;
 
     public Service() {
