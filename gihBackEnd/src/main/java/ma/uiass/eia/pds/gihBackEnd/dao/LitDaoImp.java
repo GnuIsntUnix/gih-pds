@@ -41,11 +41,17 @@ public class LitDaoImp implements Dao<Lit>{
 
     @Override
     public void delete(int id) {
-        entityManager.remove(getById(id));
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(id);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
-//    public List<Lit> getAllByChambre(int id) {
-//        Query query = entityManager.createQuery("from Lit where idChambre =" + id);
-//        return query.getResultList();
-//    }
 }

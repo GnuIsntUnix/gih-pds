@@ -1,4 +1,4 @@
-package ma.uiass.eia.pds.gihBackEnd.metier;
+package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.EquipementDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Equipement;
@@ -12,8 +12,7 @@ public class ServiceEquipement {
         equipementDaoImp.create(equipement);
     }
     public void deleteById(int id){
-        Equipement equipement = equipementDaoImp.getById(id);
-        equipementDaoImp.delete(equipement);
+        equipementDaoImp.delete(id);
     }
     public Equipement searchById(int id){
         Equipement equipement = equipementDaoImp.getById(id);
