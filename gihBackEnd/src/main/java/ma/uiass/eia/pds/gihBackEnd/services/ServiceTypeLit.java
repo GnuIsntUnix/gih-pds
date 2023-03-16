@@ -1,4 +1,4 @@
-package ma.uiass.eia.pds.gihBackEnd.metier;
+package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.TypeLitDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
@@ -7,8 +7,7 @@ import java.util.List;
 public class ServiceTypeLit {
     TypeLitDaoImp typeLitDaoImp = new TypeLitDaoImp();
     public void deleteById(int id){
-        TypeLit typeLit = typeLitDaoImp.getById(id);
-        typeLitDaoImp.delete(typeLit);
+        typeLitDaoImp.delete(id);
     }
     public void add(TypeLit typeLit){
         typeLitDaoImp.create(typeLit);
