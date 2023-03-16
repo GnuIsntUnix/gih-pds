@@ -33,6 +33,7 @@ public abstract class Espace {
     @OneToMany(mappedBy="espace")
     protected List<Lit> lits ;
 
+
     public Espace(String type, int numEspace, Batiment batiment, int etage, List<Lit> lits) {
         this.type = type;
         this.numEspace = numEspace;

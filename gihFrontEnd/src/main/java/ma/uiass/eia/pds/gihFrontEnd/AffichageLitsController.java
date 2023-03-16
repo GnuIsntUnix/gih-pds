@@ -5,14 +5,19 @@ import com.google.gson.GsonBuilder;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -25,6 +30,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AffichageLitsController implements Initializable {
+
+    @FXML
+    private Button btnAjouter;
 
     @FXML
     private TableColumn<Lit, Espace> espaceCol;
@@ -84,8 +92,10 @@ public class AffichageLitsController implements Initializable {
             }
         });
 
-// Add the column to the TableView
+        // Add the column to the TableView
         //tblLits.getColumns().add(actionsCol);
+
+
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://localhost:9998/lit/getlits").build();
@@ -110,6 +120,17 @@ public class AffichageLitsController implements Initializable {
         System.out.println(lits);
 
         tblLits.setItems(FXCollections.observableList(lits));
+
+
+    }
+
+    public void ajouterPopup(ActionEvent actionEvent) throws IOException {
+
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouter.fxml"));
+        Scene scene = new Scene(fxmlLoader);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
 
 
     }
