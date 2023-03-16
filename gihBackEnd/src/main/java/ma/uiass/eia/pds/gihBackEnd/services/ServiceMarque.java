@@ -2,11 +2,10 @@ package ma.uiass.eia.pds.gihBackEnd.metier;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.MarqueDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Marque;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
 import java.util.List;
 
-public class MetierMarque {
+public class ServiceMarque {
     MarqueDaoImp marqueDaoImp= new MarqueDaoImp();
     public void deleteById(int id){
         Marque marque=marqueDaoImp.getById(id);

@@ -2,12 +2,10 @@ package ma.uiass.eia.pds.gihBackEnd.metier;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.EquipementDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Equipement;
-import ma.uiass.eia.pds.gihBackEnd.model.Marque;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
 import java.util.List;
 
-public class MetierEquipement {
+public class ServiceEquipement {
     EquipementDaoImp equipementDaoImp = new EquipementDaoImp();
 
     public void add(Equipement equipement){

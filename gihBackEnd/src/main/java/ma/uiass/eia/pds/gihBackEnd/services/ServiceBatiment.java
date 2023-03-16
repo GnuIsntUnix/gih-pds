@@ -3,14 +3,10 @@ package ma.uiass.eia.pds.gihBackEnd.metier;
 import ma.uiass.eia.pds.gihBackEnd.dao.BatimentDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Batiment;
-import ma.uiass.eia.pds.gihBackEnd.model.Chambre;
-import ma.uiass.eia.pds.gihBackEnd.model.Marque;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MetierBatiment {
+public class ServiceBatiment {
     BatimentDaoImp batimentDaoImp=new BatimentDaoImp();
     public ServiceDaoImp serviceDaoImp = new ServiceDaoImp();
     public void deleteById(int id){

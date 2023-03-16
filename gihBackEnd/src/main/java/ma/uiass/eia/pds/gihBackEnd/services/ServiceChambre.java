@@ -2,14 +2,11 @@ package ma.uiass.eia.pds.gihBackEnd.metier;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.BatimentDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.dao.ChambreDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.model.Batiment;
 import ma.uiass.eia.pds.gihBackEnd.model.Chambre;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MetierChambre {
+public class ServiceChambre {
     ChambreDaoImp chambreDaoImp = new ChambreDaoImp();
     BatimentDaoImp batimentDaoImp = new BatimentDaoImp();
     public void deleteById(int id){
