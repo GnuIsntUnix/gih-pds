@@ -4,7 +4,7 @@ import ma.uiass.eia.pds.gihBackEnd.dao.TypeLitDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
 import java.util.List;
 
-public class MetierTypeLit {
+public class ServiceTypeLit {
     TypeLitDaoImp typeLitDaoImp = new TypeLitDaoImp();
     public void deleteById(int id){
         TypeLit typeLit = typeLitDaoImp.getById(id);
