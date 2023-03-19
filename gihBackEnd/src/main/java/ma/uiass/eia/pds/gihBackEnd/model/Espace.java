@@ -1,6 +1,9 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +12,11 @@ import java.util.List;
 @Table(name = "TEspace")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Type", length = 255)
+@JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Chambre.class, name = "Chambre"),
+        @JsonSubTypes.Type(value = Salle.class, name = "Salle")
+})
 public abstract class Espace {
 
     @Id
@@ -32,6 +40,7 @@ public abstract class Espace {
     @JsonIgnore
     @OneToMany(mappedBy="espace")
     protected List<Lit> lits ;
+
 
     public Espace(String type, int numEspace, Batiment batiment, int etage, List<Lit> lits) {
         this.type = type;
