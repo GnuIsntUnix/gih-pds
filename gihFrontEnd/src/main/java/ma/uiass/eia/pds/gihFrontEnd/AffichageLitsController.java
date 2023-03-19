@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -100,24 +102,26 @@ public class AffichageLitsController implements Initializable {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://localhost:9998/lit/getlits").build();
         Call call = okHttpClient.newCall(request);
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Espace.class, new EspaceDeserializer())
-                .create();
+        ObjectMapper mapper = new ObjectMapper();
+
+//        Gson gson = new GsonBuilder()
+//                .registerTypeAdapter(Espace.class, new EspaceDeserializer())
+//                .create();
         Response response = null;
+        List<Lit> lits = null;
         try {
             response = okHttpClient.newCall(request).execute();
+            lits = mapper.readValue(response.body().charStream(), new TypeReference<List<Lit>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        List<Lit> lits = List.of(gson.fromJson(response.body().charStream(), Lit[].class));
+        //List<Lit> lits = List.of(gson.fromJson(response.body().charStream(), Lit[].class));
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
         etatCol.setCellValueFactory(new PropertyValueFactory<>("etat"));
         marqueCol.setCellValueFactory(new PropertyValueFactory<>("marque"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
         espaceCol.setCellValueFactory(new PropertyValueFactory<>("espace"));
-        System.out.println(lits);
 
         tblLits.setItems(FXCollections.observableList(lits));
 

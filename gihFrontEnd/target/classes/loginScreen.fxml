@@ -17,7 +17,7 @@
          <children>
             <ImageView fitHeight="134.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="images/projectIcon.png" />
+                  <Image url="@images/projectIcon.png" />
                </image>
             </ImageView>
             <TextField fx:id="usernameField" maxWidth="200.0" prefHeight="26.0" prefWidth="299.0" promptText="Username" style="-fx-border-color: #7edc56; -fx-background-color: #e2f0dd; -fx-border-radius: 20; -fx-background-radius: 20;" />

@@ -1,5 +1,6 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -114,9 +115,11 @@ public class PopupAjouterController implements Initializable {
         EtatLit etatLit = EtatLit.Di;
         Marque marque = cboxMar.getSelectionModel().getSelectedItem();
 
+        ObjectMapper mapper = new ObjectMapper();
+
         Lit lit = new Lit(etatLit, marque, typeLit, espace);
         RequestBody body = RequestBody.create(
-                MediaType.parse("application/json"), gson.toJson(lit));
+                MediaType.parse("application/json"), mapper.writeValueAsString(lit));
 
         Request request = new Request.Builder()
                 .url("http://localhost:9998/lit/save")
