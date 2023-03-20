@@ -1,23 +1,29 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
-import javax.persistence.*;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.Batiment;
+import ma.uiass.eia.pds.gihBackEnd.model.Utilisateur;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.List;
 
-public class LitDaoImp implements Dao<Lit>{
+public class UtilisateurDaoImp implements Dao<Utilisateur>{
+
     private EntityManager entityManager;
 
-    public LitDaoImp() {
+    public UtilisateurDaoImp() {
         entityManager = HibernateUtil.getEntityManager();
     }
 
-    public void create(Lit lit) {
+
+    @Override
+    public void create(Utilisateur utilisateur) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            this.entityManager.persist(lit);
+            this.entityManager.persist(utilisateur);
             transaction.commit();
         }
         catch (Exception e) {
@@ -29,13 +35,13 @@ public class LitDaoImp implements Dao<Lit>{
     }
 
     @Override
-    public Lit getById(int id) {
-        return entityManager.find(Lit.class, id);
+    public Utilisateur getById(int id) {
+        return entityManager.find(Utilisateur.class, id);
     }
 
     @Override
-    public List<Lit> getAll() {
-        Query query = entityManager.createQuery("from Lit", Lit.class);
+    public List<Utilisateur> getAll() {
+        Query query = entityManager.createQuery("from Utilisateur");
         return query.getResultList();
     }
 
@@ -44,7 +50,7 @@ public class LitDaoImp implements Dao<Lit>{
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            this.entityManager.remove(this.getById(id));
+            this.entityManager.remove(id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -54,4 +60,10 @@ public class LitDaoImp implements Dao<Lit>{
         }
     }
 
+    public Utilisateur verifierUser(String user, String mdp) {
+        Query query = entityManager.createQuery("from Utilisateur where nomUtil=:user and motDePasse=:mdp");
+        query.setParameter("user", user);
+        query.setParameter("mdp", mdp);
+        return (Utilisateur) query.getSingleResult();
+    }
 }
