@@ -8,7 +8,7 @@ import ma.uiass.eia.pds.gihBackEnd.services.ServiceLits;
 import java.util.List;
 
 @Path("/lit")
-public class LitController {
+public class LitResource {
     private final ServiceLits serviceLits = new ServiceLits();
 
 

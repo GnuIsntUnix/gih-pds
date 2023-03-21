@@ -42,6 +42,16 @@ public class TypeLitDaoImp implements Dao<TypeLit> {
 
     @Override
     public void delete(int id) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(this.getById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }

@@ -37,12 +37,22 @@ public class BatimentDaoImp implements Dao<Batiment>{
 
     @Override
     public List<Batiment> getAll() {
-        Query query = entityManager.createQuery("from Chambre");
+        Query query = entityManager.createQuery("from Utilisateur");
         return query.getResultList();
     }
 
     @Override
     public void delete(int id) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(this.getById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 }

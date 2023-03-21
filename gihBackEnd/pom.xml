@@ -195,9 +195,6 @@
                   <mainClass>ma.uiass.eia.pds.gihBackEnd.App</mainClass>
                 </transformer>
               </transformers>
-              <excludes>
-                <exclude>ma.uiass.eia.pds:gih</exclude>
-              </excludes>
             </configuration>
           </execution>
         </executions>

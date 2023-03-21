@@ -1,6 +1,5 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import ma.uiass.eia.pds.gihBackEnd.util.Instances;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 import javax.persistence.*;
@@ -9,18 +8,17 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue("Chambre")
 public class Chambre extends Espace {
-
     @Column(name = "SousType")
     @Enumerated(EnumType.STRING)
     private TypeChambre typeChambre;
 
     public Chambre(int numEspace, Batiment batiment, int etage, List<Lit> lits, TypeChambre typeChambre) {
-        super(numEspace, batiment, etage, lits);
+        super("Chambre",numEspace, batiment, etage, lits);
         this.typeChambre = typeChambre;
     }
 
     public Chambre(int numEspace, Batiment batiment, int etage, TypeChambre typeChambre) {
-        super(numEspace, batiment, etage);
+        super("Chambre",numEspace, batiment, etage);
         this.typeChambre = typeChambre;
     }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.GererServicesController">
+   <center>
+      <TableView fx:id="tblServices" prefHeight="399.0" prefWidth="159.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="codeCol" prefWidth="75.0" text="Code" />
+          <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
+            <TableColumn fx:id="actionsCol" prefWidth="75.0" text="Actions" />
+        </columns>
+      </TableView>
+   </center>
+   <top>
+      <Region prefHeight="108.0" prefWidth="463.0" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <Region prefHeight="399.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Region prefHeight="399.0" prefWidth="120.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="463.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" text="Ajouter" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
