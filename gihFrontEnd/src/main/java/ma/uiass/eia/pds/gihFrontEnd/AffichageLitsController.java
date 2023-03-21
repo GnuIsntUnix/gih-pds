@@ -41,7 +41,8 @@ public class AffichageLitsController implements Initializable {
 
     @FXML
     private TableColumn<Lit, EtatLit> etatCol;
-
+    @FXML
+    private TableColumn<Lit, DisponibiliteLit> disponibiliteCol;
     @FXML
     private TableColumn<Lit, Integer> idCol;
 
@@ -119,6 +120,7 @@ public class AffichageLitsController implements Initializable {
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
         etatCol.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        disponibiliteCol.setCellValueFactory(new PropertyValueFactory<>("disponibilite"));
         marqueCol.setCellValueFactory(new PropertyValueFactory<>("marque"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
         espaceCol.setCellValueFactory(new PropertyValueFactory<>("espace"));

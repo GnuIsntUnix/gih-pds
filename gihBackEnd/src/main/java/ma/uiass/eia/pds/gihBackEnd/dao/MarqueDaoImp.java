@@ -54,4 +54,9 @@ public class MarqueDaoImp implements Dao<Marque> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(Marque marque, int id) {
+
+    }
 }

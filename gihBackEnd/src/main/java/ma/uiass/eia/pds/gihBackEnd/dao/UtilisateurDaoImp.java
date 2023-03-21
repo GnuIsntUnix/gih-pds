@@ -60,6 +60,11 @@ public class UtilisateurDaoImp implements Dao<Utilisateur>{
         }
     }
 
+    @Override
+    public void update(Utilisateur utilisateur, int id) {
+
+    }
+
     public Utilisateur verifierUser(String user, String mdp) {
         Query query = entityManager.createQuery("from Utilisateur where nomUtil=:user and motDePasse=:mdp");
         query.setParameter("user", user);

@@ -54,4 +54,9 @@ public class EspaceDaoImp implements Dao<Espace>{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(Espace espace, int id) {
+
+    }
 }

@@ -53,4 +53,9 @@ public class ServiceDaoImp implements Dao<Service> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(Service service, int id) {
+
+    }
 }

@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 import javax.persistence.*;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -53,5 +54,15 @@ public class LitDaoImp implements Dao<Lit>{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(Lit lit, int id) {
+        Lit lit1 = getById(id);
+        lit1.setEtat(lit.getEtat());
+        lit1.setDisponibiliteLit(lit.getDisponibiliteLit());
+        entityManager.unwrap(Session.class).update(lit1);
+
+    }
+
 
 }

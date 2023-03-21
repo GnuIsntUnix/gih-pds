@@ -69,7 +69,6 @@ public class GererServicesController implements Initializable {
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
-        Call call = okHttpClient.newCall(request);
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

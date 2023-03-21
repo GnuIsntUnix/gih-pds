@@ -14,6 +14,9 @@ public class Lit extends Emplacement{
     @Column(name = "Etat")
     @Enumerated(EnumType.STRING)
     private EtatLit etat;
+    @Column(name = "disponibilité")
+    @Enumerated(EnumType.STRING)
+    private DisponibiliteLit disponibiliteLit;
 
  //   @JsonIgnore
     @JoinColumn(name = "idMarque", referencedColumnName = "Id")
@@ -53,10 +56,16 @@ public class Lit extends Emplacement{
         return this.etat;
     }
 
+    public void setDisponibiliteLit(DisponibiliteLit disponibiliteLit) {
+        this.disponibiliteLit = disponibiliteLit;
+    }
+    public DisponibiliteLit getDisponibiliteLit() {
+        return this.disponibiliteLit;
+    }
+
     public void setEtat(EtatLit etat) {
         this.etat = etat;
     }
-
     public Marque getMarque() {
         return marque;
     }

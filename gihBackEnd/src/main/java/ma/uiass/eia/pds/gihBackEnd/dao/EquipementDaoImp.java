@@ -56,4 +56,9 @@ public class EquipementDaoImp implements Dao<Equipement>{
                 e.printStackTrace();
             }
         }
+
+    @Override
+    public void update(Equipement equipement, int id) {
+
+    }
 }

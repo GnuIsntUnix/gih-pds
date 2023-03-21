@@ -54,4 +54,9 @@ public class TypeLitDaoImp implements Dao<TypeLit> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(TypeLit typeLit, int id) {
+
+    }
 }

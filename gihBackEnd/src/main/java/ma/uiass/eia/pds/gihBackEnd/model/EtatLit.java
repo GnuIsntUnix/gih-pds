@@ -1,7 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 public enum EtatLit {
-    E ("En Stock") ,O ("Occupé"), D ("Deféctueux"), Di ("Disponible");
+    E ("En Stock") , D ("Deféctueux"), O ("opérationnel");
     String nom;
     EtatLit(String  nom){
         this.nom = nom;
