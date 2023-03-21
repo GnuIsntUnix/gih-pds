@@ -39,6 +39,7 @@ public class GererServicesController implements Initializable {
     @FXML
     private TableColumn<Service, String> nomCol;
 
+    OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         actionsCol.setCellFactory(param -> new TableCell<>() {
@@ -55,7 +56,6 @@ public class GererServicesController implements Initializable {
                 } else {
                     // Set the delete button action
                     deleteButton.setOnAction(event -> {
-                        // Handle the delete button action here
                     });
 
 
@@ -67,7 +67,7 @@ public class GererServicesController implements Initializable {
             }
         });
 
-        OkHttpClient okHttpClient = new OkHttpClient();
+
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
         ObjectMapper mapper = new ObjectMapper();
 
