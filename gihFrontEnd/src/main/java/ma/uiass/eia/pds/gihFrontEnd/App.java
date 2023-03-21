@@ -26,5 +26,6 @@ public class App extends Application
         stage.setTitle("Test");
         stage.setScene(scene);
         stage.show();
+        loader.requestFocus();
     }
 }

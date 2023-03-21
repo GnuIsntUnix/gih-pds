@@ -5,6 +5,7 @@ module gihFrontEnd {
     requires okhttp3;
     requires gihBackEnd;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.glyphs.materialicons;
     requires com.fasterxml.jackson.jaxrs.base;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;

@@ -45,7 +45,7 @@ public class EspaceDaoImp implements Dao<Espace>{
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            this.entityManager.remove(id);
+            this.entityManager.remove(this.getById(id));
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

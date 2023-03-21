@@ -32,6 +32,7 @@ public class App
         Dao<TypeLit> typeLitDao = new TypeLitDaoImp();
         Dao<Batiment> batimentDao = new BatimentDaoImp();
         Dao<Lit> litDao = new LitDaoImp();
+        UtilisateurDaoImp utilisateurDaoImp = new UtilisateurDaoImp();
 //        serviceDao.create(new Service("CARDIO", "Cardiologie"));
 //        marqueDao.create(new Marque("Hamid"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
@@ -39,5 +40,6 @@ public class App
 //        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
 //        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
 //        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), chambreDao.getById(1)))
+//        utilisateurDaoImp.create(new Admin("admin", "admin") );
     }
 }

@@ -45,7 +45,7 @@ public class TypeLitDaoImp implements Dao<TypeLit> {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            this.entityManager.remove(id);
+            this.entityManager.remove(this.getById(id));
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
