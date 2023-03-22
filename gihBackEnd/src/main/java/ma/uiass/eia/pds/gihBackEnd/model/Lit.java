@@ -32,7 +32,7 @@ public class Lit extends Emplacement{
 
 
     @JoinColumn(name = "idReservation", referencedColumnName = "Id")
-    @OneToOne(mappedBy = "idReservation")
+    @OneToOne(mappedBy = "lit")
     private Reservation reservation;
 
 
