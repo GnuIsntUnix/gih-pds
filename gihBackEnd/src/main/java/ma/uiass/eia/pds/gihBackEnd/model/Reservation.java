@@ -23,6 +23,4 @@ public class Reservation implements Serializable {
 
     @OneToOne
     private Lit lit;
-
-
 }
