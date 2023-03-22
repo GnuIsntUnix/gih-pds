@@ -54,6 +54,7 @@ public class PopUpModifierController implements Initializable {
         Call call = okHttpClient.newCall(request);
         ObjectMapper mapper = new ObjectMapper();
         cboxDisponibilite.setItems(FXCollections.observableArrayList(DisponibiliteLit.values()));
+        cboxEtat.setItems(FXCollections.observableArrayList(EtatLit.values()));
 
 
     }
