@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,6 +29,13 @@ public class Lit extends Emplacement{
     @JoinColumn(name = "idType", referencedColumnName = "Id")
     @ManyToOne
     private TypeLit typeLit;
+
+
+    @JoinColumn(name = "idReservation", referencedColumnName = "Id")
+    @OneToOne(mappedBy = "idReservation")
+    private Reservation reservation;
+
+
 
   //  @JsonIgnore
     @ManyToOne
