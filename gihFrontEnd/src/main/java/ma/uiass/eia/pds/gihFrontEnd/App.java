@@ -21,10 +21,11 @@ public class App extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("loginScreen.fxml"));
+        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("gererServices(Admin).fxml"));
         Scene scene = new Scene(loader);
         stage.setTitle("Test");
         stage.setScene(scene);
         stage.show();
+        loader.requestFocus();
     }
 }

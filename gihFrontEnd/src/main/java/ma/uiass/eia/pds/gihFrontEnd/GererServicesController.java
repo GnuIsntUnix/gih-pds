@@ -5,14 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import okhttp3.Call;
@@ -38,7 +42,10 @@ public class GererServicesController implements Initializable {
 
     @FXML
     private TableColumn<Service, String> nomCol;
+    @FXML
+    private Button btnAjouter;
 
+    OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         actionsCol.setCellFactory(param -> new TableCell<>() {
@@ -55,7 +62,17 @@ public class GererServicesController implements Initializable {
                 } else {
                     // Set the delete button action
                     deleteButton.setOnAction(event -> {
-                        // Handle the delete button action here
+                        int row = getIndex();
+                        int id = tblServices.getItems().get(row).getIdService();
+                        Request request = new Request.Builder().url("http://localhost:9998/service/delete/"+id).delete().build();
+                        Response response = null;
+                        try {
+                            response = okHttpClient.newCall(request).execute();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        initialize(null, null);
+
                     });
 
 
@@ -67,7 +84,15 @@ public class GererServicesController implements Initializable {
             }
         });
 
-        OkHttpClient okHttpClient = new OkHttpClient();
+
+        codeCol.setCellValueFactory(new PropertyValueFactory<>("codeS"));
+        nomCol.setCellValueFactory(new PropertyValueFactory<>("nomService"));
+
+        tblServices.setItems(FXCollections.observableList(getServices()));
+
+    }
+
+    public List<Service> getServices(){
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -79,11 +104,24 @@ public class GererServicesController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return services;
+    }
 
-        codeCol.setCellValueFactory(new PropertyValueFactory<>("codeS"));
-        nomCol.setCellValueFactory(new PropertyValueFactory<>("nomService"));
+    public void ajouterPopup(ActionEvent actionEvent) throws IOException {
 
-        tblServices.setItems(FXCollections.observableList(services));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouterService.fxml"));
+        Scene scene = new Scene(fxmlLoader);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                initialize(null, null);
+                stage.close();
+            }
+        });
+        stage.showAndWait();
+
 
     }
 }

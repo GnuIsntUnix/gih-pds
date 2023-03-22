@@ -37,4 +37,12 @@ public class ServiceResource {
         return "Success";
     }
 
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteLit(@PathParam("id") int id){
+        serviceDaoImp.delete(id);
+        return "Deleted !";
+    }
+
 }

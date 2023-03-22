@@ -30,7 +30,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="463.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Ajouter" textAlignment="CENTER">
+            <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#ajouterPopup" text="Ajouter" textAlignment="CENTER">
                <HBox.margin>
                   <Insets right="30.0" />
                </HBox.margin>
