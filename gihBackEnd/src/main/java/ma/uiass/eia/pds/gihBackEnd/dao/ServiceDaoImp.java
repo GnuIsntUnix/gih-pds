@@ -6,7 +6,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
-public class ServiceDaoImp implements Dao<Service> {
+public class ServiceDaoImp implements IServiceDao {
     private final EntityManager entityManager;
 
     public ServiceDaoImp() {

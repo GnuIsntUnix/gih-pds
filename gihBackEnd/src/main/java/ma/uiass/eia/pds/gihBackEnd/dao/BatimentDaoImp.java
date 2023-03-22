@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
-public class BatimentDaoImp implements Dao<Batiment>{
+public class BatimentDaoImp implements IBatimentDao{
     private EntityManager entityManager;
 
     public BatimentDaoImp() {
@@ -54,5 +54,10 @@ public class BatimentDaoImp implements Dao<Batiment>{
             }
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Batiment batiment, int id) {
+
     }
 }

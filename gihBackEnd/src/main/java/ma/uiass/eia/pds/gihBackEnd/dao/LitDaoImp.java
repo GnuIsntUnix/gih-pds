@@ -7,7 +7,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class LitDaoImp implements Dao<Lit>{
+public class LitDaoImp implements ILitDao{
     private EntityManager entityManager;
 
     public LitDaoImp() {

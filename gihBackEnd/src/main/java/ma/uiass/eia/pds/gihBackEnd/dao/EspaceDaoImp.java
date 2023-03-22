@@ -7,7 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
-public class EspaceDaoImp implements Dao<Espace>{
+public class EspaceDaoImp implements IEspaceDao{
     private EntityManager entityManager;
 
     public EspaceDaoImp() {

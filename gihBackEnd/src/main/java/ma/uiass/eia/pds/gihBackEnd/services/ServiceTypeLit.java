@@ -1,12 +1,13 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
+import ma.uiass.eia.pds.gihBackEnd.dao.ITypeLitDao;
 import ma.uiass.eia.pds.gihBackEnd.dao.TypeLitDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
 import java.util.List;
 
 public class ServiceTypeLit {
-    private Dao<TypeLit> typeLitDaoImp;
+    private ITypeLitDao typeLitDaoImp;
     public ServiceTypeLit(){
         typeLitDaoImp= new TypeLitDaoImp();
     }

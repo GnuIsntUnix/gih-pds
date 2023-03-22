@@ -1,13 +1,14 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
+import ma.uiass.eia.pds.gihBackEnd.dao.IServiceDao;
 import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
 import java.util.List;
 
 public class ServiceServices {
-    private Dao<Service> serviceDaoImp;
+    private IServiceDao serviceDaoImp;
     public ServiceServices(){
         serviceDaoImp=new ServiceDaoImp();
     }

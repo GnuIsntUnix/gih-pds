@@ -34,10 +34,10 @@ public class LitResource {
     }
 
     @PUT
-    @Path("/update")
+    @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateLit(Lit lit, int id){
+    public String updateLit(Lit lit, @PathParam("id") int id){
         serviceLits.update(lit, id);
         return "Updated !";
     }

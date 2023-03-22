@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceLits {
-    private Dao<Lit> litDaoImp;
+    private ILitDao litDaoImp;
 
     public ServiceLits() {
         litDaoImp = new LitDaoImp();

@@ -72,7 +72,6 @@ public class GererServicesController implements Initializable {
                             throw new RuntimeException(e);
                         }
                         initialize(null, null);
-
                     });
 
 

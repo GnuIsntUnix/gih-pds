@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 
-public class EquipementDaoImp implements Dao<Equipement>{
+public class EquipementDaoImp implements IEquipementDao{
         private EntityManager entityManager;
 
         public EquipementDaoImp() {

@@ -7,7 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
-public class MarqueDaoImp implements Dao<Marque> {
+public class MarqueDaoImp implements IMarqueDao {
     private EntityManager entityManager;
 
     public MarqueDaoImp() {

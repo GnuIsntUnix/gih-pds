@@ -7,7 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
-public class TypeLitDaoImp implements Dao<TypeLit> {
+public class TypeLitDaoImp implements ITypeLitDao {
     private EntityManager entityManager;
 
     public TypeLitDaoImp() {
