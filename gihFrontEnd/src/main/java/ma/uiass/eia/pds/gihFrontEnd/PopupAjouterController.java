@@ -112,7 +112,7 @@ public class PopupAjouterController implements Initializable {
 
         Espace espace = cboxEsp.getSelectionModel().getSelectedItem();
         TypeLit typeLit = cboxTyp.getSelectionModel().getSelectedItem();
-        EtatLit etatLit = EtatLit.Di;
+        EtatLit etatLit = EtatLit.D;
         Marque marque = cboxMar.getSelectionModel().getSelectedItem();
 
         ObjectMapper mapper = new ObjectMapper();

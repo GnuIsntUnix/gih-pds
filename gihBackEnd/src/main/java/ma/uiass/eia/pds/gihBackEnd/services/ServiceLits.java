@@ -40,6 +40,9 @@ public class ServiceLits {
         return litDaoImp.getAll();
 
     }
+    public void update(Lit lit, int id){
+        litDaoImp.update(lit, id);
+    }
 
 }
 

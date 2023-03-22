@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.PopUpModifierController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblService" prefHeight="17.0" prefWidth="50.0" text="label" />
+            <Label fx:id="lblBatiment" text="Label" />
+            <Label fx:id="lblMarque" text="Label" />
+            <Label fx:id="lblType" text="Label" />
+            <ComboBox fx:id="cboxEspace" prefWidth="150.0" promptText="espace lit " />
+            <ComboBox fx:id="cboxDisponibilite" prefWidth="150.0" promptText="disponibilité lit" />
+            <ComboBox fx:id="cboxEtat" prefWidth="150.0" promptText="etat lit " />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -37,7 +37,10 @@ public class LitResource {
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateLit(Lit lit){return "Updated !";}
+    public String updateLit(Lit lit, int id){
+        serviceLits.update(lit, id);
+        return "Updated !";
+    }
 
     @DELETE
     @Path("/delete/{id}")

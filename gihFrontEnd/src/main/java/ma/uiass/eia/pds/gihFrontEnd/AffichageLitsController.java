@@ -57,6 +57,7 @@ public class AffichageLitsController implements Initializable {
 
     @FXML
     private TableColumn<Lit, Void> actionsCol;
+    OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,12 +80,43 @@ public class AffichageLitsController implements Initializable {
                 } else {
                     // Set the delete button action
                     deleteButton.setOnAction(event -> {
+                        int row = getIndex();
+                        int id = tblLits.getItems().get(row).getN_lit();
+                        Request request = new Request.Builder().url("http://localhost:9998/lit/delete/"+id).build();
+                        try {
+                            Response response= okHttpClient.newCall(request).execute();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         // Handle the delete button action here
+
                     });
 
                     // Set the edit button action
                     editButton.setOnAction(event -> {
                         // Handle the edit button action here
+                        int row = getIndex();
+                        Lit lit = tblLits.getItems().get(row);
+                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("popupModifier.fxml"));
+                        try {
+                            Parent root = loader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        PopUpModifierController controller = loader.getController();
+                        controller.getLitUpdate(lit);
+                        Parent fxmlLoader = null;
+                        try {
+                            fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupModifier.fxml"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Scene scene = new Scene(fxmlLoader);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.showAndWait();
+
+
                     });
 
                     // Display both buttons in the cell
@@ -100,7 +132,6 @@ public class AffichageLitsController implements Initializable {
 
 
 
-        OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url("http://localhost:9998/lit/getlits").build();
         Call call = okHttpClient.newCall(request);
         ObjectMapper mapper = new ObjectMapper();

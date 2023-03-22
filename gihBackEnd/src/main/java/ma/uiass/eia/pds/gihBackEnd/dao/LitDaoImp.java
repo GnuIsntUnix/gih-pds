@@ -60,6 +60,7 @@ public class LitDaoImp implements Dao<Lit>{
         Lit lit1 = getById(id);
         lit1.setEtat(lit.getEtat());
         lit1.setDisponibiliteLit(lit.getDisponibiliteLit());
+        lit1.setEspace(lit.getEspace());
         entityManager.unwrap(Session.class).update(lit1);
 
     }
