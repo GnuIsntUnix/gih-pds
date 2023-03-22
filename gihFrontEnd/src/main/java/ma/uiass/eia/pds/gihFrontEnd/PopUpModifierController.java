@@ -48,7 +48,7 @@ public class PopUpModifierController implements Initializable {
         lblService.setText(lit.getEspace().getBatiment().getService().toString());
         lblBatiment.setText(lit.getEspace().getBatiment().toString());
         cboxDisponibilite.setPromptText(lit.getDisponibiliteLit().toString());
-        cboxEspace.setPromptText(lit.getEspace().toString());
+        cboxEspace.setPromptText(lit.getEspace().getBatiment().getEspaces().toString());
         cboxEtat.setPromptText(lit.getEtat().toString());
         Request request = new Request.Builder().url("http://localhost:9998/").build();
         Call call = okHttpClient.newCall(request);
