@@ -1,10 +1,12 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import ma.uiass.eia.pds.gihBackEnd.model.DisponibiliteLit;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import okhttp3.Call;
 import okhttp3.Request;
@@ -45,6 +47,7 @@ public class PopUpModifierController implements Initializable {
         Request request = new Request.Builder().url("http://localhost:9998/").build();
         Call call = okHttpClient.newCall(request);
         ObjectMapper mapper = new ObjectMapper();
+        cboxDisponibilite.setItems(FXCollections.observableArrayList(DisponibiliteLit.values()));
 
 
     }
