@@ -21,6 +21,7 @@ public class Reservation implements Serializable {
     @Column(name = "dateFin")
     private Date dateFin;
 
+    @OneToOne
     private Lit lit;
 
     public Reservation(Date dateDebut, Date dateFin, Lit lit) {
