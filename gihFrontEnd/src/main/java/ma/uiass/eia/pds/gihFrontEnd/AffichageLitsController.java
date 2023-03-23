@@ -8,6 +8,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -91,7 +93,7 @@ public class AffichageLitsController implements Initializable {
                             throw new RuntimeException(e);
                         }
                         // Handle the delete button action here
-
+                        initialize(null, null);
                     });
 
                     // Set the edit button action
@@ -141,6 +143,7 @@ public class AffichageLitsController implements Initializable {
 //        Gson gson = new GsonBuilder()
 //                .registerTypeAdapter(Espace.class, new EspaceDeserializer())
 //                .create();
+
         Response response = null;
         List<Lit> lits = null;
         try {
@@ -165,10 +168,17 @@ public class AffichageLitsController implements Initializable {
 
     public void ajouterPopup(ActionEvent actionEvent) throws IOException {
 
-        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouter.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouters.fxml"));
         Scene scene = new Scene(fxmlLoader);
         Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                initialize(null, null);
+                stage.close();
+            }
+        });
         stage.showAndWait();
 
 

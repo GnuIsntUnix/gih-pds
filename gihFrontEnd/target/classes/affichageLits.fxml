@@ -50,7 +50,7 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="btnAjouter" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Ajouter" />
+                  <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#ajouterPopup" prefHeight="26.0" prefWidth="103.0" text="Ajouter" />
                </children>
                <opaqueInsets>
                   <Insets />

@@ -99,6 +99,6 @@ public abstract class Espace {
 
     @Override
     public String toString() {
-        return this.getClass().getTypeName() + " " + numEspace;
+        return this.getClass().getSimpleName() + " " + numEspace;
     }
 }
