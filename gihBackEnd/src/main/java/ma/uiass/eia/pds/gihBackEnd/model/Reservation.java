@@ -21,7 +21,43 @@ public class Reservation implements Serializable {
     @Column(name = "dateFin")
     private Date dateFin;
 
-    @OneToOne
     private Lit lit;
-    //test
+
+    public Reservation(Date dateDebut, Date dateFin, Lit lit) {
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.lit = lit;
+    }
+
+    public int getIdReservation() {
+        return idReservation;
+    }
+
+    public void setIdReservation(int idReservation) {
+        this.idReservation = idReservation;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Lit getLit() {
+        return lit;
+    }
+
+    public void setLit(Lit lit) {
+        this.lit = lit;
+    }
 }
