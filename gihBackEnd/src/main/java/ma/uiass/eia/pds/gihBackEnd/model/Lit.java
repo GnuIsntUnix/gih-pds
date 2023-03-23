@@ -16,7 +16,7 @@ public class Lit extends Emplacement{
     @Column(name = "Etat")
     @Enumerated(EnumType.STRING)
     private EtatLit etat;
-    @Column(name = "disponibilité")
+    @Column(name = "Disponibilite")
     @Enumerated(EnumType.STRING)
     private DisponibiliteLit disponibiliteLit;
 
@@ -43,7 +43,8 @@ public class Lit extends Emplacement{
     private Espace espace;
     //constructor    public Lit(int n_lit, EtatLit etat, Marque marque, TypeLit tpl, Chambre chambre) {
 
-    public Lit(EtatLit etat, Marque marque, TypeLit typeLit, Espace espace) {
+    public Lit(EtatLit etat, DisponibiliteLit dsp, Marque marque, TypeLit typeLit, Espace espace) {
+        this.disponibiliteLit = dsp;
         this.etat = etat;
         this.marque = marque;
         this.typeLit = typeLit;

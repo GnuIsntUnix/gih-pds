@@ -13,12 +13,12 @@ public class Chambre extends Espace {
     private TypeChambre typeChambre;
 
     public Chambre(int numEspace, Batiment batiment, int etage, List<Lit> lits, TypeChambre typeChambre) {
-        super("Chambre",numEspace, batiment, etage, lits);
+        super(numEspace, batiment, etage, lits);
         this.typeChambre = typeChambre;
     }
 
     public Chambre(int numEspace, Batiment batiment, int etage, TypeChambre typeChambre) {
-        super("Chambre",numEspace, batiment, etage);
+        super(numEspace, batiment, etage);
         this.typeChambre = typeChambre;
     }
 

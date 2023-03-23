@@ -28,11 +28,12 @@
             <TableView fx:id="tblLits" prefHeight="214.0" prefWidth="600.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="idCol" prefWidth="55.20001220703125" text="Id" />
-                <TableColumn fx:id="etatCol" prefWidth="92.79998779296875" text="Etat" />
-                  <TableColumn fx:id="marqueCol" prefWidth="99.20001220703125" text="Marque" />
-                  <TableColumn fx:id="typeCol" prefWidth="116.79998779296875" text="Type" />
-                  <TableColumn fx:id="espaceCol" prefWidth="116.0" text="Espace" />
-                  <TableColumn fx:id="actionsCol" prefWidth="120.800048828125" text="Actions" />
+                  <TableColumn fx:id="marqueCol" prefWidth="77.67273330688477" text="Marque" />
+                  <TableColumn fx:id="dispCol" prefWidth="84.654541015625" text="Disponibilite" />
+                <TableColumn fx:id="etatCol" prefWidth="64.58183288574219" text="Etat" />
+                  <TableColumn fx:id="typeCol" prefWidth="88.14544677734375" text="Type" />
+                  <TableColumn fx:id="espaceCol" prefWidth="116.07269287109375" text="Espace" />
+                  <TableColumn fx:id="actionsCol" prefWidth="106.47283935546875" text="Actions" />
               </columns>
             </TableView>
          </children>
@@ -41,7 +42,7 @@
    <top>
       <VBox prefHeight="98.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #7edc56;" />
+            <Region prefHeight="67.0" prefWidth="600.0" />
             <HBox prefHeight="54.0" prefWidth="600.0" spacing="50.0">
                <children>
                   <TextField alignment="CENTER" prefHeight="27.0" prefWidth="275.0" promptText="Search">

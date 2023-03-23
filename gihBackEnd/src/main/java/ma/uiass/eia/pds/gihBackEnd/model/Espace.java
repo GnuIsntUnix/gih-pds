@@ -24,8 +24,6 @@ public abstract class Espace {
     @Column(name = "Id")
     protected int idEspace;
 
-    @Column(name = "Type", insertable = false, updatable = false)
-    private String type;
     @Column(name = "Numero")
     protected int numEspace;
 
@@ -42,16 +40,14 @@ public abstract class Espace {
     protected List<Lit> lits ;
 
 
-    public Espace(String type, int numEspace, Batiment batiment, int etage, List<Lit> lits) {
-        this.type = type;
+    public Espace(int numEspace, Batiment batiment, int etage, List<Lit> lits) {
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
         this.lits = lits;
     }
 
-    public Espace(String type, int numEspace, Batiment batiment, int etage) {
-        this.type = type;
+    public Espace(int numEspace, Batiment batiment, int etage) {
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
@@ -60,13 +56,6 @@ public abstract class Espace {
     public Espace() {
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public int getIdEspace() {
         return idEspace;
@@ -110,6 +99,6 @@ public abstract class Espace {
 
     @Override
     public String toString() {
-        return type + " " + numEspace;
+        return this.getClass().getTypeName() + " " + numEspace;
     }
 }

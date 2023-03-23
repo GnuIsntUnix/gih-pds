@@ -112,12 +112,13 @@ public class PopupAjouterController implements Initializable {
 
         Espace espace = cboxEsp.getSelectionModel().getSelectedItem();
         TypeLit typeLit = cboxTyp.getSelectionModel().getSelectedItem();
-        EtatLit etatLit = EtatLit.D;
+        EtatLit etatLit = EtatLit.O;
         Marque marque = cboxMar.getSelectionModel().getSelectedItem();
+        DisponibiliteLit disponibiliteLit = DisponibiliteLit.Di;
 
         ObjectMapper mapper = new ObjectMapper();
 
-        Lit lit = new Lit(etatLit, marque, typeLit, espace);
+        Lit lit = new Lit(etatLit, disponibiliteLit, marque, typeLit, espace);
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(lit));
 

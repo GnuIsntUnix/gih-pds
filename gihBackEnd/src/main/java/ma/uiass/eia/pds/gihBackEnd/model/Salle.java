@@ -13,12 +13,12 @@ public class Salle extends Espace{
     private TypeSalle typeSalle;
 
     public Salle(int numEspace, Batiment batiment, int etage, TypeSalle typeSalle) {
-        super("Salle",numEspace, batiment, etage);
+        super(numEspace, batiment, etage);
         this.typeSalle = typeSalle;
     }
 
     public Salle(int numEspace, Batiment batiment, int etage, List<Lit> lits, TypeSalle typeSalle) {
-        super("Salle",numEspace, batiment, etage, lits);
+        super(numEspace, batiment, etage, lits);
         this.typeSalle = typeSalle;
     }
 
