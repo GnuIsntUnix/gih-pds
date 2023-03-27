@@ -33,6 +33,7 @@ public class App
         Dao<Batiment> batimentDao = new BatimentDaoImp();
         Dao<Lit> litDao = new LitDaoImp();
         UtilisateurDaoImp utilisateurDaoImp = new UtilisateurDaoImp();
+        Dao<Stock> stockDao = new StockDaoImp();
 //        serviceDao.create(new Service("CARDIO", "Cardiologie"));
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
