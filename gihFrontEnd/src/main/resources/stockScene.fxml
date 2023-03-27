@@ -23,11 +23,11 @@
          <children>
             <TableView prefHeight="411.0" prefWidth="493.0">
               <columns>
-                <TableColumn prefWidth="134.0" text="numéro de demande" />
-                <TableColumn prefWidth="77.0" text="marque" />
-                  <TableColumn prefWidth="91.0" text="quantité" />
-                  <TableColumn prefWidth="68.0" text="date" />
-                  <TableColumn prefWidth="120.0" text="état de la demande " />
+                <TableColumn fx:id="numDemande" prefWidth="134.0" text="numéro de demande" />
+                <TableColumn fx:id="marque" prefWidth="77.0" text="marque" />
+                  <TableColumn fx:id="qtte" prefWidth="91.0" text="quantité" />
+                  <TableColumn fx:id="date" prefWidth="68.0" text="date" />
+                  <TableColumn fx:id="etatDemande" prefWidth="120.0" text="état de la demande " />
               </columns>
             </TableView>
          </children>
@@ -47,11 +47,11 @@
                   <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="121.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Ajouter" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="modifier" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="supprimer " GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="quitter " GridPane.rowIndex="4" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="affecter" GridPane.rowIndex="3" />
+                  <Button fx:id="ajouter" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Ajouter" />
+                  <Button fx:id="modifier" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="modifier" GridPane.rowIndex="1" />
+                  <Button fx:id="supprimer" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="supprimer " GridPane.rowIndex="2" />
+                  <Button fx:id="quitter" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" text="quitter " GridPane.rowIndex="4" />
+                  <Button fx:id="affecter" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" text="affecter" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>
