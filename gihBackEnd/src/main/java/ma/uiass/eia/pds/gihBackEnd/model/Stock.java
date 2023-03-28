@@ -23,6 +23,10 @@ public class Stock implements Serializable {
         this.lits=lits;
     }
 
+    public Stock() {
+
+    }
+
     public List<Lit> getLits() {
         return lits;
     }
@@ -31,7 +35,7 @@ public class Stock implements Serializable {
         this.lits = lits;
     }
 
-    public int getIdStock() {
+    public int getIdStock(Object codeS) {
         return idStock;
     }
 
