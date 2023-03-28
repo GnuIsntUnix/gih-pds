@@ -46,4 +46,10 @@ public class Stock implements Serializable {
     public void setServices(List<Service> services) {
         this.services = services;
     }
+
+    public void afficherLits() {
+        for (Lit lit : lits) {
+            System.out.println(lit.getN_lit());
+        }
+        }
 }
