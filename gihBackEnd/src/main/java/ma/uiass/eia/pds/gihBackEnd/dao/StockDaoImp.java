@@ -1,4 +1,6 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
+import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import ma.uiass.eia.pds.gihBackEnd.model.Stock;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
@@ -52,6 +54,22 @@ public class StockDaoImp implements IStockDao {
                 transaction.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    public void affecterRessource(int idService, int n_lit) {
+
+        Service service = entityManager.find(Service.class, idService);
+        Lit lit = entityManager.find(Lit.class, n_lit);
+
+        if (lit.getN_lit() > 0) {
+            service.setIdService(idService);
+            Lit.setN_lit(lit.getN_lit() - 1);
+
+            entityManager.persist(service);
+            entityManager.persist(lit);
+        } else {
+            throw new RuntimeException("La ressource est épuisée.");
         }
     }
 
