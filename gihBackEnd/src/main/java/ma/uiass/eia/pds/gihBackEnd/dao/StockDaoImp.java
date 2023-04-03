@@ -64,7 +64,7 @@ public class StockDaoImp implements IStockDao {
 
         if (lit.getN_lit() > 0) {
             service.setIdService(idService);
-            Lit.setN_lit(lit.getN_lit() - 1);
+            lit.setN_lit(lit.getN_lit() - 1);
 
             entityManager.persist(service);
             entityManager.persist(lit);
