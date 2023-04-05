@@ -24,6 +24,11 @@ public class LitResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Lit getLitById(@PathParam("id") int id) {return serviceLits.searchById(id);}
 
+    @GET
+    @Path("/getlits/byservice/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsByService(@PathParam("id") int id) {return serviceLits.getLitsByService(id);}
+
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
