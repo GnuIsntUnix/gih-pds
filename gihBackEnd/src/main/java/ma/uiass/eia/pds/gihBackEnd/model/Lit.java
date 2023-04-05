@@ -30,10 +30,15 @@ public class Lit extends Emplacement{
     @ManyToOne
     private TypeLit typeLit;
 
+    @ManyToOne
+    private Stock stock;
 
     @JoinColumn(name = "idReservation", referencedColumnName = "Id")
     @OneToOne(mappedBy = "lit")
     private Reservation reservation;
+    //@JoinColumn(name = "idStock", referencedColumnName = "Id")
+    //@OneToOne(mappedBy = "lit")
+   // private Stock stock;
 
 
 
@@ -76,6 +81,8 @@ public class Lit extends Emplacement{
     public void setEtat(EtatLit etat) {
         this.etat = etat;
     }
+
+
     public Marque getMarque() {
         return marque;
     }

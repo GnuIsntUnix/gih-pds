@@ -10,4 +10,8 @@ public enum TypeSalle {
     public String getNom(){
         return this.nom;
     }
+    @Override
+    public String toString() {
+        return nom;
+    }
 }
