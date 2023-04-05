@@ -30,6 +30,9 @@ public class Commande {
     @Column(name = "Quantite")
     private int quantite;
 
+    public Commande() {
+    }
+
     public Commande(Service service, TypeLit typeLit, int quantite) {
         this.service = service;
         this.typeLit = typeLit;
@@ -74,5 +77,12 @@ public class Commande {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    @Override
+    public String toString() {
+        return "Type De Lit : " + typeLit
+                + " Quantite : " + quantite
+                + " Valide : " + valide;
     }
 }

@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 
 @Entity
 @Table(name = "TLit")
