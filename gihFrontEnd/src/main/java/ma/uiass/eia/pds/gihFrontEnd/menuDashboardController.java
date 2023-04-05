@@ -23,6 +23,7 @@ public class menuDashboardController implements Initializable {
         gridPane.setHgap(50);
         gridPane.setVgap(50);
         for (int i = 0; i <4;i++) {
+
             for (int j = 0; j < 4; j++) {
                 VBox vbox = new VBox();
                 Label lbl = new Label(String.valueOf(i));
