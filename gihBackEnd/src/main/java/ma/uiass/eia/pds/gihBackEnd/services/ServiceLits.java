@@ -1,13 +1,9 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
-import ma.uiass.eia.pds.gihBackEnd.dao.*;
-import ma.uiass.eia.pds.gihBackEnd.dto.LitDto;
-import ma.uiass.eia.pds.gihBackEnd.model.Chambre;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.Marque;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
+import ma.uiass.eia.pds.gihBackEnd.dao.ILitDao;
+import ma.uiass.eia.pds.gihBackEnd.dao.LitDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceLits {

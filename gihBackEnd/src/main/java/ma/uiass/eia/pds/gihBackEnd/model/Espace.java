@@ -15,7 +15,8 @@ import java.util.List;
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Chambre.class, name = "Chambre"),
-        @JsonSubTypes.Type(value = Salle.class, name = "Salle")
+        @JsonSubTypes.Type(value = Salle.class, name = "Salle"),
+        @JsonSubTypes.Type(value = Stock.class, name = "Stock")
 })
 public abstract class Espace {
 

@@ -168,7 +168,7 @@ public class AffichageLitsController implements Initializable {
 
     public void ajouterPopup(ActionEvent actionEvent) throws IOException {
 
-        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouters.fxml"));
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupAjouter.fxml"));
         Scene scene = new Scene(fxmlLoader);
         Stage stage = new Stage();
         stage.setScene(scene);
