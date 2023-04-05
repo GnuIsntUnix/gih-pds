@@ -1,7 +1,10 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import javax.persistence.*;
+
+import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -66,4 +69,11 @@ public class LitDaoImp implements ILitDao{
     }
 
 
+    @Override
+    public List<Lit> getLitbyNumber(int quantite, TypeLit typeLit) {
+        Query query = entityManager.createQuery("from Lit where etat = :etat and idType = :id", Lit.class).setMaxResults(quantite);
+        query.setParameter("etat", EtatLit.E);
+        query.setParameter("id", typeLit.getIdType());
+        return query.getResultList();
+    }
 }

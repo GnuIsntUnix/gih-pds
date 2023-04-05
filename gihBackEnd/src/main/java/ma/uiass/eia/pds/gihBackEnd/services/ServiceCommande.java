@@ -24,6 +24,5 @@ public class ServiceCommande {
     public void validerCommande(Commande commande){
         List<Lit> lits = litDao.getLitbyNumber(commande.getQuantite(), commande.getTypeLit());
         Service service = commande.getService();
-        service.setLitsNonAffectes(lits);
     }
 }
