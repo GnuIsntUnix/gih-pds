@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ma.uiass.eia.pds.gihBackEnd.model.DisponibiliteLit;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
@@ -37,16 +39,29 @@ public class menuDashboardController implements Initializable {
         int numItems = services.size(); // define the number of items
 
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(10); // set the horizontal gap between columns
+        gridPane.setHgap(40); // set the horizontal gap between columns
         gridPane.setVgap(10); // set the vertical gap between rows
+        gridPane.setAlignment(Pos.CENTER);
         System.out.println(services);
-        for (int i = services.get(0).getIdService(); i < services.get(0).getIdService() + numItems; i++) {
-            System.out.println(services.get(i - services.get(0).getIdService()));
+        int i = 0;
+        for (Service s:services) {
+            System.out.println(s);
             VBox vBox = new VBox();
-            Label lblService = new Label(services.get(i - services.get(0).getIdService()).getNomService());
-            Label lblDispo = new Label(String.valueOf(getDisp(services.get(i - services.get(0).getIdService()).getIdService()).size()));
-            Label lblOccup = new Label(String.valueOf(getOccup(services.get(i - services.get(0).getIdService()).getIdService()).size()));
-            vBox.getChildren().addAll(lblService, lblDispo, lblOccup);
+            HBox hBox = new HBox();
+            Label lblService = new Label(s.getNomService());
+            Label lblDispo = new Label(String.valueOf(getDisp(s.getIdService()).size()));
+            lblDispo.setStyle("-fx-background-color:green");
+            lblDispo.setPadding(new Insets(5));
+            Label lblOccup = new Label(String.valueOf(getOccup(s.getIdService()).size()));
+            lblOccup.setStyle("-fx-background-color:red");
+            lblOccup.setPadding(new Insets(5));
+            hBox.setAlignment(Pos.CENTER);
+            hBox.setSpacing(10);
+            hBox.getChildren().addAll(lblDispo, lblOccup);
+            vBox.setStyle("-fx-border-color:black");
+            vBox.setPadding(new Insets(10));
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().addAll(lblService, hBox);
             // calculate the column and row indices of the cell
             int colIndex = i % numColumns;
             int rowIndex = i / numColumns;
@@ -54,6 +69,7 @@ public class menuDashboardController implements Initializable {
             // add node to the cell
             GridPane.setConstraints(vBox, colIndex, rowIndex);
             gridPane.getChildren().add(vBox);
+            i++;
         }
         borderPane.setCenter(gridPane);
     }
