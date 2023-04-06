@@ -3,6 +3,8 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+
 @Entity
 @Table(name= "TAdmission")
 
@@ -13,14 +15,14 @@ public class Admission implements Serializable {
     @Column(name="NumAdmission")
     private String numAdmission;
     @Column(name="DateDébut")
-    private String dateDébut;
+    private LocalDate dateDébut;
     @Column(name="DateFin")
-    private String dateFin;
+    private LocalDate dateFin;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idLit")
     private Lit lit;
 
-    public Admission(String numAdmission, String dateE, Lit lit) {
+    public Admission(String numAdmission, LocalDate dateE, Lit lit) {
         this.numAdmission=numAdmission;
         this.dateDébut=dateE;
         this.lit=lit;
@@ -43,15 +45,15 @@ public class Admission implements Serializable {
         return idAdmission;
     }
 
-    public String getDateDébut() {
+    public LocalDate getDateDébut() {
         return dateDébut;
     }
 
-    public void setDateDébut(String dateDébut) {
+    public void setDateDébut(LocalDate dateDébut) {
         this.dateDébut = dateDébut;
     }
 
-    public String getDateFin() {
+    public LocalDate getDateFin() {
         return dateFin;
     }
 
@@ -59,10 +61,10 @@ public class Admission implements Serializable {
         return idAdmission;
     }
 
-    public void setDateFin(String dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
-    public Admission(String numAdmission, String dateDébut, String dateFin, Lit lit) {
+    public Admission(String numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
         this.numAdmission = numAdmission;
         this.dateDébut = dateDébut;
         this.dateFin = dateFin;
