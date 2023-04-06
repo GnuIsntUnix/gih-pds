@@ -34,7 +34,6 @@ public class App
         Dao<Lit> litDao = new LitDaoImp();
         UtilisateurDaoImp utilisateurDaoImp = new UtilisateurDaoImp();
         Dao<Stock> stockDao = new StockDaoImp();
-//        serviceDao.create(new Service("CARDIO", "Cardiologie"));
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
 //        typeLitDao.create(new TypeLit("Electrique"));
