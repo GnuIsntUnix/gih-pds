@@ -19,7 +19,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="188.0" prefWidth="133.0">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="52.0" prefWidth="133.0" text="Dashboard">
+                        <Button fx:id="btnDashboard" alignment="CENTER" mnemonicParsing="false" onAction="#onDashboardClick" prefHeight="52.0" prefWidth="133.0" text="Dashboard">
                            <graphic>
                               <FontAwesomeIconView fill="#7edc56" glyphName="DASHBOARD" size="17" wrappingWidth="17.0" />
                            </graphic>
@@ -27,21 +27,13 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnServices" alignment="CENTER" mnemonicParsing="false" onAction="#onServiceClick" prefHeight="44.0" prefWidth="133.0" text="Services">
-                           <graphic>
-                              <FontAwesomeIconView fill="#7edc56" glyphName="HOSPITAL_ALT" size="20" text="" wrappingWidth="18.4909725189209" />
-                           </graphic>
+                        <Button fx:id="btnCommandes" alignment="CENTER" mnemonicParsing="false" onAction="#onCommandeClick" prefHeight="44.0" prefWidth="133.0" text="Commandes">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Button>
-                        <Button fx:id="btnUsers" alignment="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="133.0" text="Utilisateurs" textAlignment="CENTER">
                            <graphic>
-                              <FontAwesomeIconView fill="#7edc56" glyphName="USERS" size="17" wrappingWidth="17.0" />
+                              <FontAwesomeIconView fill="#7edc56" glyphName="GEAR" />
                            </graphic>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
                         </Button>
                         <Button fx:id="btnLits" alignment="CENTER" mnemonicParsing="false" onAction="#onLitClick" prefHeight="41.0" prefWidth="133.0" text="Lits" textAlignment="CENTER">
                            <graphic>

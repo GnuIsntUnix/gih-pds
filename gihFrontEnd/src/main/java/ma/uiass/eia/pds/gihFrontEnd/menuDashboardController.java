@@ -6,18 +6,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.DisponibiliteLit;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,6 +77,16 @@ public class menuDashboardController implements Initializable {
             i++;
         }
         borderPane.setCenter(gridPane);
+
+        Label lblName = new Label("John Doe");
+        Label lblStreet = new Label("123 Hello Street");
+        Label lblCityStateZip = new Label("MadeUpCity, XX 55555");
+        VBox vBox = new VBox(lblName, lblStreet, lblCityStateZip);
+        //Create PopOver and add look and feel
+        Popup popup = new Popup();
+        popup.getContent().add(new Label("3"));
+
+
     }
     public List<Service> getServices(){
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
