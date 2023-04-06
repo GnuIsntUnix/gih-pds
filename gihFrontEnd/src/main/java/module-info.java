@@ -1,5 +1,6 @@
 module gihFrontEnd {
     requires javafx.controls;
+    requires org.controlsfx.controls;
     requires javafx.fxml;
     requires com.google.gson;
     requires okhttp3;

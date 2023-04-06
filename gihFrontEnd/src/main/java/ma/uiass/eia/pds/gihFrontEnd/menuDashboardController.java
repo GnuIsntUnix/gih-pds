@@ -4,18 +4,25 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.DisponibiliteLit;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,16 +44,29 @@ public class menuDashboardController implements Initializable {
         int numItems = services.size(); // define the number of items
 
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(10); // set the horizontal gap between columns
+        gridPane.setHgap(40); // set the horizontal gap between columns
         gridPane.setVgap(10); // set the vertical gap between rows
+        gridPane.setAlignment(Pos.CENTER);
         System.out.println(services);
-        for (int i = services.get(0).getIdService(); i < services.get(0).getIdService() + numItems; i++) {
-            System.out.println(services.get(i - services.get(0).getIdService()));
+        int i = 0;
+        for (Service s:services) {
+            System.out.println(s);
             VBox vBox = new VBox();
-            Label lblService = new Label(services.get(i - services.get(0).getIdService()).getNomService());
-            Label lblDispo = new Label(String.valueOf(getDisp(services.get(i - services.get(0).getIdService()).getIdService()).size()));
-            Label lblOccup = new Label(String.valueOf(getOccup(services.get(i - services.get(0).getIdService()).getIdService()).size()));
-            vBox.getChildren().addAll(lblService, lblDispo, lblOccup);
+            HBox hBox = new HBox();
+            Label lblService = new Label(s.getNomService());
+            Label lblDispo = new Label(String.valueOf(getDisp(s.getIdService()).size()));
+            lblDispo.setStyle("-fx-background-color:green");
+            lblDispo.setPadding(new Insets(5));
+            Label lblOccup = new Label(String.valueOf(getOccup(s.getIdService()).size()));
+            lblOccup.setStyle("-fx-background-color:red");
+            lblOccup.setPadding(new Insets(5));
+            hBox.setAlignment(Pos.CENTER);
+            hBox.setSpacing(10);
+            hBox.getChildren().addAll(lblDispo, lblOccup);
+            vBox.setStyle("-fx-border-color:black");
+            vBox.setPadding(new Insets(10));
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().addAll(lblService, hBox);
             // calculate the column and row indices of the cell
             int colIndex = i % numColumns;
             int rowIndex = i / numColumns;
@@ -54,8 +74,19 @@ public class menuDashboardController implements Initializable {
             // add node to the cell
             GridPane.setConstraints(vBox, colIndex, rowIndex);
             gridPane.getChildren().add(vBox);
+            i++;
         }
         borderPane.setCenter(gridPane);
+
+        Label lblName = new Label("John Doe");
+        Label lblStreet = new Label("123 Hello Street");
+        Label lblCityStateZip = new Label("MadeUpCity, XX 55555");
+        VBox vBox = new VBox(lblName, lblStreet, lblCityStateZip);
+        //Create PopOver and add look and feel
+        Popup popup = new Popup();
+        popup.getContent().add(new Label("3"));
+
+
     }
     public List<Service> getServices(){
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
