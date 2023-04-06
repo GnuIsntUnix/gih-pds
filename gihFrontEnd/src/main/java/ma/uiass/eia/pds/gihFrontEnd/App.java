@@ -21,7 +21,7 @@ public class App extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("commandes.fxml"));
+        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("menuDashboard.fxml"));
         Scene scene = new Scene(loader);
         stage.setTitle("Test");
         stage.setScene(scene);
