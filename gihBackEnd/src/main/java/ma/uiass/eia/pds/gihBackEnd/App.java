@@ -40,7 +40,5 @@ public class App
 //        typeLitDao.create(new TypeLit("Electrique"));
 //        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.D, marqueDao.getById(1), typeLitDao.getById(1), chambreDao.getById(1)))
-//        utilisateurDaoImp.create(new Admin("admin", "admin") );
     }
 }

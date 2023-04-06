@@ -1,5 +1,6 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,48 +42,45 @@ public class PopupAjouterController implements Initializable {
     private ComboBox<TypeLit> cboxTyp;
 
 
-    Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Espace.class, new EspaceDeserializer())
-            .create();
     OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();
-        Call call = okHttpClient.newCall(request);
+        ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
+        List<Service> services = null;
         try {
             response = okHttpClient.newCall(request).execute();
+            services = mapper.readValue(response.body().charStream(), new TypeReference<List<Service>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        List<Service> services = List.of(gson.fromJson(response.body().charStream(), Service[].class));
         cboxServices.setItems(FXCollections.observableArrayList(services));
 
         request = new Request.Builder().url("http://localhost:9998/marque/getmarques").build();
-        call = okHttpClient.newCall(request);
 
         response = null;
+        List<Marque> marques = null;
         try {
             response = okHttpClient.newCall(request).execute();
+            marques = mapper.readValue(response.body().charStream(), new TypeReference<List<Marque>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<Marque> marques = List.of(gson.fromJson(response.body().charStream(), Marque[].class));
         cboxMar.setItems(FXCollections.observableArrayList(marques));
 
         request = new Request.Builder().url("http://localhost:9998/typeslits/gettypeslits").build();
-        call = okHttpClient.newCall(request);
 
         response = null;
+        List<TypeLit> typeLits = null;
         try {
             response = okHttpClient.newCall(request).execute();
+            typeLits = mapper.readValue(response.body().charStream(), new TypeReference<List<TypeLit>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<TypeLit> typesLits = List.of(gson.fromJson(response.body().charStream(), TypeLit[].class));
-        cboxTyp.setItems(FXCollections.observableArrayList(typesLits));
+        cboxTyp.setItems(FXCollections.observableArrayList(typeLits));
 
 
         cboxBat.setDisable(true);
