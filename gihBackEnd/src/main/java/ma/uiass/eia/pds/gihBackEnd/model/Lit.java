@@ -47,6 +47,8 @@ public class Lit extends Emplacement{
     @ManyToOne
     @JoinColumn(name = "idEspace", referencedColumnName = "Id")
     private Espace espace;
+    @OneToOne
+    private Admission admision;
     //constructor    public Lit(int n_lit, EtatLit etat, Marque marque, TypeLit tpl, Chambre chambre) {
 
     public Lit(EtatLit etat, DisponibiliteLit dsp, Marque marque, TypeLit typeLit, Espace espace) {

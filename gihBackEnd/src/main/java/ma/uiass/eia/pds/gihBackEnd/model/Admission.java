@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +15,7 @@ public class Admission implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAdmission;
     @Column(name="NumAdmission")
-    private String numAdmission;
+    private int numAdmission;
     @Column(name="DateDébut")
     private LocalDate dateDébut;
     @Column(name="DateFin")
@@ -22,17 +24,16 @@ public class Admission implements Serializable {
     @JoinColumn(name = "idLit")
     private Lit lit;
 
-    public Admission(String numAdmission, LocalDate dateE, Lit lit) {
-        this.numAdmission=numAdmission;
+    public Admission( LocalDate dateE, Lit lit) {
         this.dateDébut=dateE;
         this.lit=lit;
     }
 
 
-    public String getNumAdmission() {
+    public int getNumAdmission() {
         return numAdmission;
     }
-    public void setNumAdmission(String numAdmission) {
+    public void setNumAdmission(int numAdmission) {
         this.numAdmission = numAdmission;
     }
     //public Date getDateDébut() {return dateDébut;}
@@ -64,7 +65,7 @@ public class Admission implements Serializable {
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
-    public Admission(String numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
+    public Admission(int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
         this.numAdmission = numAdmission;
         this.dateDébut = dateDébut;
         this.dateFin = dateFin;
@@ -86,5 +87,25 @@ public class Admission implements Serializable {
     public int getIdLit() {
         return lit.getN_lit();
     }
+
+
+    /////////////////////////////////////////////////////////////////////////////:::::
+    public void ajouterAdmission(int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
+        Admission admission = new Admission(numAdmission, dateDébut, dateFin, lit);
+        // Ajouter la nouvelle admission à la base de données
+        EntityManager entityManager = null;
+        entityManager.persist(admission);
+    }
+
+    public void modifierAdmission(Admission admission, int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
+        admission.setNumAdmission(numAdmission);
+        admission.setDateDébut(dateDébut);
+        admission.setDateFin(dateFin);
+        admission.setLit(lit);
+        // Mettre à jour l'admission dans la base de données
+        EntityManager entityManager = null;
+        entityManager.merge(admission);
+    }
+
 }
 

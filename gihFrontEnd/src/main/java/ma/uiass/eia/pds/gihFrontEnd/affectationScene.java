@@ -35,7 +35,7 @@ public class affectationScene  extends Application {
         Label serviceLabel = new Label("Service :");
         gridPane.add(serviceLabel, 0, 0);
         ComboBox<ServiceLits> serviceComboBox = new ComboBox<>();
-        serviceComboBox.getItems().addAll((ServiceLits) stock.getServices());
+       // serviceComboBox.getItems().addAll((ServiceLits) stock.getServices());
         gridPane.add(serviceComboBox, 1, 0);
 
         // Créer une étiquette et une liste déroulante pour les lits

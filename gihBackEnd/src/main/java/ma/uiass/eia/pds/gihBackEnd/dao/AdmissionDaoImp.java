@@ -42,7 +42,7 @@ public class AdmissionDaoImp implements IAdmissionDao{
 
     @Override
     public List<Admission> getAll() {
-        Query query = entityManager.createQuery("from Utilisateur");
+        Query query = entityManager.createQuery("from Admission");
         return query.getResultList();
 
     }
