@@ -54,6 +54,7 @@ public abstract class Espace {
         this.etage = etage;
     }
 
+
     public Espace() {
     }
 
