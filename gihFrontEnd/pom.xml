@@ -21,6 +21,9 @@
       <groupId>ma.uiass.eia.pds</groupId>
       <artifactId>gihBackEnd</artifactId>
       <version>1.0-SNAPSHOT</version>
+<!--      When Packaging-->
+<!--      <scope>system</scope>-->
+<!--      <systemPath>${project.basedir}/backend/BackEnd.jar</systemPath>-->
     </dependency>
     <dependency>
       <groupId>junit</groupId>
