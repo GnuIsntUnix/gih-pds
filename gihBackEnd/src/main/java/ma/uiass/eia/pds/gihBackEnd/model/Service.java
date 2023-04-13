@@ -28,6 +28,9 @@ public class Service extends Instances implements Serializable {
     @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Batiment> batiments;
 
+    @OneToOne(mappedBy = "service")
+    private Stock stock;
+
     public Service() {
     }
 
@@ -40,6 +43,14 @@ public class Service extends Instances implements Serializable {
     public Service(String codeS, String nomService) {
         this.codeS = codeS;
         this.nomService = nomService;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
     public int getIdService() {
