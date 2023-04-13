@@ -2,15 +2,18 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import javax.persistence.*;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
+import ma.uiass.eia.pds.gihBackEnd.model.Stock;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import java.util.List;
 
 public class ServiceDaoImp implements IServiceDao {
     private final EntityManager entityManager;
+    private IEspaceDao espaceDao;
 
     public ServiceDaoImp() {
         entityManager = HibernateUtil.getEntityManager();
+        espaceDao = new EspaceDaoImp();
     }
 
     public void create(Service service) {
@@ -26,6 +29,7 @@ public class ServiceDaoImp implements IServiceDao {
             }
             e.printStackTrace();
         }
+        espaceDao.create(new Stock(service));
     }
 
     @Override

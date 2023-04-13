@@ -1,21 +1,44 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue("Stock")
 public class Stock extends Espace{
 
+
+    @OneToMany(mappedBy="stock")
+    private List<DM> dms;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "idService", referencedColumnName = "Id")
+    private Service service;
+
     public Stock() {
     }
 
-    public Stock(int numEspace, Batiment batiment, int etage) {
-        super(numEspace, batiment, etage);
+    public Stock(Service service) {
+        super();
+        this.service = service;
     }
 
-    public Stock(int numEspace, Batiment batiment, int etage, List<Lit> lits) {
-        super(numEspace, batiment, etage, lits);
+    public List<DM> getDms() {
+        return dms;
+    }
+
+    public void setDms(List<DM> dms) {
+        this.dms = dms;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 }

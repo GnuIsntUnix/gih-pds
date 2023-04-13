@@ -31,8 +31,6 @@ public class Lit extends Emplacement{
     @ManyToOne
     private TypeLit typeLit;
 
-    @ManyToOne
-    private Stock stock;
 
     @JoinColumn(name = "idReservation", referencedColumnName = "Id")
     @OneToOne(mappedBy = "lit")

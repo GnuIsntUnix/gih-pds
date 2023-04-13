@@ -21,6 +21,10 @@ public class MenuControllerAdmin {
 
     @FXML
     private Button btnUsers;
+    @FXML
+    private Button btnDMs;
+    @FXML
+    private Button btnCommandesDM;
 
     @FXML
     private Button btnDashboard;
@@ -33,6 +37,15 @@ public class MenuControllerAdmin {
     public void onDashboardClick(ActionEvent event) throws IOException {
         Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("menuDashboard.fxml"));
         centerPane.setCenter(fxmlLoader);
+    }
+
+    public void onDMsClick(ActionEvent event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("dms.fxml"));
+        centerPane.setCenter(fxmlLoader);
+    }
+
+    public void onCommandeDMClick(ActionEvent event) throws IOException {
+
     }
 
     public void onLitClick(ActionEvent event) throws IOException {
