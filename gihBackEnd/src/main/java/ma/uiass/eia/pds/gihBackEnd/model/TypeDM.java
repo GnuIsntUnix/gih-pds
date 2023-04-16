@@ -18,7 +18,6 @@ public class TypeDM {
     @Column(name = "Nom")
     private String nomType;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "typeDM")
     private List<DM> dms;
 

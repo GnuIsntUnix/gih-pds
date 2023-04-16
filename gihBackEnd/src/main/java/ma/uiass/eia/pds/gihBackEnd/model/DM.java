@@ -27,6 +27,7 @@ public class DM {
 
     @JoinColumn(name = "idType", referencedColumnName = "Id")
     @ManyToOne
+    @JsonIgnore
     private TypeDM typeDM;
 
     @OneToOne(mappedBy = "dm")
@@ -96,5 +97,10 @@ public class DM {
 
     public void setDetailLivraison(DetailLivraison detailLivraison) {
         this.detailLivraison = detailLivraison;
+    }
+
+    @Override
+    public String toString() {
+        return nom ;
     }
 }

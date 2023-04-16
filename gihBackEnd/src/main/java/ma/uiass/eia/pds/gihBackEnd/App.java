@@ -39,6 +39,7 @@ public class App
         Dao<Livraison> livraisonDao = new LivraisonDaoImp();
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
 
+
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
 //        typeLitDao.create(new TypeLit("Electrique"));
@@ -56,14 +57,14 @@ public class App
 
 
 //        //------------------------- TypeDm ----------------------------------
-//        typeDMDao.create(new TypeDM("Fourniture"));
-//        typeDMDao.create(new TypeDM("Instrument Leger"));
-//        typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-//        typeDMDao.create(new TypeDM("Mobilier"));
-//        typeDMDao.create(new TypeDM("Equipement Leger"));
+     //  typeDMDao.create(new TypeDM("Fourniture"));
+       //typeDMDao.create(new TypeDM("Instrument Leger"));
+    //   typeDMDao.create(new TypeDM("Outil de Diagnostique"));
+      //typeDMDao.create(new TypeDM("Mobilier"));
+       //typeDMDao.create(new TypeDM("Equipement Leger"));
 //        //-------------------------- Dm -------------------------------------
-//        dmDao.create(new DM("BND", "Bande", stockDao.getById(1), typeDMDao.getById(1)));
-//        dmDao.create(new DM("PN", "Pensement", stockDao.getById(1), typeDMDao.getById(1)));
+//       dmDao.create(new DM("BND", "Bande", stockDao.getById(1), typeDMDao.getById(1)));
+ //       dmDao.create(new DM("PN", "Pensement", stockDao.getById(1), typeDMDao.getById(2)));
 
 
 

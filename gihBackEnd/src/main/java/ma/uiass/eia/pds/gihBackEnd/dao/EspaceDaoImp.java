@@ -40,7 +40,7 @@ public class EspaceDaoImp implements IEspaceDao{
 
     @Override
     public List<Espace> getAll() {
-        Query query = entityManager.createQuery("from Espace");
+        Query query = entityManager.createQuery("from Espace", Espace.class);
         return query.getResultList();
     }
 
