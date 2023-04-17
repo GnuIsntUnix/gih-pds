@@ -10,6 +10,8 @@ module gihFrontEnd {
     requires com.fasterxml.jackson.jaxrs.base;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.datatype.jsr310;
+    requires java.logging;
 
     opens ma.uiass.eia.pds.gihFrontEnd to javafx.fxml;
     exports ma.uiass.eia.pds.gihFrontEnd;

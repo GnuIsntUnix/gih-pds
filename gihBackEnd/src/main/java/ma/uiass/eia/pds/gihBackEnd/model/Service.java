@@ -28,7 +28,12 @@ public class Service extends Instances implements Serializable {
     @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Batiment> batiments;
 
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DemandeDm> demandeDms;
+
     @OneToOne(mappedBy = "service")
+    @JsonIgnore
     private Stock stock;
 
     public Service() {
@@ -43,6 +48,14 @@ public class Service extends Instances implements Serializable {
     public Service(String codeS, String nomService) {
         this.codeS = codeS;
         this.nomService = nomService;
+    }
+
+    public List<DemandeDm> getDemandeDms() {
+        return demandeDms;
+    }
+
+    public void setDemandeDms(List<DemandeDm> demandeDms) {
+        this.demandeDms = demandeDms;
     }
 
     public Stock getStock() {

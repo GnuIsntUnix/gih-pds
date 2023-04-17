@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.controller;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
@@ -14,12 +15,18 @@ import java.util.List;
 
 @Path("/espace")
 public class EspaceResource {
-    private final Dao<Espace> espaceDao = new EspaceDaoImp();
+    private final EspaceDaoImp espaceDao = new EspaceDaoImp();
 
     @GET
     @Path("/getespaces")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Espace> getEspaces() {
         return espaceDao.getAll();
+    }
+    @GET
+    @Path("/getespaces/batiment/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Espace> getEspacesBatiment(@PathParam("id") int id) {
+        return espaceDao.getAllBatiment(id);
     }
 }

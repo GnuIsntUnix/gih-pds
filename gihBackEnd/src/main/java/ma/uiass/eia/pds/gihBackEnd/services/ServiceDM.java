@@ -1,12 +1,10 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
-import ma.uiass.eia.pds.gihBackEnd.dao.DmDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.dao.IDmDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.IServiceDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.dao.*;
 import ma.uiass.eia.pds.gihBackEnd.model.DM;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
+import ma.uiass.eia.pds.gihBackEnd.model.TypeDM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 public class ServiceDM {
     private IDmDao dmDao;
     private IServiceDao serviceDao;
+    private ITypeDmDao typeDmDao;
 
     public ServiceDM(){
         dmDao = new DmDaoImp();
@@ -30,5 +29,23 @@ public class ServiceDM {
 
         dmDao.create(dm);
 
+    }
+    public List<DM> getAll(){
+
+        return dmDao.getAll();
+
+    }
+
+    public DM searchById(int id){
+
+        return dmDao.getById(id);
+
+    }
+
+    public List<DM> getDMbyIdType(int idType){
+        TypeDM typeDM = typeDmDao.getById(idType);
+        List<DM> dms = new ArrayList<>();
+
+        return typeDM.getDms();
     }
 }
