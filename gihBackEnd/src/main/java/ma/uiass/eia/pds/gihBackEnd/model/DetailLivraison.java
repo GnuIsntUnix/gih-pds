@@ -23,10 +23,15 @@ public class DetailLivraison {
     @ManyToOne
     private Livraison livraison;
 
-    public DetailLivraison(DM dm, int qte, Livraison livraison) {
+    @JoinColumn(name = "idFournisseur", referencedColumnName = "Id")
+    @ManyToOne
+    private Fournisseur fournisseur;
+
+    public DetailLivraison(DM dm, int qte, Livraison livraison, Fournisseur fournisseur) {
         this.dm = dm;
         this.qte = qte;
         this.livraison = livraison;
+        this.fournisseur = fournisseur;
     }
 
 
