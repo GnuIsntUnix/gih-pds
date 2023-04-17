@@ -19,6 +19,7 @@ public class TypeDM {
     private String nomType;
 
     @OneToMany(mappedBy = "typeDM")
+    @JsonIgnore
     private List<DM> dms;
 
     public TypeDM(String nomType, List<DM> dms) {

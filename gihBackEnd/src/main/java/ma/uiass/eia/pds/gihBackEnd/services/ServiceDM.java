@@ -1,10 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.*;
-import ma.uiass.eia.pds.gihBackEnd.model.DM;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeDM;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +16,9 @@ public class ServiceDM {
         serviceDao = new ServiceDaoImp();
     }
 
-    public List<DM> getDMsByService(int idService){
+    public List<ExemplaireDm> getDMsByService(int idService){
         Service s = serviceDao.getById(idService);
-        List<DM> dms = s.getStock().getDms();
+        List<ExemplaireDm> dms = s.getStock().getDms();
         return dms;
     }
 
