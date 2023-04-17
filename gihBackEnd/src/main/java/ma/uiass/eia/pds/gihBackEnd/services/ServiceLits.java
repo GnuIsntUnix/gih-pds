@@ -63,7 +63,7 @@ public class ServiceLits {
         Service serviceStock = serviceDaoImp.getById(1);
         Espace stock = serviceStock.getStock();
         try{
-        Query query=entityManager.createQuery("from Lit where idTypeLit ="+c.getTypeLit() +"and idEspace="+stock.getIdEspace());
+        Query query=entityManager.createQuery("from tlit where idTypeLit ="+c.getTypeLit() +"and idEspace="+stock.getIdEspace()+";");
         query.setMaxResults(c.getQuantite());
         List<Lit> lits=query.getResultList();
         serviceStock.getStock().getLits().forEach(lit -> {
@@ -72,7 +72,6 @@ public class ServiceLits {
         for (Lit lit : lits) {
             entityManager.merge(lit);
         }
-
         transaction.commit();
     } catch (Exception ex) {
         transaction.rollback();
