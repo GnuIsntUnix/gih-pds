@@ -55,5 +55,11 @@ public class LitResource {
         return "Deleted !";
     }
 
+    @POST
+    @Path("/traitercommande")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateStock(@PathParam("id") int id){
+        serviceLits.affecter(id);
+    }
 
 }

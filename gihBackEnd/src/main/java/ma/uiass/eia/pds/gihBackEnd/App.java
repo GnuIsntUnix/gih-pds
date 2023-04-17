@@ -52,9 +52,9 @@ public class App
 //        serviceDao.create(new Service("RADIO", "Radiologie"));
 //        serviceDao.create(new Service("CHR", "Chirurgie"));
 //        serviceDao.create(new Service("NEURO", "Neurologie"));
-
-
-
+//
+//
+//
 //        //------------------------- TypeDm ----------------------------------
 //        typeDMDao.create(new TypeDM("Fourniture"));
 //        typeDMDao.create(new TypeDM("Instrument Leger"));

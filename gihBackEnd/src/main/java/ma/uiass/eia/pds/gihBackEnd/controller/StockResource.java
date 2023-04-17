@@ -21,4 +21,6 @@ public class StockResource {
         return stockDao.getAll();
     }
 
+
+
 }
