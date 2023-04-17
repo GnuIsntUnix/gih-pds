@@ -1,42 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ChangeEspaceController">
    <children>
-      <Pane layoutX="171.0" layoutY="86.0" prefHeight="298.0" prefWidth="268.0">
-         <children>
-            <ComboBox layoutX="59.0" layoutY="38.0" prefWidth="150.0" promptText="Services" />
-            <Text layoutX="59.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir Stock" textAlignment="CENTER" wrappingWidth="150.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="59.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir Quantité" textAlignment="CENTER" wrappingWidth="150.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField layoutX="60.0" layoutY="124.0" />
-            <Button layoutX="94.0" layoutY="259.0" mnemonicParsing="false" text="Commander" />
-            <Text layoutX="47.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir Stock Distination" textAlignment="CENTER" wrappingWidth="175.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <ComboBox layoutX="60.0" layoutY="198.0" prefWidth="150.0" promptText="Services" />
-         </children>
-      </Pane>
-      <Text layoutX="242.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes" textAlignment="CENTER" wrappingWidth="120.0">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Text>
+      <ListView fx:id="lc" prefHeight="448.0" prefWidth="600.0" />
+      <Button fx:id="traiter" layoutX="494.0" layoutY="465.0" mnemonicParsing="false" onAction="#onTraiter" prefHeight="32.0" prefWidth="92.0" text="Traiter" />
    </children>
 </Pane>
