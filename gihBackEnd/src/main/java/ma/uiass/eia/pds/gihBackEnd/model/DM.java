@@ -27,10 +27,14 @@ public class DM {
 
     @JoinColumn(name = "idType", referencedColumnName = "Id")
     @ManyToOne
+    @JsonIgnore
     private TypeDM typeDM;
 
     @OneToOne(mappedBy = "dm")
     private DetailLivraison detailLivraison;
+
+    @OneToOne(mappedBy = "dm")
+    private DetailDemandeDm detailDemandeDm;
 
     public DM(String code, String nom, Stock stock, TypeDM typeDM) {
         this.code = code;
@@ -45,6 +49,14 @@ public class DM {
         this.stock = stock;
         this.typeDM = typeDM;
         this.detailLivraison = detailLivraison;
+    }
+
+    public DetailDemandeDm getDetailDemandeDm() {
+        return detailDemandeDm;
+    }
+
+    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
+        this.detailDemandeDm = detailDemandeDm;
     }
 
     public DM() {
@@ -96,5 +108,10 @@ public class DM {
 
     public void setDetailLivraison(DetailLivraison detailLivraison) {
         this.detailLivraison = detailLivraison;
+    }
+
+    @Override
+    public String toString() {
+        return nom ;
     }
 }

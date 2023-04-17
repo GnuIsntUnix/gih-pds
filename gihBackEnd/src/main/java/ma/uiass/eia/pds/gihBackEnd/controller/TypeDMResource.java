@@ -20,7 +20,7 @@ public class TypeDMResource {
     @GET
     @Path("/gettypes")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TypeDM> getServices(){
+    public List<TypeDM> getTypesDM(){
         return typeDMDao.getAll();
     }
 }

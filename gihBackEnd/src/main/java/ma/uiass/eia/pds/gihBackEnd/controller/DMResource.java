@@ -19,12 +19,21 @@ public class DMResource {
     private final ServiceDM serviceDM = new ServiceDM();
 
     @GET
+    @Path("/getdms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DM> getDMs(){ return serviceDM.getAll();}
+
+    @GET
     @Path("/getdms/service/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<DM> getServices(@PathParam("id") int id){
         return serviceDM.getDMsByService(id);
     }
 
+    @GET
+    @Path("getdms/bytype/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DM> getDMByType(@PathParam("id") int id){return serviceDM.getDMbyIdType(id);}
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
