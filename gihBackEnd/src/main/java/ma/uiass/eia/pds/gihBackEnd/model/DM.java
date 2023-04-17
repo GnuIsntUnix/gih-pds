@@ -33,6 +33,9 @@ public class DM {
     @OneToOne(mappedBy = "dm")
     private DetailLivraison detailLivraison;
 
+    @OneToOne(mappedBy = "dm")
+    private DetailDemandeDm detailDemandeDm;
+
     public DM(String code, String nom, Stock stock, TypeDM typeDM) {
         this.code = code;
         this.nom = nom;
@@ -46,6 +49,14 @@ public class DM {
         this.stock = stock;
         this.typeDM = typeDM;
         this.detailLivraison = detailLivraison;
+    }
+
+    public DetailDemandeDm getDetailDemandeDm() {
+        return detailDemandeDm;
+    }
+
+    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
+        this.detailDemandeDm = detailDemandeDm;
     }
 
     public DM() {

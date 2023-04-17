@@ -48,25 +48,25 @@ public class App
 
 
         //------------------------  Services   -----------------------------
-//        serviceDao.create(new Service("LOGI", "Logistique"));
-//        serviceDao.create(new Service("DERMATO", "Dermatologie"));
-//        serviceDao.create(new Service("RADIO", "Radiologie"));
-//        serviceDao.create(new Service("CHR", "Chirurgie"));
-//        serviceDao.create(new Service("NEURO", "Neurologie"));
+       /* serviceDao.create(new Service("LOGI", "Logistique"));
+        serviceDao.create(new Service("DERMATO", "Dermatologie"));
+        serviceDao.create(new Service("RADIO", "Radiologie"));
+        serviceDao.create(new Service("CHR", "Chirurgie"));
+        serviceDao.create(new Service("NEURO", "Neurologie"));
 
 
 
 //        //------------------------- TypeDm ----------------------------------
-     //  typeDMDao.create(new TypeDM("Fourniture"));
-       //typeDMDao.create(new TypeDM("Instrument Leger"));
-    //   typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-      //typeDMDao.create(new TypeDM("Mobilier"));
-       //typeDMDao.create(new TypeDM("Equipement Leger"));
+       typeDMDao.create(new TypeDM("Fourniture"));
+       typeDMDao.create(new TypeDM("Instrument Leger"));
+      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
+      typeDMDao.create(new TypeDM("Mobilier"));
+       typeDMDao.create(new TypeDM("Equipement Leger"));
 //        //-------------------------- Dm -------------------------------------
-//       dmDao.create(new DM("BND", "Bande", stockDao.getById(1), typeDMDao.getById(1)));
- //       dmDao.create(new DM("PN", "Pensement", stockDao.getById(1), typeDMDao.getById(2)));
+     dmDao.create(new DM("BND", "Bande", stockDao.getById(1), typeDMDao.getById(1)));
+        dmDao.create(new DM("PN", "Pensement", stockDao.getById(1), typeDMDao.getById(2)));
 
-
+*/
 
     }
 }
