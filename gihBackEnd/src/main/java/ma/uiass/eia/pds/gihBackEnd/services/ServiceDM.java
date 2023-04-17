@@ -2,30 +2,23 @@ package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.*;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
-import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDM {
     private IDmDao dmDao;
-    private IDemandeDao demandeDao;
     private IServiceDao serviceDao;
     private ITypeDmDao typeDmDao;
-
 
     public ServiceDM(){
         dmDao = new DmDaoImp();
         serviceDao = new ServiceDaoImp();
-        demandeDao = new DemandeDaoImp();
     }
 
-    public List<DM> getDMsByService(int idService){
+    public List<ExemplaireDm> getDMsByService(int idService){
         Service s = serviceDao.getById(idService);
-        List<DM> dms = s.getStock().getDms();
+        List<ExemplaireDm> dms = s.getStock().getDms();
         return dms;
     }
 
@@ -51,26 +44,5 @@ public class ServiceDM {
         List<DM> dms = new ArrayList<>();
 
         return typeDM.getDms();
-    }
-    public void affecter(int id){
-        DemandeDm demandeDm=demandeDao.getById(id);
-        EntityManager entityManager= HibernateUtil.getEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        Service service = serviceDao.getById(1);
-        try {
-            Query query = entityManager.createQuery("from tdm;");
-            List<DM> dms=query.getResultList();
-            service.getStock().getDms().forEach(dm -> {
-                dm.setStock(demandeDm.getService().getStock());
-            });
-            for (DM dm:dms){
-                entityManager.merge(dm);
-            }
-            transaction.commit();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-        entityManager.close();
-        }
     }
 }

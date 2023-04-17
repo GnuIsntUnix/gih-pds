@@ -1,0 +1,4 @@
+--patch-module
+gihFrontEnd=_
+--add-reads
+gihFrontEnd=ALL-UNNAMED

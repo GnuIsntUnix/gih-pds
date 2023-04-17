@@ -4,6 +4,8 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TDm")
@@ -20,36 +22,43 @@ public class DM {
     @Column(name = "Nom")
     private String nom;
 
-    @JsonIgnore
-    @JoinColumn(name = "idStock", referencedColumnName = "Id")
-    @ManyToOne
-    private Stock stock;
 
     @JoinColumn(name = "idType", referencedColumnName = "Id")
     @ManyToOne
-    @JsonIgnore
     private TypeDM typeDM;
 
+    @OneToMany(mappedBy = "dm", fetch = FetchType.LAZY)
+    private List<ExemplaireDm> exemplaireDmList = new ArrayList<>();
+
     @OneToOne(mappedBy = "dm")
+    @JsonIgnore
     private DetailLivraison detailLivraison;
 
     @OneToOne(mappedBy = "dm")
+    @JsonIgnore
     private DetailDemandeDm detailDemandeDm;
 
-    public DM(String code, String nom, Stock stock, TypeDM typeDM) {
+    public DM(String code, String nom, TypeDM typeDM) {
         this.code = code;
         this.nom = nom;
-        this.stock = stock;
         this.typeDM = typeDM;
     }
 
-    public DM(String code, String nom, Stock stock, TypeDM typeDM, DetailLivraison detailLivraison) {
+    public DM(String code, String nom, TypeDM typeDM, DetailLivraison detailLivraison) {
         this.code = code;
         this.nom = nom;
-        this.stock = stock;
         this.typeDM = typeDM;
         this.detailLivraison = detailLivraison;
     }
+
+    public List<ExemplaireDm> getExemplaireDmList() {
+        return exemplaireDmList;
+    }
+
+    public void setExemplaireDmList(List<ExemplaireDm> exemplaireDmList) {
+        this.exemplaireDmList = exemplaireDmList;
+    }
+
 
     public DetailDemandeDm getDetailDemandeDm() {
         return detailDemandeDm;
@@ -84,14 +93,6 @@ public class DM {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
     }
 
     public TypeDM getTypeDM() {
