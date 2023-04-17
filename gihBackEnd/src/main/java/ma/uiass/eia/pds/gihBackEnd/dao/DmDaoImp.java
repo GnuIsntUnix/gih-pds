@@ -1,6 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.DM;
+import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
@@ -20,6 +21,8 @@ public class DmDaoImp implements IDmDao{
     @Override
     public void create(DM dm) {
         EntityTransaction transaction = entityManager.getTransaction();
+        List<ExemplaireDm> exemplaireDms = dm.getExemplaireDmList();
+        ExemplaireDMDaoImp exemplaireDMDaoImp = new ExemplaireDMDaoImp();
         try {
             transaction.begin();
             this.entityManager.persist(dm);
@@ -31,11 +34,16 @@ public class DmDaoImp implements IDmDao{
             }
             e.printStackTrace();
         }
+
+        exemplaireDms.forEach(exemplaireDm -> {
+            exemplaireDm.setDm(dm);
+            exemplaireDMDaoImp.create(exemplaireDm);
+        });
     }
 
     @Override
     public DM getById(int id) {
-        return null;
+        return entityManager.find(DM.class, id);
     }
 
     @Override

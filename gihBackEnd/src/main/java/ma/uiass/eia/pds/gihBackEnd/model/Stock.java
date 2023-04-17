@@ -11,7 +11,7 @@ public class Stock extends Espace{
 
 
     @OneToMany(mappedBy="stock")
-    private List<DM> dms;
+    private List<ExemplaireDm> dms;
 
     @JsonIgnore
     @OneToOne
@@ -26,11 +26,11 @@ public class Stock extends Espace{
         this.service = service;
     }
 
-    public List<DM> getDms() {
+    public List<ExemplaireDm> getDms() {
         return dms;
     }
 
-    public void setDms(List<DM> dms) {
+    public void setDms(List<ExemplaireDm> dms) {
         this.dms = dms;
     }
 
