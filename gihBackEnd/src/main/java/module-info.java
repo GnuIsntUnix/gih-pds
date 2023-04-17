@@ -29,7 +29,7 @@ module gihBackEnd {
     requires org.hibernate.validator;
     requires org.hibernate.orm.core;
     requires com.google.gson;
-
+    requires com.fasterxml.jackson.datatype.jsr310;
     opens ma.uiass.eia.pds.gihBackEnd.model to org.hibernate.orm.core, com.google.gson;
     opens ma.uiass.eia.pds.gihBackEnd.controller to org.glassfish.hk2.locator, jersey.server;
     opens ma.uiass.eia.pds.gihBackEnd.dto to com.fasterxml.jackson.databind, com.google.gson;

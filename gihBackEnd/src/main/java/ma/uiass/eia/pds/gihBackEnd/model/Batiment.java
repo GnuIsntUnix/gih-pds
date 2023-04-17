@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ma.uiass.eia.pds.gihBackEnd.util.Instances;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Batiment extends Instances {
     private Service service;
 
     @OneToMany(mappedBy = "batiment")
-    private List<Espace> espaces;
+    private List<Espace> espaces= new ArrayList<>();
 
 
     public Batiment(String nomBatiment, Service service, List<Espace> espaces) {
