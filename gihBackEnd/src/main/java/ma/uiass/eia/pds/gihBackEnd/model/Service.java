@@ -33,6 +33,7 @@ public class Service extends Instances implements Serializable {
     private List<DemandeDm> demandeDms;
 
     @OneToOne(mappedBy = "service")
+    @JsonIgnore
     private Stock stock;
 
     public Service() {
