@@ -32,11 +32,19 @@ public class DMResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<DM> getDMByType(@PathParam("id") int id){return serviceDM.getDMbyIdType(id);}
     @POST
-    @Path("/save")
+    @Path("/save/persist")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String createLit(DM dm){
+    public String createDM(DM dm){
         serviceDM.add(dm);
+        return "Saved !";
+    }
+    @POST
+    @Path("/save/merge")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String createDM2(DM dm){
+        serviceDM.addv2(dm);
         return "Saved !";
     }
     @POST

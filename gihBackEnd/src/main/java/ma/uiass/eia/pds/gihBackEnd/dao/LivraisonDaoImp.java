@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
+import ma.uiass.eia.pds.gihBackEnd.model.DetailDemandeDm;
+import ma.uiass.eia.pds.gihBackEnd.model.DetailLivraison;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Livraison;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
@@ -20,6 +22,8 @@ public class LivraisonDaoImp implements ILivraisonDao{
     @Override
     public void create(Livraison livraison) {
         EntityTransaction transaction = entityManager.getTransaction();
+        List<DetailLivraison> detailLivraisons = livraison.getDetailLivraisonList();
+        DetailLivraisonDaoImp detailLivraisonDaoImp = new DetailLivraisonDaoImp();
         try {
             transaction.begin();
             this.entityManager.persist(livraison);
@@ -31,6 +35,10 @@ public class LivraisonDaoImp implements ILivraisonDao{
             }
             e.printStackTrace();
         }
+        detailLivraisons.forEach(detailLivraison -> {
+            detailLivraison.setLivraison(livraison);
+            detailLivraisonDaoImp.create(detailLivraison);
+        });
     }
 
     @Override

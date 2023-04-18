@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDM {
-    private IDmDao dmDao;
     private IDemandeDao demandeDao;
+    private DmDaoImp dmDao;
     private IServiceDao serviceDao;
     private ITypeDmDao typeDmDao;
 
@@ -34,6 +34,12 @@ public class ServiceDM {
     public void add(DM dm){
 
         dmDao.create(dm);
+
+    }
+
+    public void addv2(DM dm){
+
+        dmDao.createv2(dm);
 
     }
     public List<DM> getAll(){

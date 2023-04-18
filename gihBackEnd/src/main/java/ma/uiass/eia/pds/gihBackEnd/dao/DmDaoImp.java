@@ -40,6 +40,27 @@ public class DmDaoImp implements IDmDao{
             exemplaireDMDaoImp.create(exemplaireDm);
         });
     }
+    public void createv2(DM dm) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        List<ExemplaireDm> exemplaireDms = dm.getExemplaireDmList();
+        ExemplaireDMDaoImp exemplaireDMDaoImp = new ExemplaireDMDaoImp();
+        try {
+            transaction.begin();
+            this.entityManager.merge(dm);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        exemplaireDms.forEach(exemplaireDm -> {
+            exemplaireDm.setDm(dm);
+            exemplaireDMDaoImp.create(exemplaireDm);
+        });
+    }
 
     @Override
     public DM getById(int id) {

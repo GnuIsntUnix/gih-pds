@@ -89,7 +89,7 @@ public class DMController implements Initializable {
         System.out.println(mapper.writeValueAsString(dm));
 
         Request request = new Request.Builder()
-                .url("http://localhost:9998/dm/save")
+                .url("http://localhost:9998/dm/save/persist")
                 .post(body)
                 .build();
 

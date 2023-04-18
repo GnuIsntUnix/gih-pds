@@ -45,6 +45,8 @@ public class MenuControllerAdmin {
     }
 
     public void onCommandeDMClick(ActionEvent event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("livraison.fxml"));
+        centerPane.setCenter(fxmlLoader);
 
     }
 
