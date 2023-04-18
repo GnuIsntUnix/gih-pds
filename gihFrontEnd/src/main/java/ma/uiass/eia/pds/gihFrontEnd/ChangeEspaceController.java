@@ -42,9 +42,6 @@ public class ChangeEspaceController implements Initializable {
 
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
-
-
-
     }
     public List<Commande> getCommandes(){
         Request request = new Request.Builder().url("http://localhost:9998/commande/getcommandes").build();

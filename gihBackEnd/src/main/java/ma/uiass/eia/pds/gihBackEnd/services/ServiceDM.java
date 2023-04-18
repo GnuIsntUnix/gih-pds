@@ -54,13 +54,13 @@ public class ServiceDM {
 
         return typeDM.getDms();
     }
-    public void affecter(int id){
+    public void affecterDM(int id){
         DemandeDm demandeDm=demandeDao.getById(id);
         EntityManager entityManager= HibernateUtil.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         Service service = serviceDao.getById(1);
         try {
-            Query query = entityManager.createQuery("from tdm;");
+            Query query = entityManager.createQuery("from texemplairesdm;");
             List<DM> dms=query.getResultList();
             service.getStock().getDms().forEach(dm -> {
                 dm.setStock(demandeDm.getService().getStock());

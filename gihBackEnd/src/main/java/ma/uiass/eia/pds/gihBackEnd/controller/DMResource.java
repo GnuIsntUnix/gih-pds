@@ -43,6 +43,6 @@ public class DMResource {
     @Path("/traiterdemande")
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateStock(@PathParam("id") int id){
-        serviceDM.affecter(id);
+        serviceDM.affecterDM(id);
     }
 }
