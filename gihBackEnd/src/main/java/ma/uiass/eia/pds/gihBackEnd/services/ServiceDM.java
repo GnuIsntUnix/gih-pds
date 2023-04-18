@@ -9,7 +9,7 @@ import java.util.List;
 public class ServiceDM {
     private DmDaoImp dmDao;
     private IServiceDao serviceDao;
-    private ITypeDmDao typeDmDao;
+    private ITypeDmDao typeDmDao = new TypeDmDaoImp();
 
     public ServiceDM(){
         dmDao = new DmDaoImp();
@@ -46,9 +46,15 @@ public class ServiceDM {
     }
 
     public List<DM> getDMbyIdType(int idType){
-        TypeDM typeDM = typeDmDao.getById(idType);
+        List<TypeDM> typeDMs = typeDmDao.getAll();
         List<DM> dms = new ArrayList<>();
 
-        return typeDM.getDms();
+        for (TypeDM tdm: typeDMs){
+            if (tdm.getIdType()==idType){
+                dms = tdm.getDms();
+            }
+        }
+
+        return dms;
     }
 }
