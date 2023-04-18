@@ -38,8 +38,11 @@ public class App
         Dao<TypeDM> typeDMDao = new TypeDmDaoImp();
         Dao<Livraison> livraisonDao = new LivraisonDaoImp();
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
+        Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
 
 
+//        fournisseurDao.create(new Fournisseur("F1"," "," "," "));
+//
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
 //        typeLitDao.create(new TypeLit("Electrique"));

@@ -1,5 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -21,6 +23,7 @@ public class DetailLivraison {
 
     @JoinColumn(name = "idLivraison", referencedColumnName = "Id")
     @ManyToOne
+    @JsonIgnore
     private Livraison livraison;
 
     @JoinColumn(name = "idFournisseur", referencedColumnName = "Id")
@@ -33,7 +36,19 @@ public class DetailLivraison {
         this.livraison = livraison;
         this.fournisseur = fournisseur;
     }
+    public DetailLivraison(DM dm, int qte, Fournisseur fournisseur) {
+        this.dm = dm;
+        this.qte = qte;
+        this.fournisseur = fournisseur;
+    }
 
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
 
     public DetailLivraison() {
     }
