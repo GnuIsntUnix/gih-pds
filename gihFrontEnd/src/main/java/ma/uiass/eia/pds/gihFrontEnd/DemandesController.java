@@ -59,7 +59,7 @@ public class DemandesController implements Initializable {
             if (newValue != null){
                 cbDM.setDisable(false);
                 System.out.println(newValue.getDms());
-                cbDM.setItems(FXCollections.observableArrayList(newValue.getDms()));
+                cbDM.setItems(FXCollections.observableArrayList(getDM(newValue)));
             } else {
                 cbDM.setDisable(true);
                 cbDM.getItems().clear();
@@ -200,6 +200,22 @@ public class DemandesController implements Initializable {
             throw new RuntimeException(e);
         }
         return DMS;
+    }
+
+    public List<DM> getDM(TypeDM tDm){
+        Request request = new Request.Builder().url("http://localhost:9998/dm/getdms/bytype/"+ tDm.getIdType()).build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        Response response = null;
+        List<DM> DMS = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            DMS = mapper.readValue(response.body().charStream(), new TypeReference<List<DM>>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return DMS;
+
     }
     public List<Service> getServices(){
         Request request = new Request.Builder().url("http://localhost:9998/service/getservices").build();

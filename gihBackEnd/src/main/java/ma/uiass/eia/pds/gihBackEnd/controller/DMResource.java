@@ -28,7 +28,7 @@ public class DMResource {
 
 
     @GET
-    @Path("getdms/bytype/{id}")
+    @Path("/getdms/bytype/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<DM> getDMByType(@PathParam("id") int id){return serviceDM.getDMbyIdType(id);}
     @POST

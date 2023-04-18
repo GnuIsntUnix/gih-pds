@@ -24,7 +24,6 @@ public class ServiceDM {
         dmDao = new DmDaoImp();
         serviceDao = new ServiceDaoImp();
         demandeDao = new DemandeDaoImp();
-        exemplaireDMDaoImp=new ExemplaireDMDaoImp();
     }
 
     public List<ExemplaireDm> getDMsByService(int idService){
@@ -57,10 +56,16 @@ public class ServiceDM {
     }
 
     public List<DM> getDMbyIdType(int idType){
-        TypeDM typeDM = typeDmDao.getById(idType);
+        List<TypeDM> typeDMs = typeDmDao.getAll();
         List<DM> dms = new ArrayList<>();
 
-        return typeDM.getDms();
+        for (TypeDM tdm: typeDMs){
+            if (tdm.getIdType()==idType){
+                dms = tdm.getDms();
+            }
+        }
+
+        return dms;
     }
     public void affecterDM(int id){
         DemandeDm demandeDm=demandeDao.getById(id);
