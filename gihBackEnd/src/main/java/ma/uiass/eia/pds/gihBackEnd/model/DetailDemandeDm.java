@@ -58,6 +58,22 @@ public class DetailDemandeDm {
         this.demandeDm = demandeDm;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public DM getDm() {
+        return dm;
+    }
+
+    public void setDm(DM dm) {
+        this.dm = dm;
+    }
+
     @Override
     public String toString() {
         return  dm +

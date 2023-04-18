@@ -51,11 +51,11 @@ public class DemandesController implements Initializable {
     OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cbTypeDm.setItems(FXCollections.observableArrayList(getTypeDM()));
+        // cbTypeDm.setItems(FXCollections.observableArrayList(getTypeDM()));
         cbServices.setItems(FXCollections.observableArrayList(getServices()));
 
-        cbDM.setDisable(true);
-        cbTypeDm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        cbDM.setItems(FXCollections.observableArrayList(getDM()));
+        /*cbTypeDm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null){
                 cbDM.setDisable(false);
                 System.out.println(newValue.getDms());
@@ -65,6 +65,8 @@ public class DemandesController implements Initializable {
                 cbDM.getItems().clear();
             }
         });
+
+         */
 
     }
     @FXML
@@ -151,6 +153,7 @@ public class DemandesController implements Initializable {
             }
         }
     }
+
 
 
 

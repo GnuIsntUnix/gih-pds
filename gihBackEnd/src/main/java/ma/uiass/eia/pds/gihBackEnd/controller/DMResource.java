@@ -47,10 +47,10 @@ public class DMResource {
         serviceDM.addv2(dm);
         return "Saved !";
     }
-    @POST
-    @Path("/traiterdemande")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void updateStock(@PathParam("id") int id){
+
+    @Path("/traiterdemande/{id}")
+    public String updateStock(@PathParam("id") int id){
         serviceDM.affecterDM(id);
+        return "done";
     }
 }

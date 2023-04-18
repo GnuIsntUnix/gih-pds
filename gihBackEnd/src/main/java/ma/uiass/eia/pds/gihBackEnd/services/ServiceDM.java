@@ -17,12 +17,14 @@ public class ServiceDM {
     private DmDaoImp dmDao;
     private IServiceDao serviceDao;
     private ITypeDmDao typeDmDao;
+    private ExemplaireDMDaoImp exemplaireDMDaoImp;
 
 
     public ServiceDM(){
         dmDao = new DmDaoImp();
         serviceDao = new ServiceDaoImp();
         demandeDao = new DemandeDaoImp();
+        exemplaireDMDaoImp=new ExemplaireDMDaoImp();
     }
 
     public List<ExemplaireDm> getDMsByService(int idService){
@@ -66,19 +68,17 @@ public class ServiceDM {
         EntityTransaction transaction = entityManager.getTransaction();
         Service service = serviceDao.getById(1);
         try {
-            Query query = entityManager.createQuery("from texemplairesdm;");
-            List<DM> dms=query.getResultList();
-            service.getStock().getDms().forEach(dm -> {
-                dm.setStock(demandeDm.getService().getStock());
-            });
-            for (DM dm:dms){
-                entityManager.merge(dm);
+            List<ExemplaireDm> dms= new ArrayList<>();
+            for (DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
+                 dms=detailDemandeDm.getDm().getExemplaireDmList();
+                 for (ExemplaireDm dm:dms){
+                    entityManager.merge(dm);
+                }
             }
+
             transaction.commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-        entityManager.close();
         }
     }
 }

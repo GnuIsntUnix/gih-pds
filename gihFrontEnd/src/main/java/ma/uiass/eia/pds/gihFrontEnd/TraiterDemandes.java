@@ -30,14 +30,11 @@ public class TraiterDemandes implements Initializable {
         demandes.setItems(FXCollections.observableArrayList(getDemandes()));
     }
     public void onDemande(ActionEvent event)throws IOException {
-        DemandeDm dm=demandes.getSelectionModel().getSelectedItem();
+        int dm=demandes.getSelectionModel().getSelectedItem().getIdDemande();
         ObjectMapper mapper = new ObjectMapper();
-        RequestBody body = RequestBody.create(
-                MediaType.parse("application/json"), mapper.writeValueAsString(dm));
 
         Request request = new Request.Builder()
-                .url("http://localhost:9998/dm/traiterdemande")
-                .post(body)
+                .url("http://localhost:9998/dm/traiterdemande/"+dm)
                 .build();
 
         Call call = okHttpClient.newCall(request);
