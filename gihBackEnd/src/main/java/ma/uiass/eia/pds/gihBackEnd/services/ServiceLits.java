@@ -54,6 +54,10 @@ public class ServiceLits {
         return lits;
     }
 
+    public void addLitstoStock(Service service){
+        ///'
+    }
+
 
 }
 
