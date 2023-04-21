@@ -42,7 +42,12 @@ public class DemandeDaoImp implements IDemandeDao {
 
     @Override
     public DemandeDm getById(int id) {
-        return entityManager.find(DemandeDm.class, id);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        System.out.println("Transaction started successfully");
+        DemandeDm demandeDm = entityManager.find(DemandeDm.class, id);
+        transaction.commit();
+        return demandeDm;
     }
 
     @Override

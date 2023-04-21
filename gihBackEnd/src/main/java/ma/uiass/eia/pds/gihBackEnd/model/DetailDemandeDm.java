@@ -73,13 +73,7 @@ public class DetailDemandeDm {
         this.id = id;
     }
 
-    public DM getDm() {
-        return dm;
-    }
 
-    public void setDm(DM dm) {
-        this.dm = dm;
-    }
 
     @Override
     public String toString() {

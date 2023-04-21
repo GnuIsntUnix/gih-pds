@@ -71,7 +71,8 @@ public class ServiceDM {
         DemandeDm demandeDm=demandeDao.getById(id);
         EntityManager entityManager= HibernateUtil.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-        Service service = serviceDao.getById(1);
+        transaction.begin();
+        System.out.println("Transaction started successfully");
         try {
             List<ExemplaireDm> dms= new ArrayList<>();
             for (DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
@@ -80,9 +81,12 @@ public class ServiceDM {
                     entityManager.merge(dm);
                 }
             }
-
             transaction.commit();
+            System.out.println("Transaction commited successfully");
         } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
             throw new RuntimeException(e);
         }
     }

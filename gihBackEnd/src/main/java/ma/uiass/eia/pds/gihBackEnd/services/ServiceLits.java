@@ -81,6 +81,21 @@ public class ServiceLits {
     }
     }
 
+    public void switchEtat(int id){
+        Lit lit=litDaoImp.getById(id);
+        if(lit.getEtat()==EtatLit.D)
+            lit.setEtat(EtatLit.O);
+        if(lit.getEtat()==EtatLit.O)
+            lit.setEtat(EtatLit.D);
+
+    }
+
+    public void changelit(int id){
+        Lit lit = litDaoImp.getById(id);
+        if(lit.getEtat()==EtatLit.O)
+            throw new RuntimeException("working properly");
+
+    }
 
 }
 
