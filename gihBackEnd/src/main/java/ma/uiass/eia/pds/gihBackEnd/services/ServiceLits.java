@@ -8,12 +8,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceLits {
     private ILitDao litDaoImp;
     private IServiceDao serviceDaoImp;
     private ICommandeDao commandeDaoImp;
+    private ILitDao litDaoImp = new LitDaoImp();
+    private IServiceDao serviceDaoImp = new ServiceDaoImp();
+    private IStockDao stockDaoImp = new StockDaoImp();
+    private ITypeLitDao typeLitDao = new TypeLitDaoImp();
 
     public ServiceLits() {
         litDaoImp = new LitDaoImp();
@@ -96,6 +102,32 @@ public class ServiceLits {
             throw new RuntimeException("working properly");
 
     }
+    public void addLitstoStock(Service service){
+        ///'
+    }
+
+    public List<Lit> getLitsInStock(int idStock){
+        List<Lit> lits = litDaoImp.getAll();
+        List<Lit> stock = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getEspace().getIdEspace() == idStock){
+                stock.add(lit);
+            }
+        }
+        return stock;
+    }
+
+    public List<Lit> getLitsByTypeInStock(int idService, int idTypeLit){
+        TypeLit typeLit = typeLitDao.getById(idTypeLit);
+        List<Lit> lits = getLitsInStock(serviceDaoImp.getById(idService).getStock().getIdEspace());
+        List<Lit> litList = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(typeLit))
+                litList.add(lit);
+        }
+        return litList;
+    }
+
 
 }
 

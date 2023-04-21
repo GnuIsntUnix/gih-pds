@@ -1,8 +1,6 @@
 package ma.uiass.eia.pds.gihBackEnd.controller;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
 import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
@@ -22,5 +20,12 @@ public class TypeDMResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TypeDM> getTypesDM(){
         return typeDMDao.getAll();
+    }
+
+    @POST
+    @Path("/save")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void saveType(TypeDM typeDM){
+        typeDMDao.create(typeDM);
     }
 }

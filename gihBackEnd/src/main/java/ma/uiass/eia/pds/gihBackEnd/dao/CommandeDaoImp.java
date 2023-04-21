@@ -32,6 +32,21 @@ public class CommandeDaoImp implements ICommandeDao{
         }
     }
 
+    public void update(Commande commande) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.merge(commande);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public Commande getById(int id) {
         return entityManager.find(Commande.class, id);

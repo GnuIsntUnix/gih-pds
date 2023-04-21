@@ -37,6 +37,7 @@ public class Batiment extends Instances {
     public Batiment(String nomBatiment, Service service) {
         this.nomBatiment = nomBatiment;
         this.service = service;
+        service.getBatiments().add(this);
     }
 
     public Batiment() {

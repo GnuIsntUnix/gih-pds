@@ -61,5 +61,14 @@ public class LitResource {
     public void updateStock(@PathParam("id") int id){
         serviceLits.affecter(id);
     }
+    @GET
+    @Path("/getlits/stock/{idService}/bytype/{idType}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsInStockByType(@PathParam("idService") int idService,
+                                          @PathParam("idType") int idType
+                                          ){
+        return serviceLits.getLitsByTypeInStock(idService, idType);
+    }
+
 
 }
