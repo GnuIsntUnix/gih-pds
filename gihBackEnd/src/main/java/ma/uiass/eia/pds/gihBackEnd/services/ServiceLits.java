@@ -16,8 +16,7 @@ public class ServiceLits {
     private ILitDao litDaoImp;
     private IServiceDao serviceDaoImp;
     private ICommandeDao commandeDaoImp;
-    private ILitDao litDaoImp = new LitDaoImp();
-    private IServiceDao serviceDaoImp = new ServiceDaoImp();
+
     private IStockDao stockDaoImp = new StockDaoImp();
     private ITypeLitDao typeLitDao = new TypeLitDaoImp();
 
