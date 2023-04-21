@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class Service extends Instances implements Serializable {
 
 
     @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Batiment> batiments;
+    private List<Batiment> batiments = new ArrayList<>();
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

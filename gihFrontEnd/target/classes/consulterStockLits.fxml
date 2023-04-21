@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="tblStock" prefHeight="398.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterStockLitsController">
+   <columns>
+      <TableColumn fx:id="colType" prefWidth="247.8545526266098" text="TypeLit" />
+      <TableColumn fx:id="colNbr" minWidth="0.0" prefWidth="365.6726989746094" text="Nombre de Lits en Stock" />
+   </columns>
+</TableView>

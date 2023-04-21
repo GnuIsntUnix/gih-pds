@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import ma.uiass.eia.pds.gihFrontEnd.Serializers.DMJsonSerializer;
 import okhttp3.*;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DMController implements Initializable {
@@ -30,8 +33,6 @@ public class DMController implements Initializable {
     @FXML
     private ComboBox<TypeDM> cboxType;
 
-    @FXML
-    private ComboBox<Service> cboxService;
 
     @FXML
     private TextField txtCode;
@@ -42,8 +43,6 @@ public class DMController implements Initializable {
     @FXML
     private TableView<DM> tblDms;
 
-    @FXML
-    private TextField txtExemp;
 
     @FXML
     private TableColumn<DM, String> codeCol;
@@ -64,9 +63,6 @@ public class DMController implements Initializable {
         TypeDM typeDM = cboxType.getSelectionModel().getSelectedItem();
         String code = txtCode.getText();
         String nom = txtNom.getText();
-        Stock stock = getStock(cboxService.getSelectionModel().getSelectedItem().getIdService());
-        int nbr = Integer.parseInt(txtExemp.getText());
-        System.out.println(stock);
 
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule simpleModule = new SimpleModule();
@@ -74,14 +70,6 @@ public class DMController implements Initializable {
         mapper.registerModule(simpleModule);
 
         DM dm = new DM(code, nom, typeDM);
-
-        List<ExemplaireDm> exemplaireDms = new ArrayList<>();
-
-        for (int i = 0; i<nbr; i++){
-            exemplaireDms.add(new ExemplaireDm(dm, stock));
-        }
-
-        dm.setExemplaireDmList(exemplaireDms);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(dm));
@@ -96,7 +84,6 @@ public class DMController implements Initializable {
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
 
-        txtExemp.setText(null);
         txtCode.setText(null);
         txtNom.setText(null);
         initialize(null, null);
@@ -105,9 +92,8 @@ public class DMController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cboxType.setItems(FXCollections.observableArrayList(getTypeDMS()));
-        cboxService.setItems(FXCollections.observableArrayList(getServices()));
 
-        Request request = new Request.Builder().url("http://localhost:9998/dm/getdms").build();
+                Request request = new Request.Builder().url("http://localhost:9998/dm/getdms").build();
         Call call = okHttpClient.newCall(request);
         ObjectMapper mapper = new ObjectMapper();
 
@@ -123,10 +109,38 @@ public class DMController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         codeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        exempCol.setCellValueFactory(table ->
-                new SimpleIntegerProperty(getExemplaires(table.getValue())).asObject());
 
         tblDms.setItems(FXCollections.observableList(dms));
+
+        cboxType.getItems().add(new TypeDM("Ajouter un nouveau type..."));
+        cboxType.setOnAction(e ->{
+            String typeDM = "";
+            try {
+                typeDM = cboxType.getSelectionModel().getSelectedItem().toString();
+            }
+            catch (Exception ignore){
+
+            }
+            System.out.println(typeDM);
+            String finalTypeDM = typeDM;
+            Platform.runLater(() -> {
+                if ("Ajouter un nouveau type...".equals(Objects.requireNonNull(finalTypeDM))) {
+                    System.out.println("Nice");
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setOnCloseRequest(ev -> initialize(null, null));
+                    dialog.setContentText("Inserer un nom de type");
+                    dialog.showAndWait().ifPresent(text -> {
+                        TypeDM typeDM1 = new TypeDM(text);
+                        try {
+                            saveTypeDM(typeDM1);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    });
+                }
+            });
+
+        });
     }
 
     public List<TypeDM> getTypeDMS(){
@@ -190,6 +204,24 @@ public class DMController implements Initializable {
             throw new RuntimeException(e);
         }
         return stock;
+    }
+
+    public void saveTypeDM(TypeDM typeDM) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(typeDM));
+
+        System.out.println(mapper.writeValueAsString(typeDM));
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/typedm/save")
+                .post(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        initialize(null, null);
     }
 
 }

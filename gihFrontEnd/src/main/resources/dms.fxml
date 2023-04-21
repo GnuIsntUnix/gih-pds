@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -8,33 +9,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DMController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="261.0" spacing="30.0">
                <children>
-                  <ComboBox fx:id="cboxService" prefWidth="150.0" promptText="Service" />
                   <ComboBox fx:id="cboxType" prefWidth="150.0" promptText="Type de DM" />
+                  <TextField fx:id="txtCode" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Code" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="291.0" prefWidth="251.0" spacing="15.0">
+            <VBox alignment="CENTER" prefHeight="291.0" prefWidth="251.0" spacing="30.0">
                <children>
-                  <TextField fx:id="txtCode" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Code" />
                   <TextField fx:id="txtNom" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Nom" />
-                  <TextField fx:id="txtExemp" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Nombre d'exemplaires" />
                   <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" text="Ajouter" />
                </children>
             </VBox>
          </children>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
       </HBox>
       <TableView fx:id="tblDms" prefHeight="223.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="codeCol" prefWidth="95.12726593017578" text="Code" />
-            <TableColumn fx:id="nomCol" prefWidth="207.70909118652344" text="Nom" />
-            <TableColumn fx:id="exempCol" prefWidth="222.54547119140625" text="Nombre d'exemplaires" />
+          <TableColumn fx:id="codeCol" prefWidth="214.69091033935547" text="Code" />
+            <TableColumn fx:id="nomCol" prefWidth="310.69091796875" text="Nom" />
         </columns>
       </TableView>
    </children>

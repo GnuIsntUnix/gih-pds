@@ -54,7 +54,9 @@ public class Lit extends Emplacement{
         this.etat = etat;
         this.marque = marque;
         this.typeLit = typeLit;
+        typeLit.getLits().add(this);
         this.espace = espace;
+        espace.getLits().add(this);
     }
 
     public Lit() {
