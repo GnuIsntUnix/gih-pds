@@ -41,36 +41,36 @@ public class App
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
 
 
-//        fournisseurDao.create(new Fournisseur("F1"," "," "," "));
-//
-//
-//        //------------------------  Services   -----------------------------
-//        serviceDao.create(new Service("LOGI", "Logistique"));
-//        serviceDao.create(new Service("DERMATO", "Dermatologie"));
-//        serviceDao.create(new Service("RADIO", "Radiologie"));
-//        serviceDao.create(new Service("CHR", "Chirurgie"));
-//        serviceDao.create(new Service("NEURO", "Neurologie"));
-//
-//        marqueDao.create(new Marque("MarqueTest"));
-//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
-//        typeLitDao.create(new TypeLit("Electrique"));
-//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
-//
-//        typeLitDao.create(new TypeLit("Mecanique"));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
-//
-//
-//
-////        //------------------------- TypeDm ----------------------------------
-//       typeDMDao.create(new TypeDM("Fourniture"));
-//       typeDMDao.create(new TypeDM("Instrument Leger"));
-//      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-//      typeDMDao.create(new TypeDM("Mobilier"));
-//       typeDMDao.create(new TypeDM("Equipement Leger"));
-////        //-------------------------- Dm -------------------------------------
-//     dmDao.create(new DM("BND", "Bande", typeDMDao.getById(1)));
-//        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
+        fournisseurDao.create(new Fournisseur("F1"," "," "," "));
+
+
+        //------------------------  Services   -----------------------------
+        serviceDao.create(new Service("LOGI", "Logistique"));
+        serviceDao.create(new Service("DERMATO", "Dermatologie"));
+        serviceDao.create(new Service("RADIO", "Radiologie"));
+        serviceDao.create(new Service("CHR", "Chirurgie"));
+        serviceDao.create(new Service("NEURO", "Neurologie"));
+
+        marqueDao.create(new Marque("MarqueTest"));
+        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
+        typeLitDao.create(new TypeLit("Electrique"));
+        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+
+        typeLitDao.create(new TypeLit("Mecanique"));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
+
+
+
+//        //------------------------- TypeDm ----------------------------------
+       typeDMDao.create(new TypeDM("Fourniture"));
+       typeDMDao.create(new TypeDM("Instrument Leger"));
+      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
+      typeDMDao.create(new TypeDM("Mobilier"));
+       typeDMDao.create(new TypeDM("Equipement Leger"));
+//        //-------------------------- Dm -------------------------------------
+     dmDao.create(new DM("BND", "Bande", typeDMDao.getById(1)));
+        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
 ////
 
     }
