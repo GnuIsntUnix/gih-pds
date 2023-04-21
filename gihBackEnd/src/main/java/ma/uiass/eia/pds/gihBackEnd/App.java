@@ -43,12 +43,6 @@ public class App
 
 //        fournisseurDao.create(new Fournisseur("F1"," "," "," "));
 //
-//        marqueDao.create(new Marque("MarqueTest"));
-//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
-//        typeLitDao.create(new TypeLit("Electrique"));
-//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
-//
 //
 //        //------------------------  Services   -----------------------------
 //        serviceDao.create(new Service("LOGI", "Logistique"));
@@ -56,6 +50,15 @@ public class App
 //        serviceDao.create(new Service("RADIO", "Radiologie"));
 //        serviceDao.create(new Service("CHR", "Chirurgie"));
 //        serviceDao.create(new Service("NEURO", "Neurologie"));
+//
+//        marqueDao.create(new Marque("MarqueTest"));
+//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
+//        typeLitDao.create(new TypeLit("Electrique"));
+//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+//
+//        typeLitDao.create(new TypeLit("Mecanique"));
+//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
+//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
 //
 //
 //

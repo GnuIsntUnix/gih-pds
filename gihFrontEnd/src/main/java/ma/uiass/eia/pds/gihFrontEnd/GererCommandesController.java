@@ -3,19 +3,19 @@ package ma.uiass.eia.pds.gihFrontEnd;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
+import javafx.scene.Parent;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 import ma.uiass.eia.pds.gihBackEnd.model.Commande;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeDM;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
 import okhttp3.*;
 
@@ -42,6 +42,13 @@ public class GererCommandesController implements Initializable {
 
     @FXML
     private TableColumn<Commande, Boolean> valideCol;
+
+
+    @FXML
+    private Tab tabGererCommandes;
+
+    @FXML
+    private Tab tabStockLits;
 
     OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -124,5 +131,11 @@ public class GererCommandesController implements Initializable {
 
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
+    }
+
+    @FXML
+    void onStockLits(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("consulterStockLits.fxml"));
+        tabStockLits.setContent(fxmlLoader);
     }
 }

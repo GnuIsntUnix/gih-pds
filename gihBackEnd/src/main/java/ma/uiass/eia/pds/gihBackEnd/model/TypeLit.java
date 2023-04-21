@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class TypeLit {
 
     @JsonIgnore
     @OneToMany(mappedBy = "typeLit")
-    private List<Lit> lits;
+    private List<Lit> lits = new ArrayList<>();
 
     @OneToMany(mappedBy = "typeLit")
     private List<Equipement> equipements;
@@ -92,5 +93,11 @@ public class TypeLit {
     @Override
     public String toString() {
         return nomTypeLit;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        TypeLit typeLit = (TypeLit) obj;
+        return typeLit.nomTypeLit.equalsIgnoreCase(this.nomTypeLit);
     }
 }

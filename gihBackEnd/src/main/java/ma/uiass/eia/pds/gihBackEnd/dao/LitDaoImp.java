@@ -76,4 +76,6 @@ public class LitDaoImp implements ILitDao{
         query.setParameter("id", typeLit.getIdType());
         return query.getResultList();
     }
+
+
 }
