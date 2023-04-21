@@ -32,9 +32,9 @@ public class Lit extends Emplacement{
     private TypeLit typeLit;
 
 
-    @JoinColumn(name = "idReservation", referencedColumnName = "Id")
+    @JoinColumn(name = "idAdmission", referencedColumnName = "Id")
     @OneToOne(mappedBy = "lit")
-    private Reservation reservation;
+    private Admission admission;
     //@JoinColumn(name = "idStock", referencedColumnName = "Id")
     //@OneToOne(mappedBy = "lit")
    // private Stock stock;
@@ -83,6 +83,13 @@ public class Lit extends Emplacement{
         this.etat = etat;
     }
 
+    public Admission getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(Admission admission) {
+        this.admission = admission;
+    }
 
     public Marque getMarque() {
         return marque;
@@ -117,5 +124,8 @@ public class Lit extends Emplacement{
                 ", typeLit=" + typeLit +
                 ", espace=" + espace +
                 '}';
+    }
+    public String getDisplayedName() {
+        return "Lit " + n_lit + " - " + typeLit.getNomTypeLit() + " (" + marque.getNomMarque() + ")";
     }
 }

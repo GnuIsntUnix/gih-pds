@@ -13,11 +13,12 @@ import java.time.LocalDate;
 public class Admission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private int idAdmission;
-    @Column(name="NumAdmission")
-    private int numAdmission;
+
+
     @Column(name="DateDébut")
-    private LocalDate dateDébut;
+    private LocalDate dateDebut;
     @Column(name="DateFin")
     private LocalDate dateFin;
     @OneToOne(cascade = CascadeType.ALL)
@@ -25,33 +26,22 @@ public class Admission implements Serializable {
     private Lit lit;
 
     public Admission( LocalDate dateE, Lit lit) {
-        this.dateDébut=dateE;
+        this.dateDebut=dateE;
         this.lit=lit;
+        lit.setAdmission(this);
     }
 
 
-    public int getNumAdmission() {
-        return numAdmission;
-    }
-    public void setNumAdmission(int numAdmission) {
-        this.numAdmission = numAdmission;
-    }
-    //public Date getDateDébut() {return dateDébut;}
-    //public void setDateDébut(Date dateDébut) {this.dateDébut = dateDébut;}
-    //public Date getDateFin() {return dateFin;}
-       /*public void setDateFin(Date dateFin) {
-            this.dateFin = dateFin;
-        }*/
     public int getIdRAdmission() {
         return idAdmission;
     }
 
-    public LocalDate getDateDébut() {
-        return dateDébut;
+    public LocalDate getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDateDébut(LocalDate dateDébut) {
-        this.dateDébut = dateDébut;
+    public void setDateDebut(LocalDate dateDébut) {
+        this.dateDebut = dateDébut;
     }
 
     public LocalDate getDateFin() {
@@ -65,12 +55,8 @@ public class Admission implements Serializable {
     public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
-    public Admission(int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
-        this.numAdmission = numAdmission;
-        this.dateDébut = dateDébut;
-        this.dateFin = dateFin;
-        this.lit = lit;
-    }
+
+
     public Lit getLit() {
         return lit;
     }
@@ -81,30 +67,33 @@ public class Admission implements Serializable {
         this.idAdmission = idAdmission;
     }
     public Admission(){}
-    public String toString(){
-        return this.idAdmission + " "+this.numAdmission+" "+" "+this.dateDébut+" "+this.dateFin +" "+this.lit.getN_lit();        }
+
+    public Admission(int idAdmission, LocalDate dateDebut, LocalDate dateFin, Lit lit) {
+        this.idAdmission = idAdmission;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.lit = lit;
+        lit.setAdmission(this);
+    }
+
+    public Admission(int idAdmission, LocalDate dateDebut, Lit lit) {
+        this.idAdmission = idAdmission;
+        this.dateDebut = dateDebut;
+        this.lit=lit;
+        lit.setAdmission(this);
+    }
 
     public int getIdLit() {
         return lit.getN_lit();
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////:::::
-    public void ajouterAdmission(int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
-        Admission admission = new Admission(numAdmission, dateDébut, dateFin, lit);
-        // Ajouter la nouvelle admission à la base de données
-        EntityManager entityManager = null;
-        entityManager.persist(admission);
-    }
-
-    public void modifierAdmission(Admission admission, int numAdmission, LocalDate dateDébut, LocalDate dateFin, Lit lit) {
-        admission.setNumAdmission(numAdmission);
-        admission.setDateDébut(dateDébut);
-        admission.setDateFin(dateFin);
-        admission.setLit(lit);
-        // Mettre à jour l'admission dans la base de données
-        EntityManager entityManager = null;
-        entityManager.merge(admission);
+    @Override
+    public String toString() {
+        return "Admission{" +
+                lit + dateDebut +
+                 dateFin
+               ;
     }
 
 }

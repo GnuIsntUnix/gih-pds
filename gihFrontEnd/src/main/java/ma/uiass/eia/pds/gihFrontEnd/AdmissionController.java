@@ -2,24 +2,37 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.shape.LineTo;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdmissionController implements Initializable {
+
+    @FXML
+    private TableColumn<Admission, LocalDate> dateDebutColumn;
+
+    @FXML
+    private TableColumn<Admission, LocalDate> dateFinColumn;
+
+    @FXML
+    private TableColumn<Admission, Integer> idAdmission;
+
+    @FXML
+    private TableColumn<Admission, Lit> litColumn;
 
     @FXML
     private Button bttnAjouter;
@@ -37,10 +50,7 @@ public class AdmissionController implements Initializable {
     private ComboBox<Lit> cbLit;
 
     @FXML
-    private DatePicker datePicker;
-
-    @FXML
-    private ListView<Admission> lstAdmissions;
+    private TableView<Admission> lstAdmissions;
     OkHttpClient okHttpClient = new OkHttpClient();
 
 
@@ -50,7 +60,7 @@ public class AdmissionController implements Initializable {
 
 
 
-        Admission admission = new Admission(datePicker.getValue(), cbLit.getValue());
+        Admission admission = new Admission(LocalDate.now(), cbLit.getValue());
         System.out.println(admission);
 
         RequestBody body = RequestBody.create(
@@ -91,6 +101,10 @@ public class AdmissionController implements Initializable {
                     cbLit.setItems(null);
                 }
             });
+            dateDebutColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getDateDebut()));
+            litColumn.setCellValueFactory(new PropertyValueFactory<>("lit"));
+            idAdmission.setCellValueFactory(new PropertyValueFactory<>("idAdmission"));
+            dateFinColumn.setCellValueFactory(new PropertyValueFactory<>(null));
             lstAdmissions.setItems(FXCollections.observableList(getAdmissions()));
 
 
@@ -115,7 +129,7 @@ public class AdmissionController implements Initializable {
         return espaces;
     }
     public List<Lit> getLits(){
-        Request request = new Request.Builder().url("http://localhost:9998/lits/getlits").build();
+        Request request = new Request.Builder().url("http://localhost:9998/lit/getlits").build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
