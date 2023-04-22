@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.controller;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import ma.uiass.eia.pds.gihBackEnd.model.Commande;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.services.ServiceLits;
 
@@ -69,6 +70,21 @@ public class LitResource {
                                           ){
         return serviceLits.getLitsByTypeInStock(idService, idType);
     }
-
-
+    @Path("/changeEtatLit/{id}")
+    public String updateEtatLit(@PathParam("id") int id){
+        serviceLits.switchEtat(id);
+        return "done";
+    }
+    @GET
+    @Path("/getlitsparstock/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsInStock(@PathParam("id") int id){
+        return serviceLits.getLitsInStock(id);
+    }
+    @POST
+    @Path("/merge")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void mergeLit(Lit lit){
+        serviceLits.mergeL(lit);
+    }
 }

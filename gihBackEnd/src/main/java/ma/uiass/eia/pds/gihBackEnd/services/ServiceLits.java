@@ -88,18 +88,46 @@ public class ServiceLits {
 
     public void switchEtat(int id){
         Lit lit=litDaoImp.getById(id);
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
         if(lit.getEtat()==EtatLit.D)
             lit.setEtat(EtatLit.O);
-        if(lit.getEtat()==EtatLit.O)
+        else if (lit.getEtat()==EtatLit.O)
             lit.setEtat(EtatLit.D);
 
+        try {
+            entityManager.merge(lit);
+            transaction.commit();
+        }catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        }
     }
-
     public void changelit(int id){
         Lit lit = litDaoImp.getById(id);
         if(lit.getEtat()==EtatLit.O)
             throw new RuntimeException("working properly");
-
+    }
+    public List<Lit> getOp(int idService){
+        Service service=serviceDaoImp.getById(idService);
+        List<Lit> lits = getLitsInStock(service.getStock().getIdEspace());
+        List<Lit> litsOp = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(EtatLit.O))
+                litsOp.add(lit);
+        }
+        return litsOp;
+    }
+    public List<Lit> getDef(int idService){
+        Service service=serviceDaoImp.getById(idService);
+        List<Lit> lits = getLitsInStock(service.getStock().getIdEspace());
+        List<Lit> litsDef = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(EtatLit.D))
+                litsDef.add(lit);
+        }
+        return litsDef;
     }
     public void addLitstoStock(Service service){
         ///'
@@ -128,6 +156,21 @@ public class ServiceLits {
     }
 
 
+    public void mergeL(Lit lit) {
+        EntityManager entityManager=HibernateUtil.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.merge(lit);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }
 
 
