@@ -58,6 +58,10 @@ public class DemandeDm {
         this.dateDemande=date;
     }
 
+    public DemandeDm(LocalDate now) {
+        this.dateDemande= now;
+    }
+
     public LocalDate getDateDemande() {
         return dateDemande;
     }

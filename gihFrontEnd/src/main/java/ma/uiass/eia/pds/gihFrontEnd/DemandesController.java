@@ -5,16 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,27 +32,29 @@ public class DemandesController implements Initializable {
     private ComboBox<TypeDM> cbTypeDm;
 
     @FXML
-    private DatePicker datepicker;
+    private Spinner<Integer> qtteSpinner;
 
-    @FXML
-    private ListView<DetailDemandeDm> lstdemandes;
-
-
-    @FXML
-    private ComboBox<Service> cbServices;
-    @FXML
-    private TextField txtQte;
 
     @FXML
     private Button bttnvalider;
+    @FXML
+    private TableColumn<DemandeDm, DM> DMColumn;
+
+    @FXML
+    private TableView<DetailDemandeDm> DemandesTable;
+    @FXML
+    private TableColumn<DemandeDm, LocalDate> dateColumn;
+
+    @FXML
+    private TableColumn<DemandeDm, Integer> qtteColumn;
+    @FXML
+    private Button bttnsupprimer;
 
 
     OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cbTypeDm.setItems(FXCollections.observableArrayList(getTypeDM()));
-        cbServices.setItems(FXCollections.observableArrayList(getServices()));
-
         cbDM.setDisable(true);
         cbTypeDm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null){
@@ -65,17 +66,27 @@ public class DemandesController implements Initializable {
                 cbDM.getItems().clear();
             }
         });
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+        qtteSpinner.setValueFactory(valueFactory);
+
+
+
+        DMColumn.setCellValueFactory(new PropertyValueFactory<>("dm"));
+        qtteColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+
 
     }
     @FXML
     public void onBtnAjouter(ActionEvent event) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-        int qte = Integer.parseInt(txtQte.getText());
+
+        int qte = qtteSpinner.getValue();
+
         DM dm = cbDM.getSelectionModel().getSelectedItem();
 
         DetailDemandeDm detailDemande = new DetailDemandeDm(dm, qte);
-        lstdemandes.getItems().add(detailDemande);
+        DemandesTable.getItems().add(detailDemande);
 
        // RequestBody body = RequestBody.create(
            //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
@@ -97,15 +108,13 @@ public class DemandesController implements Initializable {
               //  .addModule(new JavaTimeModule())
                 //.build();
         ObjectMapper mapper = new ObjectMapper();
-        Service service = cbServices.getValue();
-        LocalDate date = datepicker.getValue();
-        System.out.println(date);
 
-        List<DetailDemandeDm> list = lstdemandes.getItems().stream().toList();
+
+        List<DetailDemandeDm> list = DemandesTable.getItems().stream().toList();
         System.out.println(list);
 
 
-        DemandeDm demandeDm = new DemandeDm(service, date);
+        DemandeDm demandeDm = new DemandeDm(LocalDate.now());
         System.out.println(demandeDm);
         for (DetailDemandeDm d : list){
             d.setDemandeDm(demandeDm);
@@ -150,6 +159,13 @@ public class DemandesController implements Initializable {
                 response.close();
             }
         }
+    }
+    @FXML
+    public void deleteDetailList(ActionEvent event) {
+        bttnsupprimer.setOnAction(e -> {
+            DetailDemandeDm selectedItem = DemandesTable.getSelectionModel().getSelectedItem();
+            DemandesTable.getItems().remove(selectedItem);
+        });
     }
 
 

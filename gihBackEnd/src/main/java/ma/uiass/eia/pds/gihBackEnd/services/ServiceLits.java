@@ -8,11 +8,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class ServiceLits {
     private ILitDao litDaoImp = new LitDaoImp();
     private IServiceDao serviceDaoImp = new ServiceDaoImp();
     private IStockDao stockDaoImp = new StockDaoImp();
     private ITypeLitDao typeLitDao = new TypeLitDaoImp();
+    private IEspaceDao espaceDao = new EspaceDaoImp();
 
 
     public void deleteById(int id){
@@ -49,6 +52,11 @@ public class ServiceLits {
             batiment.getEspaces().forEach(espace -> lits.addAll(espace.getLits()));
         });
         return lits;
+    }
+    public List<Lit> getLitsByEspace(int id){
+        Espace espace = espaceDao.getById(id);
+        List<Lit> lits = new ArrayList<>();;
+        return espace.getLits();
     }
 
     public void addLitstoStock(Service service){

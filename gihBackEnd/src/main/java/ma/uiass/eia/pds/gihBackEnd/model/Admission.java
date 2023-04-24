@@ -1,5 +1,9 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.mysql.jdbc.PreparedStatement;
 
 import javax.persistence.Entity;
@@ -18,6 +22,8 @@ public class Admission implements Serializable {
 
 
     @Column(name="DateDébut")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDebut;
     @Column(name="DateFin")
     private LocalDate dateFin;
@@ -40,8 +46,8 @@ public class Admission implements Serializable {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDébut) {
-        this.dateDebut = dateDébut;
+    public void setDateDebut(LocalDate dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
     public LocalDate getDateFin() {

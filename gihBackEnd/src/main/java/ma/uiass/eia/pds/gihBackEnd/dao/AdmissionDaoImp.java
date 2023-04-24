@@ -49,7 +49,17 @@ public class AdmissionDaoImp implements IAdmissionDao{
 
     @Override
     public void delete(int id) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(this.getById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -59,6 +69,8 @@ public class AdmissionDaoImp implements IAdmissionDao{
             Lit lit = admission.getLit();
             if (lit != null) {
                 lit.setDisponibiliteLit(DisponibiliteLit.Di);
+                lit.setAdmission(null);
+                admission.setLit(null);
             }
             EntityTransaction transaction = entityManager.getTransaction();
             try {

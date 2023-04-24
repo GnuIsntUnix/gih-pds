@@ -127,6 +127,19 @@ public class Lit extends Emplacement{
                 ", espace=" + espace +
                 '}';
     }
+
+    public Lit(int n_lit, EtatLit etat, DisponibiliteLit disponibiliteLit, Marque marque, TypeLit typeLit, Admission admission, Espace espace, Admission admision) {
+        this.n_lit = n_lit;
+        this.etat = etat;
+        this.disponibiliteLit = disponibiliteLit;
+        this.marque = marque;
+        this.typeLit = typeLit;
+        this.admission = admission;
+        this.espace = espace;
+        this.admision = admision;
+        admision.setLit(this);
+    }
+
     public String getDisplayedName() {
         return "Lit " + n_lit + " - " + typeLit.getNomTypeLit() + " (" + marque.getNomMarque() + ")";
     }

@@ -23,6 +23,7 @@ public class App extends Application
     public void start(Stage stage) throws Exception {
         Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("admissionScene.fxml"));
         Scene scene = new Scene(loader);
+
         stage.setTitle("Test");
         stage.setScene(scene);
         stage.show();

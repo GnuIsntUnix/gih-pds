@@ -28,6 +28,11 @@ public class LitResource {
     @Path("/getlits/byservice/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Lit> getLitsByService(@PathParam("id") int id) {return serviceLits.getLitsByService(id);}
+    @GET
+    @Path("/getlits/byespace/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsByEspace(@PathParam("id") int id) {return serviceLits.getLitsByEspace(id);}
+
 
     @POST
     @Path("/save")
