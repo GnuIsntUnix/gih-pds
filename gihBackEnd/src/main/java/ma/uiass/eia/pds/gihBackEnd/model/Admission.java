@@ -1,5 +1,6 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -26,6 +27,8 @@ public class Admission implements Serializable {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDebut;
     @Column(name="DateFin")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateFin;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idLit")
@@ -38,9 +41,6 @@ public class Admission implements Serializable {
     }
 
 
-    public int getIdRAdmission() {
-        return idAdmission;
-    }
 
     public LocalDate getDateDebut() {
         return dateDebut;
@@ -74,33 +74,20 @@ public class Admission implements Serializable {
     }
     public Admission(){}
 
-    public Admission(int idAdmission, LocalDate dateDebut, LocalDate dateFin, Lit lit) {
-        this.idAdmission = idAdmission;
+    public Admission(LocalDate dateDebut, LocalDate dateFin, Lit lit) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.lit = lit;
         lit.setAdmission(this);
     }
 
-    public Admission(int idAdmission, LocalDate dateDebut, Lit lit) {
-        this.idAdmission = idAdmission;
-        this.dateDebut = dateDebut;
-        this.lit=lit;
-        lit.setAdmission(this);
-    }
-
-    public int getIdLit() {
-        return lit.getN_lit();
-    }
 
 
     @Override
     public String toString() {
-        return "Admission{" +
-                lit + dateDebut +
-                 dateFin
-               ;
+        if (this.getLit() != null)
+            return "Existe";
+        return "Non existante";
     }
-
 }
 

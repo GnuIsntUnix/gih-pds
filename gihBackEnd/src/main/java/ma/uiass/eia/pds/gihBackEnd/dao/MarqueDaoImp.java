@@ -56,6 +56,11 @@ public class MarqueDaoImp implements IMarqueDao {
     }
 
     @Override
+    public void update(Marque marque) {
+
+    }
+
+    @Override
     public void update(Marque marque, int id) {
 
     }

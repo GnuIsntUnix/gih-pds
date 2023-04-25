@@ -42,7 +42,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: ADFF2F;">
                      <children>
-                        <Button fx:id="bttnmodifier" mnemonicParsing="false" style="-fx-background-color: FFFACD;" text="Libérer" />
+                        <Button fx:id="bttnmodifier" mnemonicParsing="false" onAction="#onBtnLiberer" style="-fx-background-color: FFFACD;" text="Libérer" />
                      </children>
                   </HBox>
                </children>

@@ -3,6 +3,8 @@ package ma.uiass.eia.pds.gihFrontEnd;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -64,14 +66,13 @@ public class AdmissionController implements Initializable {
     public void onBtnAjouter(ActionEvent event) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-
-
         Admission admission = new Admission(LocalDate.now(), tableLIts.getSelectionModel().getSelectedItem());
 
-        System.out.println(admission);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(admission));
+
+        System.out.println(mapper.writeValueAsString(admission));
 
         Request request = new Request.Builder()
                 .url("http://localhost:9998/admission/save")
@@ -83,9 +84,38 @@ public class AdmissionController implements Initializable {
         Response response = call.execute();
 
 
-        initialize(null, null);
+        //initialize(null, null);
+
+        tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
     }
 
+    @FXML
+    public void onBtnLiberer(ActionEvent event) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Admission admission = tableLIts.getSelectionModel().getSelectedItem().getAdmission();
+        admission.setDateFin(LocalDate.now());
+
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(admission));
+
+        System.out.println(mapper.writeValueAsString(admission));
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/admission/update")
+                .put(body)
+                .build();
+
+
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+
+
+        //initialize(null, null);
+
+        tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
+    }
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,18 +129,33 @@ public class AdmissionController implements Initializable {
                 }
             });
             cbEspace.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-                tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
-
+                if (newValue != null) {
+                    tableLIts.setItems(FXCollections.observableList(getLits(newValue.getIdEspace())));
+                }
             });
             idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
             typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
-            admissionCol.setCellValueFactory(new PropertyValueFactory<>("admission"));
+            admissionCol.setCellValueFactory(table ->{
+                    table.getValue().setAdmission(getAdmission(table.getValue().getN_lit()));
+                return new SimpleObjectProperty<>(getAdmission(table.getValue().getN_lit()));
+            });
+            //admissionCol.setCellValueFactory(new PropertyValueFactory<>("admission"));
             tableLIts.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                        System.out.println("double");
                         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setContentText("Date debut : " + tableLIts.getSelectionModel().getSelectedItem().getAdmission().getDateDebut() + " Date fin : " + tableLIts.getSelectionModel().getSelectedItem().getAdmission().getDateFin());
+                        Admission admission = tableLIts.getFocusModel().getFocusedItem().getAdmission();
+                        System.out.println(tableLIts.getFocusModel().getFocusedItem());
+                        try {
+                            alert.setContentText("Date debut : " + admission.getDateDebut() + " Date fin : " + admission.getDateFin());
+                        }
+                        catch (Exception e ){
+                            alert.setContentText("Date debut : " + " Date fin : ");
+                        }
+                        alert.showAndWait();
+
                     }
                 }
             });
@@ -178,6 +223,21 @@ public class AdmissionController implements Initializable {
             throw new RuntimeException(e);
         }
         return admissions;
+    }
+
+    public Admission getAdmission(int idLit){
+        Request request = new Request.Builder().url("http://localhost:9998/admission/getadmissiononlit/"+idLit).build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        Response response = null;
+        Admission admission = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            admission = mapper.readValue(response.body().charStream(), new TypeReference<Admission>() {});
+        } catch (Exception e) {
+            return null;
+        }
+        return admission;
     }
 
 }

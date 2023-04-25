@@ -47,6 +47,11 @@ public class DetailLivraisonDaoImp implements IDetailLivraisonDao{
     }
 
     @Override
+    public void update(DetailLivraison detailLivraison) {
+
+    }
+
+    @Override
     public void update(DetailLivraison detailLivraison, int id) {
 
     }
