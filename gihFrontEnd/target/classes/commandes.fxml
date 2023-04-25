@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.CommandesController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="86.0" prefWidth="671.0" spacing="50.0">
+               <children>
+                  <ComboBox fx:id="cboxServices" prefWidth="150.0" promptText="Services" />
+                  <ComboBox fx:id="cbTypeLit" prefWidth="150.0" promptText="Type de Lit" />
+                  <TextField fx:id="txtQte" prefHeight="26.0" prefWidth="62.0" promptText="Quantite" />
+                  <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" text="Ajouter" />
+               </children>
+            </HBox>
+            <ListView fx:id="lstCommandes" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
