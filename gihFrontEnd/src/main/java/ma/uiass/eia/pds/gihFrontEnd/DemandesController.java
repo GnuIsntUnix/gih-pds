@@ -178,7 +178,6 @@ public class DemandesController implements Initializable {
 
 
 
-
     public List<DemandeDm> getDemandes(){
         Request request = new Request.Builder().url("http://localhost:9998/demande/getdemandes").build();
         ObjectMapper mapper = new ObjectMapper();
