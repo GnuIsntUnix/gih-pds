@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,12 +39,13 @@ public abstract class Espace {
 
     @JsonIgnore
     @OneToMany(mappedBy="espace")
-    protected List<Lit> lits ;
+    protected List<Lit> lits  = new ArrayList<>();
 
 
     public Espace(int numEspace, Batiment batiment, int etage, List<Lit> lits) {
         this.numEspace = numEspace;
         this.batiment = batiment;
+        batiment.getEspaces().add(this);
         this.etage = etage;
         this.lits = lits;
     }
@@ -52,6 +54,7 @@ public abstract class Espace {
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
+        batiment.getEspaces().add(this);
     }
 
 

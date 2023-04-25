@@ -28,6 +28,11 @@ public class LitResource {
     @Path("/getlits/byservice/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Lit> getLitsByService(@PathParam("id") int id) {return serviceLits.getLitsByService(id);}
+    @GET
+    @Path("/getlits/byespace/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsByEspace(@PathParam("id") int id) {return serviceLits.getLitsByEspace(id);}
+
 
     @POST
     @Path("/save")
@@ -53,6 +58,15 @@ public class LitResource {
     public String deleteLit(@PathParam("id") int id){
         serviceLits.deleteById(id);
         return "Deleted !";
+    }
+
+    @GET
+    @Path("/getlits/stock/{idService}/bytype/{idType}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsInStockByType(@PathParam("idService") int idService,
+                                          @PathParam("idType") int idType
+                                          ){
+        return serviceLits.getLitsByTypeInStock(idService, idType);
     }
 
 

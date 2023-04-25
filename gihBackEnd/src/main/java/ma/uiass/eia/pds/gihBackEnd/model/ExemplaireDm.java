@@ -24,6 +24,7 @@ public class ExemplaireDm {
 
     @JoinColumn(name = "idStock", referencedColumnName = "Id")
     @ManyToOne
+    @JsonIgnore
     private Stock stock;
 
 

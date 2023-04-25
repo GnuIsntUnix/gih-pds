@@ -20,6 +20,10 @@ public class DemandeDm {
     @Column(name = "Id")
     private int idDemande;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EtatDemande")
+    private EtatDemandeDM etatDemande;
+
 
     @Column(name="DateDemande")
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -52,6 +56,10 @@ public class DemandeDm {
     public DemandeDm(Service service, LocalDate date) {
         this.service = service;
         this.dateDemande=date;
+    }
+
+    public DemandeDm(LocalDate now) {
+        this.dateDemande= now;
     }
 
     public LocalDate getDateDemande() {

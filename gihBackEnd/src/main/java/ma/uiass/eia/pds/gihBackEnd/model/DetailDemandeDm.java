@@ -18,6 +18,8 @@ public class DetailDemandeDm {
     @JsonInclude
     private DM dm;
 
+
+
     @Column(name = "Qte")
     private int qte;
 
@@ -27,6 +29,13 @@ public class DetailDemandeDm {
     private DemandeDm demandeDm;
 
 
+    public DM getDm() {
+        return dm;
+    }
+
+    public void setDm(DM dm) {
+        this.dm = dm;
+    }
 
     public DetailDemandeDm(DM dm, int qte, DemandeDm demandeDm) {
         this.dm = dm;

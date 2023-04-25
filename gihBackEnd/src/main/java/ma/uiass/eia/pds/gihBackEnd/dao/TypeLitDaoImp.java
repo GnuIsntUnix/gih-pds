@@ -56,6 +56,11 @@ public class TypeLitDaoImp implements ITypeLitDao {
     }
 
     @Override
+    public void update(TypeLit typeLit) {
+
+    }
+
+    @Override
     public void update(TypeLit typeLit, int id) {
 
     }

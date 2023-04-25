@@ -25,7 +25,9 @@ public class Stock extends Espace{
     public Stock(Service service) {
         super();
         this.service = service;
+        service.setStock(this);
     }
+
 
     public List<ExemplaireDm> getDms() {
         return dms;

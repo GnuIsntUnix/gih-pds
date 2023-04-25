@@ -32,4 +32,11 @@ public class CommandeResource {
         commandeDao.create(c);
         return "Saved !";
     }
+
+    @POST
+    @Path("/merge")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void mergeCommande(Commande c){
+        commandeDao.update(c);
+    }
 }

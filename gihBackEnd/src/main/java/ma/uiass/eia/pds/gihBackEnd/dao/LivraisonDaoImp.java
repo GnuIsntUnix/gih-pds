@@ -58,6 +58,11 @@ public class LivraisonDaoImp implements ILivraisonDao{
     }
 
     @Override
+    public void update(Livraison livraison) {
+
+    }
+
+    @Override
     public void update(Livraison livraison, int id) {
 
     }

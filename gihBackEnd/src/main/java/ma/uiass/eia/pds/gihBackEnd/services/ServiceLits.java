@@ -1,22 +1,22 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
-import ma.uiass.eia.pds.gihBackEnd.dao.ILitDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.IServiceDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.LitDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.dao.*;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+
 
 public class ServiceLits {
-    private ILitDao litDaoImp;
-    private IServiceDao serviceDaoImp;
+    private ILitDao litDaoImp = new LitDaoImp();
+    private IServiceDao serviceDaoImp = new ServiceDaoImp();
+    private IStockDao stockDaoImp = new StockDaoImp();
+    private ITypeLitDao typeLitDao = new TypeLitDaoImp();
+    private IEspaceDao espaceDao = new EspaceDaoImp();
 
-    public ServiceLits() {
-        litDaoImp = new LitDaoImp();
-        serviceDaoImp = new ServiceDaoImp();
-    }
 
     public void deleteById(int id){
 
@@ -52,6 +52,37 @@ public class ServiceLits {
             batiment.getEspaces().forEach(espace -> lits.addAll(espace.getLits()));
         });
         return lits;
+    }
+    public List<Lit> getLitsByEspace(int id){
+        Espace espace = espaceDao.getById(id);
+        List<Lit> lits = new ArrayList<>();;
+        return espace.getLits();
+    }
+
+    public void addLitstoStock(Service service){
+        ///'
+    }
+
+    public List<Lit> getLitsInStock(int idStock){
+        List<Lit> lits = litDaoImp.getAll();
+        List<Lit> stock = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getEspace().getIdEspace() == idStock){
+                stock.add(lit);
+            }
+        }
+        return stock;
+    }
+
+    public List<Lit> getLitsByTypeInStock(int idService, int idTypeLit){
+        TypeLit typeLit = typeLitDao.getById(idTypeLit);
+        List<Lit> lits = getLitsInStock(serviceDaoImp.getById(idService).getStock().getIdEspace());
+        List<Lit> litList = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(typeLit))
+                litList.add(lit);
+        }
+        return litList;
     }
 
 
