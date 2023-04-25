@@ -42,6 +42,15 @@ public class DetailLivraison {
         this.fournisseur = fournisseur;
     }
 
+    @Override
+    public String toString() {
+        return "DetailLivraison{" +
+                "dm=" + dm +
+                ", qte=" + qte +
+                ", fournisseur=" + fournisseur +
+                '}';
+    }
+
     public Fournisseur getFournisseur() {
         return fournisseur;
     }

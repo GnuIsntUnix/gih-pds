@@ -27,6 +27,11 @@ public class Fournisseur {
         @Column(name = "Tel")
         private String tel;
 
+        @Override
+        public String toString() {
+                return this.nom;
+        }
+
         @OneToMany(mappedBy = "fournisseur")
         private List<DetailLivraison> detailLivraison;
 
