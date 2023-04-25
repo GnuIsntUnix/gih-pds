@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class ServiceLits {
     private ILitDao litDaoImp;
     private IServiceDao serviceDaoImp;
@@ -19,6 +21,7 @@ public class ServiceLits {
 
     private IStockDao stockDaoImp = new StockDaoImp();
     private ITypeLitDao typeLitDao = new TypeLitDaoImp();
+    private IEspaceDao espaceDao = new EspaceDaoImp();
 
     public ServiceLits() {
         litDaoImp = new LitDaoImp();
@@ -84,6 +87,11 @@ public class ServiceLits {
     } finally {
         entityManager.close();
     }
+    }
+    public List<Lit> getLitsByEspace(int id){
+        Espace espace = espaceDao.getById(id);
+        List<Lit> lits = new ArrayList<>();;
+        return espace.getLits();
     }
 
     public void switchEtat(int id){

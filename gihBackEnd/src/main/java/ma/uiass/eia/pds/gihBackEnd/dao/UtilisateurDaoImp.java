@@ -61,6 +61,11 @@ public class UtilisateurDaoImp implements Dao<Utilisateur>{
     }
 
     @Override
+    public void update(Utilisateur utilisateur) {
+
+    }
+
+    @Override
     public void update(Utilisateur utilisateur, int id) {
 
     }

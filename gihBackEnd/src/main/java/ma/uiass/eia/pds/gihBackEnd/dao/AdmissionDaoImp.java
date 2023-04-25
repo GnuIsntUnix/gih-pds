@@ -9,12 +9,14 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
 public class AdmissionDaoImp implements IAdmissionDao{
     private EntityManager entityManager;
+    private ILitDao litDao = new LitDaoImp();
 
     public AdmissionDaoImp() {entityManager = HibernateUtil.getEntityManager();}
 
@@ -22,9 +24,12 @@ public class AdmissionDaoImp implements IAdmissionDao{
     @Override
     public void create(Admission admission) {
         EntityTransaction transaction = entityManager.getTransaction();
+        Lit lit = admission.getLit();
+        lit.setDisponibiliteLit(DisponibiliteLit.O);
         try {
             transaction.begin();
-            this.entityManager.persist(admission);
+            this.entityManager.merge(lit);
+            this.entityManager.merge(admission);
             transaction.commit();
         }
         catch (Exception e) {
@@ -47,18 +52,43 @@ public class AdmissionDaoImp implements IAdmissionDao{
 
     }
 
-    @Override
-    public void delete(int id) {
+    public Admission getAdmissionByLit(int id){
+        Admission admission = null;
+        try{
+            Query query = entityManager.createQuery("from Admission a where a.lit.n_lit =: id");
+            query.setParameter("id", id);
+            admission = (Admission) query.getSingleResult();
+        }
+        catch (NoResultException ignored){
 
+        }
+        return admission;
     }
 
     @Override
-    public void update(Admission admission, int numAdmission) {
+    public void delete(int id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(this.getById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Admission admission) {
         if (admission != null) {
             admission.setDateFin(LocalDate.now());
             Lit lit = admission.getLit();
             if (lit != null) {
                 lit.setDisponibiliteLit(DisponibiliteLit.Di);
+                lit.setAdmission(null);
+                admission.setLit(null);
             }
             EntityTransaction transaction = entityManager.getTransaction();
             try {
@@ -74,4 +104,10 @@ public class AdmissionDaoImp implements IAdmissionDao{
                 e.printStackTrace();
             }
 
-}}}
+}}
+
+    @Override
+    public void update(Admission admission, int id) {
+
+    }
+}

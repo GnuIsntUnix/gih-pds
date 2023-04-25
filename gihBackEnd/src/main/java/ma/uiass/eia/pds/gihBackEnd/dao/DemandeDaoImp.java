@@ -62,6 +62,11 @@ public class DemandeDaoImp implements IDemandeDao {
     }
 
     @Override
+    public void update(DemandeDm demandeDm) {
+
+    }
+
+    @Override
     public void update(DemandeDm demandeDm, int id) {
 
     }

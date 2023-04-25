@@ -58,6 +58,11 @@ public class EquipementDaoImp implements IEquipementDao{
         }
 
     @Override
+    public void update(Equipement equipement) {
+
+    }
+
+    @Override
     public void update(Equipement equipement, int id) {
 
     }

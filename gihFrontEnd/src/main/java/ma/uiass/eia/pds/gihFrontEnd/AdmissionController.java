@@ -2,30 +2,51 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.LineTo;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdmissionController implements Initializable {
+
+
+    @FXML
+    private TableView<Lit> tableLIts;
+
 
     @FXML
     private Button bttnAjouter;
 
     @FXML
     private Button bttnmodifier;
+    @FXML
+    private TableColumn<Lit, Espace> espaceCol;
+
+
+    @FXML
+    private TableColumn<Lit, Integer> idCol;
+
+    @FXML
+    private TableColumn<Lit, TypeLit> typeCol;
+    @FXML
+    private  TableColumn<Lit,Admission> admissionCol;
 
     @FXML
     private ComboBox<Batiment> cbBatiment;
@@ -33,14 +54,11 @@ public class AdmissionController implements Initializable {
     @FXML
     private ComboBox<Espace> cbEspace;
 
-    @FXML
-    private ComboBox<Lit> cbLit;
 
-    @FXML
-    private DatePicker datePicker;
 
-    @FXML
-    private ListView<Admission> lstAdmissions;
+
+
+
     OkHttpClient okHttpClient = new OkHttpClient();
 
 
@@ -48,13 +66,13 @@ public class AdmissionController implements Initializable {
     public void onBtnAjouter(ActionEvent event) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
+        Admission admission = new Admission(LocalDate.now(), tableLIts.getSelectionModel().getSelectedItem());
 
-
-        Admission admission = new Admission(datePicker.getValue(), cbLit.getValue());
-        System.out.println(admission);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(admission));
+
+        System.out.println(mapper.writeValueAsString(admission));
 
         Request request = new Request.Builder()
                 .url("http://localhost:9998/admission/save")
@@ -66,9 +84,38 @@ public class AdmissionController implements Initializable {
         Response response = call.execute();
 
 
-        initialize(null, null);
+        //initialize(null, null);
+
+        tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
     }
 
+    @FXML
+    public void onBtnLiberer(ActionEvent event) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        Admission admission = tableLIts.getSelectionModel().getSelectedItem().getAdmission();
+        admission.setDateFin(LocalDate.now());
+
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(admission));
+
+        System.out.println(mapper.writeValueAsString(admission));
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/admission/update")
+                .put(body)
+                .build();
+
+
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+
+
+        //initialize(null, null);
+
+        tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
+    }
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,21 +124,41 @@ public class AdmissionController implements Initializable {
                 if (newValue != null) {
                     cbEspace.setItems(FXCollections.observableList(newValue.getEspaces()));
                     cbEspace.getSelectionModel().clearSelection();
-                    cbLit.getSelectionModel().clearSelection();
                 } else {
                     cbEspace.setItems(null);
-                    cbLit.setItems(null);
                 }
             });
             cbEspace.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 if (newValue != null) {
-                    cbLit.setItems(FXCollections.observableArrayList(newValue.getLits()));
-                    cbLit.getSelectionModel().clearSelection();
-                } else {
-                    cbLit.setItems(null);
+                    tableLIts.setItems(FXCollections.observableList(getLits(newValue.getIdEspace())));
                 }
             });
-            lstAdmissions.setItems(FXCollections.observableList(getAdmissions()));
+            idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
+            admissionCol.setCellValueFactory(table ->{
+                    table.getValue().setAdmission(getAdmission(table.getValue().getN_lit()));
+                return new SimpleObjectProperty<>(getAdmission(table.getValue().getN_lit()));
+            });
+            //admissionCol.setCellValueFactory(new PropertyValueFactory<>("admission"));
+            tableLIts.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                        System.out.println("double");
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        Admission admission = tableLIts.getFocusModel().getFocusedItem().getAdmission();
+                        System.out.println(tableLIts.getFocusModel().getFocusedItem());
+                        try {
+                            alert.setContentText("Date debut : " + admission.getDateDebut() + " Date fin : " + admission.getDateFin());
+                        }
+                        catch (Exception e ){
+                            alert.setContentText("Date debut : " + " Date fin : ");
+                        }
+                        alert.showAndWait();
+
+                    }
+                }
+            });
 
 
         }
@@ -114,8 +181,8 @@ public class AdmissionController implements Initializable {
         }
         return espaces;
     }
-    public List<Lit> getLits(){
-        Request request = new Request.Builder().url("http://localhost:9998/lits/getlits").build();
+    public List<Lit> getLits(int id){
+        Request request = new Request.Builder().url("http://localhost:9998/lit/getlits/byespace/"+ id).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -156,6 +223,21 @@ public class AdmissionController implements Initializable {
             throw new RuntimeException(e);
         }
         return admissions;
+    }
+
+    public Admission getAdmission(int idLit){
+        Request request = new Request.Builder().url("http://localhost:9998/admission/getadmissiononlit/"+idLit).build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        Response response = null;
+        Admission admission = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            admission = mapper.readValue(response.body().charStream(), new TypeReference<Admission>() {});
+        } catch (Exception e) {
+            return null;
+        }
+        return admission;
     }
 
 }

@@ -57,6 +57,11 @@ public class StockDaoImp implements IStockDao {
         }
     }
 
+    @Override
+    public void update(Stock stock) {
+
+    }
+
     public void affecterRessource(int idService, int n_lit) {
 
         Service service = entityManager.find(Service.class, idService);

@@ -18,6 +18,8 @@ public class DetailDemandeDm {
     @JsonInclude
     private DM dm;
 
+
+
     @Column(name = "Qte")
     private int qte;
 

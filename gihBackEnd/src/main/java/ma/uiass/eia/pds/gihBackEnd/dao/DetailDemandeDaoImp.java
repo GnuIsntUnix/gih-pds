@@ -51,6 +51,11 @@ public class DetailDemandeDaoImp implements IDetailDemandeDao{
     }
 
     @Override
+    public void update(DetailDemandeDm detailDemandeDm) {
+
+    }
+
+    @Override
     public void update(DetailDemandeDm detailDemandeDm, int id) {
 
     }

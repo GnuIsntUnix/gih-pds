@@ -57,6 +57,11 @@ public class BatimentDaoImp implements IBatimentDao{
     }
 
     @Override
+    public void update(Batiment batiment) {
+
+    }
+
+    @Override
     public void update(Batiment batiment, int id) {
 
     }

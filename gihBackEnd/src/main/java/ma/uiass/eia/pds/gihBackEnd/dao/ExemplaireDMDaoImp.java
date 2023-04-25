@@ -49,6 +49,11 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
     }
 
     @Override
+    public void update(ExemplaireDm exemplaireDm) {
+
+    }
+
+    @Override
     public void update(ExemplaireDm exemplaireDm, int id) {
 
     }

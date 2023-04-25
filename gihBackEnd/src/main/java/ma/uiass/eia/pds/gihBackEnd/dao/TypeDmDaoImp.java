@@ -48,6 +48,11 @@ public class TypeDmDaoImp implements ITypeDmDao{
     }
 
     @Override
+    public void update(TypeDM typeDM) {
+
+    }
+
+    @Override
     public void update(TypeDM typeDM, int id) {
 
     }
