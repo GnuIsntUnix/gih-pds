@@ -53,10 +53,6 @@ public class AdmissionController implements Initializable {
     private ComboBox<Espace> cbEspace;
 
 
-
-
-
-
     OkHttpClient okHttpClient = new OkHttpClient();
 
 
@@ -86,9 +82,39 @@ public class AdmissionController implements Initializable {
         initialize(null, null);
     }
 
+    @FXML
+    public void onBtnModifier(ActionEvent event) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+
+
+        Admission admission = tableLIts.getSelectionModel().getSelectedItem().getAdmission();
+        admission.setDateFin(LocalDate.now());
+
+        System.out.println(admission);
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(admission));
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/admission/update/"+admission.getIdAdmission())
+                .post(body)
+                .build();
+
+
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+
+
+        initialize(null, null);
+    }
+
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+            idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
+            admissionCol.setCellValueFactory(new PropertyValueFactory<>("admission"));
             cbBatiment.setItems(FXCollections.observableArrayList(getBatiments()));
             cbBatiment.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -102,9 +128,6 @@ public class AdmissionController implements Initializable {
                 tableLIts.setItems(FXCollections.observableList(getLits(cbEspace.getValue().getIdEspace())));
 
             });
-            idCol.setCellValueFactory(new PropertyValueFactory<>("n_lit"));
-            typeCol.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
-            admissionCol.setCellValueFactory(new PropertyValueFactory<>("admission"));
             tableLIts.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -117,6 +140,8 @@ public class AdmissionController implements Initializable {
 
 
         }
+
+
 
 
 
@@ -148,6 +173,7 @@ public class AdmissionController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         return lits;
     }
     public List<Batiment> getBatiments(){
