@@ -34,6 +34,7 @@ public class Lit extends Emplacement{
 
     @JoinColumn(name = "idAdmission", referencedColumnName = "Id")
     @OneToOne(mappedBy = "lit")
+    @JsonIgnore
     private Admission admission;
     //@JoinColumn(name = "idStock", referencedColumnName = "Id")
     //@OneToOne(mappedBy = "lit")
@@ -45,8 +46,6 @@ public class Lit extends Emplacement{
     @ManyToOne
     @JoinColumn(name = "idEspace", referencedColumnName = "Id")
     private Espace espace;
-    @OneToOne
-    private Admission admision;
     //constructor    public Lit(int n_lit, EtatLit etat, Marque marque, TypeLit tpl, Chambre chambre) {
 
     public Lit(EtatLit etat, DisponibiliteLit dsp, Marque marque, TypeLit typeLit, Espace espace) {
@@ -54,8 +53,8 @@ public class Lit extends Emplacement{
         this.etat = etat;
         this.marque = marque;
         this.typeLit = typeLit;
-        typeLit.getLits().add(this);
         this.espace = espace;
+        typeLit.getLits().add(this);
         espace.getLits().add(this);
     }
 
@@ -86,7 +85,7 @@ public class Lit extends Emplacement{
     }
 
     public Admission getAdmission() {
-        return admission;
+        return this.admission;
     }
 
     public void setAdmission(Admission admission) {
@@ -128,19 +127,19 @@ public class Lit extends Emplacement{
                 '}';
     }
 
-    public Lit(int n_lit, EtatLit etat, DisponibiliteLit disponibiliteLit, Marque marque, TypeLit typeLit, Admission admission, Espace espace, Admission admision) {
-        this.n_lit = n_lit;
+    public Lit(EtatLit etat, DisponibiliteLit disponibiliteLit, Marque marque, TypeLit typeLit, Admission admission, Espace espace) {
         this.etat = etat;
         this.disponibiliteLit = disponibiliteLit;
         this.marque = marque;
         this.typeLit = typeLit;
         this.admission = admission;
         this.espace = espace;
-        this.admision = admision;
-        admision.setLit(this);
+        admission.setLit(this);
+        typeLit.getLits().add(this);
+        espace.getLits().add(this);
     }
 
-    public String getDisplayedName() {
-        return "Lit " + n_lit + " - " + typeLit.getNomTypeLit() + " (" + marque.getNomMarque() + ")";
-    }
+//    public String getDisplayedName() {
+//        return "Lit " + n_lit + " - " + typeLit.getNomTypeLit() + " (" + marque.getNomMarque() + ")";
+//    }
 }

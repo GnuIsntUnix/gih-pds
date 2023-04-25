@@ -79,6 +79,11 @@ public class DmDaoImp implements IDmDao{
     }
 
     @Override
+    public void update(DM dm) {
+
+    }
+
+    @Override
     public void update(DM dm, int id) {
 
     }

@@ -60,6 +60,11 @@ public class EspaceDaoImp implements IEspaceDao{
     }
 
     @Override
+    public void update(Espace espace) {
+
+    }
+
+    @Override
     public void update(Espace espace, int id) {
 
     }

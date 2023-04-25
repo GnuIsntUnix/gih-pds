@@ -54,6 +54,7 @@ public abstract class Espace {
         this.numEspace = numEspace;
         this.batiment = batiment;
         this.etage = etage;
+        batiment.getEspaces().add(this);
     }
 
 

@@ -59,6 +59,11 @@ public class ServiceDaoImp implements IServiceDao {
     }
 
     @Override
+    public void update(Service service) {
+
+    }
+
+    @Override
     public void update(Service service, int id) {
 
     }

@@ -59,6 +59,11 @@ public class LitDaoImp implements ILitDao{
     }
 
     @Override
+    public void update(Lit lit) {
+
+    }
+
+    @Override
     public void update(Lit lit, int id) {
         Lit lit1 = getById(id);
         lit1.setEtat(lit.getEtat());

@@ -51,6 +51,11 @@ public class FournisseurDaoImp implements IFournisseurDao{
     }
 
     @Override
+    public void update(Fournisseur fournisseur) {
+
+    }
+
+    @Override
     public void update(Fournisseur fournisseur, int id) {
 
     }

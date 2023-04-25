@@ -48,6 +48,11 @@ public class CommandeDaoImp implements ICommandeDao{
     }
 
     @Override
+    public void update(Commande commande, int id) {
+
+    }
+
+    @Override
     public Commande getById(int id) {
         return entityManager.find(Commande.class, id);
     }
@@ -73,10 +78,6 @@ public class CommandeDaoImp implements ICommandeDao{
         }
     }
 
-    @Override
-    public void update(Commande commande, int id) {
-
-    }
 
 
 }
