@@ -20,6 +20,7 @@ public class DetailDemandeDm {
 
 
 
+
     @Column(name = "Qte")
     private int qte;
 
