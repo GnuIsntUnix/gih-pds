@@ -35,6 +35,7 @@ public class Commande {
 
     public Commande(Service service, TypeLit typeLit, int quantite) {
         this.service = service;
+        service.getCommandes().add(this);
         this.typeLit = typeLit;
         this.quantite = quantite;
     }

@@ -48,6 +48,7 @@ public class DemandeDm {
 
     public DemandeDm(Service service, LocalDate dateDemande,List<DetailDemandeDm> detailDemandeDms) {
         this.service = service;
+        service.getDemandeDms().add(this);
         this.dateDemande=dateDemande;
         this.detailDemandeDms=detailDemandeDms;
 
@@ -55,6 +56,7 @@ public class DemandeDm {
 
     public DemandeDm(Service service, LocalDate date) {
         this.service = service;
+        service.getDemandeDms().add(this);
         this.dateDemande=date;
     }
 

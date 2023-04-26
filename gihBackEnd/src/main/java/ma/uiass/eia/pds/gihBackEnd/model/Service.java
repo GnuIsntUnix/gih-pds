@@ -26,12 +26,24 @@ public class Service extends Instances implements Serializable {
     private String nomService;
 
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Batiment> batiments = new ArrayList<>();
 
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<DemandeDm> demandeDms;
+    private List<DemandeDm> demandeDms = new ArrayList<>();
+
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
+
+    @OneToMany(mappedBy = "service")
+    @JsonIgnore
+    private List<Commande> commandes = new ArrayList<>();
 
     @OneToOne(mappedBy = "service")
     @JsonIgnore
