@@ -22,7 +22,7 @@ public class DemandeDm {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EtatDemande")
-    private EtatDemandeDM etatDemande;
+    private EtatDemandeDM etatDemande= EtatDemandeDM.INITIALISE;
 
 
     @Column(name="DateDemande")

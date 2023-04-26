@@ -21,7 +21,7 @@ public class App extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("acceuil.fxml"));
+        Parent loader = FXMLLoader.load(getClass().getClassLoader().getResource("demandesDm.fxml"));
         Scene scene = new Scene(loader);
 
         stage.setTitle("Test");
@@ -29,5 +29,4 @@ public class App extends Application
         stage.show();
         loader.requestFocus();
     }
-
 }

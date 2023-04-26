@@ -2,10 +2,7 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
+import org.controlsfx.control.PropertySheet;
 
 
 import java.io.IOException;
@@ -20,6 +18,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class DemandesController implements Initializable {
     @FXML
@@ -38,15 +37,15 @@ public class DemandesController implements Initializable {
     @FXML
     private Button bttnvalider;
     @FXML
-    private TableColumn<DemandeDm, DM> DMColumn;
+    private TableColumn<DetailDemandeDm, DM> DMColumn;
 
     @FXML
     private TableView<DetailDemandeDm> DemandesTable;
     @FXML
-    private TableColumn<DemandeDm, LocalDate> dateColumn;
+    private TableColumn<DetailDemandeDm, LocalDate> dateColumn;
 
     @FXML
-    private TableColumn<DemandeDm, Integer> qtteColumn;
+    private TableColumn<DetailDemandeDm, Integer> qtteColumn;
     @FXML
     private Button bttnsupprimer;
 
@@ -68,11 +67,15 @@ public class DemandesController implements Initializable {
         });
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
         qtteSpinner.setValueFactory(valueFactory);
+        DemandesTable.setEditable(true);
+
 
 
 
         DMColumn.setCellValueFactory(new PropertyValueFactory<>("dm"));
         qtteColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+        qtteColumn.setCellFactory(col -> new IntegerEditingCell());
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     }
@@ -100,6 +103,71 @@ public class DemandesController implements Initializable {
        // Response response = call.execute();
        // System.out.println(response.code());
 
+    }
+
+    class IntegerEditingCell extends TableCell<DetailDemandeDm, Integer> {
+
+        private final TextField textField = new TextField();
+        private final Pattern intPattern = Pattern.compile("-?\\d+");
+
+        public IntegerEditingCell() {
+            textField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                if (! isNowFocused) {
+                    processEdit();
+                }
+            });
+            textField.setOnAction(event -> processEdit());
+        }
+
+        private void processEdit() {
+            String text = textField.getText();
+            if (intPattern.matcher(text).matches()) {
+                commitEdit(Integer.parseInt(text));
+            } else {
+                cancelEdit();
+            }
+        }
+
+        @Override
+        public void updateItem(Integer value, boolean empty) {
+            super.updateItem(value, empty);
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else if (isEditing()) {
+                setText(null);
+                textField.setText(value.toString());
+                setGraphic(textField);
+            } else {
+                setText(value.toString());
+                setGraphic(null);
+            }
+        }
+
+        @Override
+        public void startEdit() {
+            super.startEdit();
+            Number value = getItem();
+            if (value != null) {
+                textField.setText(value.toString());
+                setGraphic(textField);
+                setText(null);
+            }
+        }
+
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+            setText(getItem().toString());
+            setGraphic(null);
+        }
+
+        // This seems necessary to persist the edit on loss of focus; not sure why:
+        @Override
+        public void commitEdit(Integer value) {
+            super.commitEdit(value);
+            ((DetailDemandeDm) this.getTableRow().getItem()).setQte(value.intValue());
+        }
     }
 
     @FXML
