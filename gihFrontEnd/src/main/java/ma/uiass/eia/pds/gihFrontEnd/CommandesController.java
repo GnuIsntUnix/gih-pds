@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class CommandesController implements Initializable {
 
 
-    private static Service service;
+    private static Service service = MenuControllerChefService.getService();
 
     @FXML
     private Button btnAjouter;
@@ -58,7 +58,7 @@ public class CommandesController implements Initializable {
 
         int qte = Integer.parseInt(txtQte.getText());
         TypeLit typeLit = cbTypeLit.getSelectionModel().getSelectedItem();
-        Service service = CommandesController.getService();
+        Service service = CommandesController.service;
 
         Commande commande = new Commande(service, typeLit, qte);
         System.out.println(commande);
@@ -88,12 +88,11 @@ public class CommandesController implements Initializable {
         clService.setCellValueFactory(new PropertyValueFactory<>("service"));
         clType.setCellValueFactory(new PropertyValueFactory<>("typeLit"));
         clValide.setCellValueFactory(new PropertyValueFactory<>("valide"));
-        System.out.println(getCommandes());
         tblCommandes.setItems(FXCollections.observableArrayList(getCommandes()));
     }
 
     public List<Commande> getCommandes(){
-        Request request = new Request.Builder().url("http://localhost:9998/commande/getcommandes/byservice/"+CommandesController.getService().getIdService()).build();
+        Request request = new Request.Builder().url("http://localhost:9998/commande/getcommandes/byservice/"+CommandesController.service.getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -137,11 +136,4 @@ public class CommandesController implements Initializable {
         return services;
     }
 
-    public static Service getService() {
-        return service;
-    }
-
-    public static void setService(Service service) {
-        CommandesController.service = service;
-    }
 }

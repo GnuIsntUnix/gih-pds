@@ -56,8 +56,13 @@ public class App
 //
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
+//        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
+//        batimentDao.create(new Batiment("Batiment C", serviceDao.getById(2)));
+//        batimentDao.create(new Batiment("Batiment D", serviceDao.getById(3)));
 //        typeLitDao.create(new TypeLit("Electrique"));
 //        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+//        espaceDao.create(new Chambre(10, batimentDao.getById(2), 2, TypeChambre.S));
+//        espaceDao.create(new Chambre(5, batimentDao.getById(3), 2, TypeChambre.S));
 //
 //        typeLitDao.create(new TypeLit("Mecanique"));
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
@@ -66,6 +71,9 @@ public class App
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(7)));
+//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
+//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
 //
 //
 //

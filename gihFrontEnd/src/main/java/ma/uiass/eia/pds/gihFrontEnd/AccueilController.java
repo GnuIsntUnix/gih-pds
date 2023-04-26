@@ -39,7 +39,7 @@ public class AccueilController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnAdmin.setOnAction( new SceneChangeEventHandler("menu(Admin).fxml"));
+        btnAdmin.setOnAction( new SceneChangeEventHandler("menuDashboard.fxml"));
         cboxServices.setItems(FXCollections.observableArrayList(getServices()));
     }
 
@@ -101,15 +101,17 @@ public class AccueilController implements Initializable {
         stage.setScene(scene);
         stage.setTitle(fxmlResourceName);
         stage.show();
+        stage.centerOnScreen();
     }
 
     public void onCboxSelection(ActionEvent event) throws IOException {
         Service service = cboxServices.getSelectionModel().getSelectedItem();
-        CommandesController.setService(service);
+        MenuControllerChefService.setService(service);
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
                 .getWindow();
-        changeScene(stage,"commandes.fxml");
+        changeScene(stage,"menu(Chef).fxml");
     }
+
 
 }

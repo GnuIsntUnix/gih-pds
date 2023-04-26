@@ -1,19 +1,18 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
-import ma.uiass.eia.pds.gihBackEnd.dao.BatimentDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
-import ma.uiass.eia.pds.gihBackEnd.dao.IBatimentDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.dao.*;
 import ma.uiass.eia.pds.gihBackEnd.model.Batiment;
+import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
 import java.util.List;
 
 public class ServiceBatiment {
     private IBatimentDao batimentDaoImp;
+    private IServiceDao serviceDaoImp;
     public ServiceBatiment(){
         batimentDaoImp=new BatimentDaoImp();
+        serviceDaoImp=new ServiceDaoImp();
     }
-    public ServiceDaoImp serviceDaoImp = new ServiceDaoImp();
     public void deleteById(int id){
         batimentDaoImp.delete(id);
     }
@@ -26,5 +25,10 @@ public class ServiceBatiment {
     }
     public List<Batiment> getAll(){
         return batimentDaoImp.getAll();
+    }
+
+    public List<Batiment> getByService(int id){
+        Service service = serviceDaoImp.getById(id);
+        return service.getBatiments();
     }
 }
