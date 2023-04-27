@@ -84,9 +84,9 @@ public class App
 //      typeDMDao.create(new TypeDM("Mobilier"));
 //       typeDMDao.create(new TypeDM("Equipement Leger"));
 //        //-------------------------- Dm -------------------------------------
-//     dmDao.create(new DM("BND", "Bande", typeDMDao.getById(1)));
+//     dmDao.create(new DM("BND","Bande", typeDMDao.getById(1)));
 //        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
-////
+//
 
     }
 

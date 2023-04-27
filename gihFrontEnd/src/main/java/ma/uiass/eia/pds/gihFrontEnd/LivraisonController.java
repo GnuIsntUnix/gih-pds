@@ -122,6 +122,22 @@ public class LivraisonController implements Initializable {
 
     }
 
+    @FXML
+    void onSelectionConsulter(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSelectionCreate(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSelectionFournisseur(ActionEvent event) {
+
+    }
+
+
 
     OkHttpClient okHttpClient = new OkHttpClient();
 
