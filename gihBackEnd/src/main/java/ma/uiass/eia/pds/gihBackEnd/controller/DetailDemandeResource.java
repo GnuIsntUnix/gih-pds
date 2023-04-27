@@ -33,4 +33,6 @@ public class DetailDemandeResource {
         return "Saved !";
     }
 
+
+
 }

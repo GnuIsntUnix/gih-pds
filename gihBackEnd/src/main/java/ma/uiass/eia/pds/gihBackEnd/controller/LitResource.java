@@ -29,6 +29,12 @@ public class LitResource {
     @Path("/getlits/byservice/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Lit> getLitsByService(@PathParam("id") int id) {return serviceLits.getLitsByService(id);}
+
+    @GET
+    @Path("/getlits/bybatiment/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsByBatiment(@PathParam("id") int id) {return serviceLits.getLitsByBatiment(id);}
+
     @GET
     @Path("/getlits/byespace/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,11 +51,11 @@ public class LitResource {
     }
 
     @PUT
-    @Path("/update/{id}")
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateLit(Lit lit, @PathParam("id") int id){
-        serviceLits.update(lit, id);
+    public String updateLit(Lit lit){
+        serviceLits.update(lit);
         return "Updated !";
     }
 
