@@ -1,7 +1,9 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.Commande;
+import ma.uiass.eia.pds.gihBackEnd.model.Espace;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -77,6 +79,7 @@ public class CommandeDaoImp implements ICommandeDao{
             e.printStackTrace();
         }
     }
+
 
 
 

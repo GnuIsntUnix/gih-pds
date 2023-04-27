@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class DemandesController implements Initializable {
+
+
+    private static Service service = MenuControllerChefService.getService();
     @FXML
     private Button bttnAjouter;
 
@@ -182,7 +185,7 @@ public class DemandesController implements Initializable {
         System.out.println(list);
 
 
-        DemandeDm demandeDm = new DemandeDm(LocalDate.now());
+        DemandeDm demandeDm = new DemandeDm(service, LocalDate.now());
         System.out.println(demandeDm);
         for (DetailDemandeDm d : list){
             d.setDemandeDm(demandeDm);

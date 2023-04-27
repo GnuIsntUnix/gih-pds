@@ -67,54 +67,14 @@ public class ServiceLits {
         return lits;
     }
 
-    public void affecter(int id){
-        Commande c = commandeDaoImp.getById(id);
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        Service serviceStock = serviceDaoImp.getById(1);
-        Espace stock = serviceStock.getStock();
-        try{
-        Query query=entityManager.createQuery("from tlit where idTypeLit ="+c.getTypeLit() +"and idEspace="+stock.getIdEspace()+";");
-        query.setMaxResults(c.getQuantite());
-        List<Lit> lits=query.getResultList();
-        serviceStock.getStock().getLits().forEach(lit -> {
-            lit.setEspace(c.getService().getStock());
-        });
-        for (Lit lit : lits) {
-            entityManager.merge(lit);
-        }
-        transaction.commit();
-    } catch (Exception ex) {
-        transaction.rollback();
-        ex.printStackTrace();
-    } finally {
-        entityManager.close();
-    }
-    }
+
     public List<Lit> getLitsByEspace(int id){
         Espace espace = espaceDao.getById(id);
         List<Lit> lits = new ArrayList<>();;
         return espace.getLits();
     }
 
-    public void switchEtat(int id){
-        Lit lit=litDaoImp.getById(id);
-        EntityManager entityManager = HibernateUtil.getEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        if(lit.getEtat()==EtatLit.D)
-            lit.setEtat(EtatLit.O);
-        else if (lit.getEtat()==EtatLit.O)
-            lit.setEtat(EtatLit.D);
 
-        try {
-            entityManager.merge(lit);
-            transaction.commit();
-        }catch (Exception ex) {
-            transaction.rollback();
-            ex.printStackTrace();
-        }
-    }
     public void changelit(int id){
         Lit lit = litDaoImp.getById(id);
         if(lit.getEtat()==EtatLit.O)
@@ -167,21 +127,7 @@ public class ServiceLits {
     }
 
 
-    public void mergeL(Lit lit) {
-        EntityManager entityManager=HibernateUtil.getEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(lit);
-            transaction.commit();
-        }
-        catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
+
 }
 
 

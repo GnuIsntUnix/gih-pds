@@ -14,10 +14,11 @@ import java.util.List;
 
 public class ServiceDM {
     private IDemandeDao demandeDao;
-    private DmDaoImp dmDao;
-    private IServiceDao serviceDao;
-    private ITypeDmDao typeDmDao;
-    private ExemplaireDMDaoImp exemplaireDMDaoImp;
+    private DmDaoImp dmDao=new DmDaoImp();
+    private IServiceDao serviceDao=new ServiceDaoImp();
+    private ITypeDmDao typeDmDao=new TypeDmDaoImp();
+    private ExemplaireDMDaoImp exemplaireDMDaoImp=new ExemplaireDMDaoImp();
+    private IStockDao stockDao=new StockDaoImp();
 
 
     public ServiceDM(){
@@ -67,46 +68,21 @@ public class ServiceDM {
 
         return dms;
     }
-    public void affecterDM(int id){
-        DemandeDm demandeDm=demandeDao.getById(id);
-        EntityManager entityManager= HibernateUtil.getEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        System.out.println("Transaction started successfully");
-        System.out.println(demandeDm.getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
-        boolean validationDemande=true;
-        try {
-            List<ExemplaireDm> dms= new ArrayList<>();
-            int x=serviceDao.getById(1).getStock().getDms().size();
-            for (DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
-                if(detailDemandeDm.getQte()<=x) {
-                    x=x-detailDemandeDm.getQte();
-                    dms = detailDemandeDm.getDm().getExemplaireDmList();
-                    for (ExemplaireDm dm : dms) {
-                        dm.getStock().setIdEspace(demandeDm.getService().getStock().getIdEspace());
-                        dm.setStock(demandeDm.getService().getStock());
-                        entityManager.merge(dm);
-                    }
-                }
-                else{
-                    validationDemande=false;
-                }
-            }
-            entityManager.merge(demandeDm);
-            transaction.commit();
-            System.out.println("Transaction commited successfully");
-            System.out.println(demandeDm.getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw new RuntimeException(e);
+    public void affecterExemplaire(int id,int idStock){
+        Stock stock=stockDao.getById(idStock);
+        ExemplaireDm exemplaireDm=exemplaireDMDaoImp.getById(id);
+        exemplaireDm.setStock(stock);
+        exemplaireDMDaoImp.update(exemplaireDm);
+        System.out.println("i have been used");
+    }
+    public int number(int stockId, int dmId){
+        List<ExemplaireDm> list=stockDao.getById(1).getDms();
+        System.out.println(list.size());
+        List<ExemplaireDm> target=new ArrayList<>();
+        for(ExemplaireDm exemplaireDm:list){
+            if(exemplaireDm.getDm().getId()==dmId)
+                target.add(exemplaireDm);
         }
-        if(validationDemande=true){
-            demandeDm.setValide(true);
-        }
-        else{
-            demandeDm.setValide(Boolean.valueOf("en cours de validation"));
-        }
+        return target.size();
     }
 }

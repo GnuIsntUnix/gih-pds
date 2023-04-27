@@ -1,6 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
+import ma.uiass.eia.pds.gihBackEnd.model.Marque;
 import ma.uiass.eia.pds.gihBackEnd.model.Stock;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
@@ -36,7 +37,7 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
 
     @Override
     public ExemplaireDm getById(int id) {
-        return null;
+        return entityManager.find(ExemplaireDm.class, id);
     }
 
     @Override
@@ -51,7 +52,19 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
 
     @Override
     public void update(ExemplaireDm exemplaireDm) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.merge(exemplaireDm);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        System.out.println("i got called out");
     }
 
     @Override

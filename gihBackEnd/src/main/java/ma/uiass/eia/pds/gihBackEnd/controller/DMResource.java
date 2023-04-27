@@ -48,9 +48,5 @@ public class DMResource {
         return "Saved !";
     }
 
-    @Path("/traiterdemande/{id}")
-    public String updateStock(@PathParam("id") int id){
-        serviceDM.affecterDM(id);
-        return "done";
-    }
+
 }

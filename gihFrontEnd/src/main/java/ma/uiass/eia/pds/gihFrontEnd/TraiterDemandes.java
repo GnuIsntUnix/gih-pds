@@ -54,11 +54,16 @@ public class TraiterDemandes implements Initializable {
         //demandes;
     }
     public void onDemande(ActionEvent event)throws IOException {
-        int dm=table.getSelectionModel().getSelectedItem().getIdDemande();
+        DemandeDm dm=table.getSelectionModel().getSelectedItem();
         ObjectMapper mapper = new ObjectMapper();
 
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(dm));
+        System.out.println(mapper.writeValueAsString(dm));
+
         Request request = new Request.Builder()
-                .url("http://localhost:9998/dm/traiterdemande/"+dm)
+                .url("http://localhost:9998/demande/traiter")
+                .post(body)
                 .build();
 
         Call call = okHttpClient.newCall(request);
