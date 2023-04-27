@@ -2,6 +2,8 @@ package ma.uiass.eia.pds.gihBackEnd.controller;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import ma.uiass.eia.pds.gihBackEnd.dao.LitDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.model.Commande;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.services.ServiceLits;
 
@@ -10,7 +12,7 @@ import java.util.List;
 @Path("/lit")
 public class LitResource {
     private final ServiceLits serviceLits = new ServiceLits();
-
+    private LitDaoImp litDaoImp=new LitDaoImp();
 
     @GET
     @Path("/getlits")
@@ -66,6 +68,12 @@ public class LitResource {
         return "Deleted !";
     }
 
+    @POST
+    @Path("/traitercommande")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateStock(@PathParam("id") int id){
+        litDaoImp.affecter(id);
+    }
     @GET
     @Path("/getlits/stock/{idService}/bytype/{idType}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,6 +82,21 @@ public class LitResource {
                                           ){
         return serviceLits.getLitsByTypeInStock(idService, idType);
     }
-
-
+    @Path("/changeEtatLit/{id}")
+    public String updateEtatLit(@PathParam("id") int id){
+        litDaoImp.switchEtat(id);
+        return "done";
+    }
+    @GET
+    @Path("/getlitsparstock/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lit> getLitsInStock(@PathParam("id") int id){
+        return serviceLits.getLitsInStock(id);
+    }
+    @POST
+    @Path("/merge")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void mergeLit(Lit lit){
+        litDaoImp.update(lit);
+    }
 }

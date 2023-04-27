@@ -67,12 +67,39 @@ public class ServiceLits {
         return lits;
     }
 
+
     public List<Lit> getLitsByEspace(int id){
         Espace espace = espaceDao.getById(id);
         List<Lit> lits = new ArrayList<>();;
         return espace.getLits();
     }
 
+
+    public void changelit(int id){
+        Lit lit = litDaoImp.getById(id);
+        if(lit.getEtat()==EtatLit.O)
+            throw new RuntimeException("working properly");
+    }
+    public List<Lit> getOp(int idService){
+        Service service=serviceDaoImp.getById(idService);
+        List<Lit> lits = getLitsInStock(service.getStock().getIdEspace());
+        List<Lit> litsOp = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(EtatLit.O))
+                litsOp.add(lit);
+        }
+        return litsOp;
+    }
+    public List<Lit> getDef(int idService){
+        Service service=serviceDaoImp.getById(idService);
+        List<Lit> lits = getLitsInStock(service.getStock().getIdEspace());
+        List<Lit> litsDef = new ArrayList<>();
+        for (Lit lit : lits) {
+            if (lit.getTypeLit().equals(EtatLit.D))
+                litsDef.add(lit);
+        }
+        return litsDef;
+    }
     public void addLitstoStock(Service service){
         ///'
     }
@@ -98,6 +125,7 @@ public class ServiceLits {
         }
         return litList;
     }
+
 
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue("Stock")
@@ -30,6 +31,9 @@ public class Stock extends Espace{
 
 
     public List<ExemplaireDm> getDms() {
+        dms=dms.stream()
+                .distinct()
+                .collect(Collectors.toList());
         return dms;
     }
 

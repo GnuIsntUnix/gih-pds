@@ -49,5 +49,12 @@ public class DemandeResource {
         return "Deleted !";
     }
 
+    @POST
+    @Path("/traiter")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String traiterDemande(DemandeDm demandeDm){
+        serviceDemandeDM.traiter(demandeDm);
+        return "Traité";
+    }
 }
 

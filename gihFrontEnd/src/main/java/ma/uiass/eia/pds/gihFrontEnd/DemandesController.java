@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class DemandesController implements Initializable {
+
+
+    private static Service service = MenuControllerChefService.getService();
     @FXML
     private Button bttnAjouter;
 
@@ -91,17 +94,17 @@ public class DemandesController implements Initializable {
         DetailDemandeDm detailDemande = new DetailDemandeDm(dm, qte);
         DemandesTable.getItems().add(detailDemande);
 
-       // RequestBody body = RequestBody.create(
-           //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
+        // RequestBody body = RequestBody.create(
+        //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
 
-       // Request request = new Request.Builder()
-             //   .url("http://localhost:9998/detaildemandedm/save")
-               // .post(body)
-                //.build();
+        // Request request = new Request.Builder()
+        //   .url("http://localhost:9998/detaildemandedm/save")
+        // .post(body)
+        //.build();
 
-       // Call call = okHttpClient.newCall(request);
-       // Response response = call.execute();
-       // System.out.println(response.code());
+        // Call call = okHttpClient.newCall(request);
+        // Response response = call.execute();
+        // System.out.println(response.code());
 
     }
 
@@ -172,9 +175,9 @@ public class DemandesController implements Initializable {
 
     @FXML
     public void onBtnValider(ActionEvent event) throws IOException {
-       // ObjectMapper mapper = JsonMapper.builder()
-              //  .addModule(new JavaTimeModule())
-                //.build();
+        // ObjectMapper mapper = JsonMapper.builder()
+        //  .addModule(new JavaTimeModule())
+        //.build();
         ObjectMapper mapper = new ObjectMapper();
 
 
@@ -182,7 +185,7 @@ public class DemandesController implements Initializable {
         System.out.println(list);
 
 
-        DemandeDm demandeDm = new DemandeDm(LocalDate.now());
+        DemandeDm demandeDm = new DemandeDm(service, LocalDate.now());
         System.out.println(demandeDm);
         for (DetailDemandeDm d : list){
             d.setDemandeDm(demandeDm);
