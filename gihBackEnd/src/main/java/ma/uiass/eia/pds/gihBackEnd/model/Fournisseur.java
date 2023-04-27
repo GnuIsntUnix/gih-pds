@@ -46,6 +46,10 @@ public class Fournisseur {
                 this.tel = tel;
         }
 
+        public Fournisseur(String nom) {
+                this.nom = nom;
+        }
+
         public int getId() {
                 return id;
         }

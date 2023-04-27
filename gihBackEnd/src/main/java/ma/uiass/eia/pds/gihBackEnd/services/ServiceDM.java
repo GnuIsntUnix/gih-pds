@@ -46,15 +46,8 @@ public class ServiceDM {
     }
 
     public List<DM> getDMbyIdType(int idType){
-        List<TypeDM> typeDMs = typeDmDao.getAll();
-        List<DM> dms = new ArrayList<>();
-
-        for (TypeDM tdm: typeDMs){
-            if (tdm.getIdType()==idType){
-                dms = tdm.getDms();
-            }
-        }
-
-        return dms;
+        TypeDM typeDM = typeDmDao.getById(idType);
+        System.out.println(typeDM.getDms());
+        return typeDM.getDms();
     }
 }
