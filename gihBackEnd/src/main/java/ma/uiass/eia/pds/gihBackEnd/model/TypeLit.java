@@ -95,9 +95,9 @@ public class TypeLit {
         return nomTypeLit;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        TypeLit typeLit = (TypeLit) obj;
-        return typeLit.nomTypeLit.equalsIgnoreCase(this.nomTypeLit);
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        TypeLit typeLit = (TypeLit) obj;
+//        return typeLit.nomTypeLit.equalsIgnoreCase(this.nomTypeLit);
+//    }
 }

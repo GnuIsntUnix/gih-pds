@@ -24,7 +24,7 @@ public class StockResource {
     }
 
     @GET
-    @Path("/getstock/{id}")
+    @Path("/getstock/byservice/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Stock getStockbyService(@PathParam("id") int id){
         return stockDao.getStockByService(id);

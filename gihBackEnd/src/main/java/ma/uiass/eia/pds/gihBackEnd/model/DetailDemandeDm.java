@@ -20,6 +20,7 @@ public class DetailDemandeDm {
 
 
 
+
     @Column(name = "Qte")
     private int qte;
 
@@ -41,6 +42,7 @@ public class DetailDemandeDm {
         this.dm = dm;
         this.qte = qte;
         this.demandeDm = demandeDm;
+        demandeDm.getDetailDemandeDms().add(this);
     }
     public DetailDemandeDm(DM dm, int qte) {
         this.dm = dm;

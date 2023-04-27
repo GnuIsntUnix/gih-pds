@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
 public class AdmissionController implements Initializable {
 
 
+    private static Service service = MenuControllerChefService.getService();
+
+
     @FXML
     private TableView<Lit> tableLIts;
 
@@ -196,7 +199,7 @@ public class AdmissionController implements Initializable {
         return lits;
     }
     public List<Batiment> getBatiments(){
-        Request request = new Request.Builder().url("http://localhost:9998/batiment/getbatiments").build();
+        Request request = new Request.Builder().url("http://localhost:9998/batiment/getbatiments/byservice/"+service.getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

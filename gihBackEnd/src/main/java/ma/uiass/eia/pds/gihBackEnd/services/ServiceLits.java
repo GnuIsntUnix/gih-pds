@@ -14,6 +14,7 @@ public class ServiceLits {
     private ILitDao litDaoImp = new LitDaoImp();
     private IServiceDao serviceDaoImp = new ServiceDaoImp();
     private IStockDao stockDaoImp = new StockDaoImp();
+    private IBatimentDao batimentDao = new BatimentDaoImp();
     private ITypeLitDao typeLitDao = new TypeLitDaoImp();
     private IEspaceDao espaceDao = new EspaceDaoImp();
 
@@ -44,6 +45,9 @@ public class ServiceLits {
     public void update(Lit lit, int id){
         litDaoImp.update(lit, id);
     }
+    public void update(Lit lit){
+        litDaoImp.update(lit);
+    }
 
     public List<Lit> getLitsByService(int id){
         Service service = serviceDaoImp.getById(id);
@@ -53,6 +57,16 @@ public class ServiceLits {
         });
         return lits;
     }
+
+    public List<Lit> getLitsByBatiment(int id){
+        Batiment batiment = batimentDao.getById(id);
+        List<Lit> lits = new ArrayList<>();
+        batiment.getEspaces().forEach(espace -> {
+            lits.addAll(espace.getLits());
+        });
+        return lits;
+    }
+
     public List<Lit> getLitsByEspace(int id){
         Espace espace = espaceDao.getById(id);
         List<Lit> lits = new ArrayList<>();;

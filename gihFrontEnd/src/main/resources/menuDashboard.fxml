@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.menuDashboardController" />
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.menuDashboardController">
+   <bottom>
+      <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="ajouterBtn" mnemonicParsing="false" onAction="#onAjouterBtn" text="Ajouter un service" />
+            <HBox>
+               <children>
+                  <Button fx:id="btnRetour" mnemonicParsing="false" style="-fx-background-radius: 20px;">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="3.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

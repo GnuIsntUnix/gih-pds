@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -76,5 +73,6 @@ public class ConsulterStockLitsController implements Initializable {
         }
         return types;
     }
+
 
 }
