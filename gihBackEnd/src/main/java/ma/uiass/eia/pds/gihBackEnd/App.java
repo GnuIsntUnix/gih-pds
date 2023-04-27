@@ -96,6 +96,7 @@ public class App
 //        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
 ////
 
+//----------------------------------Hadchi dyal hamza kan kaytester bih yamkan liktmas7o ila bghiti-------------------------------------------
 
        // System.out.println(demandeDmDao.getById(4).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
      //       List<DetailDemandeDm> list = new ArrayList<>();
@@ -127,14 +128,12 @@ public class App
 //        stockDao.update(stock);
 //        espaceDao.update(stock);
 //        System.out.println(stock.getDms());
-
-
-        ServiceDM serviceDM=new ServiceDM();
+        //ServiceDM serviceDM=new ServiceDM();
         //System.out.println(serviceDM.number(1,demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId()));
 //        System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getQte());
-        if(serviceDM.number(1,demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId())>=demandeDmDao.getById(3).getDetailDemandeDms().get(0).getQte()) {
-            System.out.println("yes");
-        }
+//        if(serviceDM.number(1,demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId())>=demandeDmDao.getById(3).getDetailDemandeDms().get(0).getQte()) {
+//            System.out.println("yes");
+//        }
         //System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
 //        dmDao.update(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm());
 //        System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().size());
@@ -149,8 +148,6 @@ public class App
         //for(ExemplaireDm exemplaireDm:demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList()) {
           //  exemplaireDmDao.update(exemplaireDm, demandeDmDao.getById(6).getService().getStock().getIdEspace()+1);
         //}
-
-
 //        System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
 //        serviceDao.update(serviceDao.getById(1),1);
 //        stockDao.update(stockDao.getById(1),1);
