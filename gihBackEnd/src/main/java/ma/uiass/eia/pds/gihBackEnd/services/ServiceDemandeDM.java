@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ServiceDemandeDM {
     private IServiceDao serviceDaoImp = new ServiceDaoImp();
-    private IDemandeDao demandeDao;
+    private IDemandeDao demandeDao = new DemandeDaoImp();
     public ServiceDemandeDM(){
         IDemandeDao demandeDao= new DemandeDaoImp();
     }

@@ -53,7 +53,7 @@ public class App
 //        serviceDao.create(new Service("RADIO", "Radiologie"));
 //        serviceDao.create(new Service("CHR", "Chirurgie"));
 //        serviceDao.create(new Service("NEURO", "Neurologie"));
-//
+////
 //        marqueDao.create(new Marque("MarqueTest"));
 //        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
 //        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
