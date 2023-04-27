@@ -59,7 +59,20 @@ public class StockDaoImp implements IStockDao {
 
     @Override
     public void update(Stock stock) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            System.out.println("begin");
+            entityManager.merge(stock);
+            transaction.commit();
+            System.out.println("commited");
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     public void affecterRessource(int idService, int n_lit) {
@@ -80,6 +93,18 @@ public class StockDaoImp implements IStockDao {
 
     @Override
     public void update(Stock stock, int id) {
-
+        ServiceDaoImp serviceDaoImp=new ServiceDaoImp();
+        EntityTransaction transaction=entityManager.getTransaction();
+        try {
+            transaction.begin();
+            stock.setService(serviceDaoImp.getById(id));
+            entityManager.merge(stock);
+            transaction.commit();
+        }catch(Exception e){
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
     }
 }
