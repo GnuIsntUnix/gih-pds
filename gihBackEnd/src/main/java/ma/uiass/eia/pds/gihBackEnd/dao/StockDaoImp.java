@@ -80,6 +80,18 @@ public class StockDaoImp implements IStockDao {
 
     @Override
     public void update(Stock stock, int id) {
-
+        ServiceDaoImp serviceDaoImp=new ServiceDaoImp();
+        EntityTransaction transaction=entityManager.getTransaction();
+        try {
+            transaction.begin();
+            stock.setService(serviceDaoImp.getById(id));
+            entityManager.merge(stock);
+            transaction.commit();
+        }catch(Exception e){
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
     }
 }

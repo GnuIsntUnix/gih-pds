@@ -11,6 +11,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,13 @@ public class App
         Dao<Marque> marqueDao = new MarqueDaoImp();
         Dao<TypeLit> typeLitDao = new TypeLitDaoImp();
         Dao<Batiment> batimentDao = new BatimentDaoImp();
+        Dao<ExemplaireDm> exemplaireDmDao=new ExemplaireDMDaoImp();
         Dao<Lit> litDao = new LitDaoImp();
         UtilisateurDaoImp utilisateurDaoImp = new UtilisateurDaoImp();
         Dao<Stock> stockDao = new StockDaoImp();
         Dao<DM> dmDao = new DmDaoImp();
+        Dao<DemandeDm> demandeDmDao= new DemandeDaoImp();
+        Dao<DetailDemandeDm> detailDemandeDmDao=new DetailDemandeDaoImp();
         Dao<TypeDM> typeDMDao = new TypeDmDaoImp();
         Dao<Livraison> livraisonDao = new LivraisonDaoImp();
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
@@ -79,6 +83,34 @@ public class App
 //     dmDao.create(new DM("BND", "Bande", typeDMDao.getById(1)));
 //        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
 ////
+
+
+   //     System.out.println(demandeDmDao.getById(5).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
+     //       List<DetailDemandeDm> list = new ArrayList<>();
+//            DemandeDm demandeDm = new DemandeDm(serviceDao.getById(2), LocalDate.of(2023, 1, 29));
+//            DetailDemandeDm detailDemandeDm = new DetailDemandeDm(dmDao.getById(6), 3, demandeDmDao.getById(6));
+////            list.add(detailDemandeDm);
+////            demandeDm.setDetailDemandeDms(list);
+////            demandeDmDao.create(demandeDm);
+////            detailDemandeDmDao.create(detailDemandeDm);
+//        demandeDmDao.getById(6).getDetailDemandeDms().add(detailDemandeDm);
+//        ExemplaireDm exemplaireDm=new ExemplaireDm(demandeDmDao.getById(5).getDetailDemandeDms().get(0).getDm(),stockDao.getById(1));
+//       exemplaireDmDao.create(exemplaireDm);
+//        demandeDmDao.getById(5).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().add(exemplaireDmDao.getById(1));
+//        System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
+        //System.out.println(serviceDao.getById(1).getStock().getIdEspace());
+        //dmDao.getById(3).getExemplaireDmList().get(0).getStock().setIdEspace(1);
+
+        //System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
+        //for(ExemplaireDm exemplaireDm:demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList()) {
+          //  exemplaireDmDao.update(exemplaireDm, demandeDmDao.getById(6).getService().getStock().getIdEspace()+1);
+        //}
+
+
+//        System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
+//        serviceDao.update(serviceDao.getById(1),1);
+//        stockDao.update(stockDao.getById(1),1);
+        //System.out.println(serviceDao.getById(1).getStock());
 
     }
 }

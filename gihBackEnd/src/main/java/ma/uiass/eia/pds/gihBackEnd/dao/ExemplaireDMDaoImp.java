@@ -1,6 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
+import ma.uiass.eia.pds.gihBackEnd.model.Stock;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -55,7 +56,8 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
 
     @Override
     public void update(ExemplaireDm exemplaireDm, int id) {
-
+        exemplaireDm.getStock().setIdEspace(id);
     }
+
 
 }

@@ -73,21 +73,40 @@ public class ServiceDM {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         System.out.println("Transaction started successfully");
+        System.out.println(demandeDm.getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
+        boolean validationDemande=true;
         try {
             List<ExemplaireDm> dms= new ArrayList<>();
+            int x=serviceDao.getById(1).getStock().getDms().size();
             for (DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
-                 dms=detailDemandeDm.getDm().getExemplaireDmList();
-                 for (ExemplaireDm dm:dms){
-                    entityManager.merge(dm);
+                if(detailDemandeDm.getQte()<=x) {
+                    x=x-detailDemandeDm.getQte();
+                    dms = detailDemandeDm.getDm().getExemplaireDmList();
+                    for (ExemplaireDm dm : dms) {
+                        dm.getStock().setIdEspace(demandeDm.getService().getStock().getIdEspace());
+                        dm.setStock(demandeDm.getService().getStock());
+                        entityManager.merge(dm);
+                    }
+                }
+                else{
+                    validationDemande=false;
                 }
             }
+            entityManager.merge(demandeDm);
             transaction.commit();
             System.out.println("Transaction commited successfully");
+            System.out.println(demandeDm.getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
         } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             throw new RuntimeException(e);
+        }
+        if(validationDemande=true){
+            demandeDm.setValide(true);
+        }
+        else{
+            demandeDm.setValide(Boolean.valueOf("en cours de validation"));
         }
     }
 }

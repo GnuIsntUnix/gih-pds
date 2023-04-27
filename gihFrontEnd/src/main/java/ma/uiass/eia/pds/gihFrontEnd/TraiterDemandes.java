@@ -8,29 +8,53 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Commande;
 import ma.uiass.eia.pds.gihBackEnd.model.DemandeDm;
+import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class TraiterDemandes implements Initializable {
     @FXML
     private Button traiter;
+    //@FXML
+    //private ListView<DemandeDm> demandes;
     @FXML
-    private ListView<DemandeDm> demandes;
+    private TableView<DemandeDm> table;
+    @FXML
+    private TableColumn<DemandeDm, Service> ser;
+    @FXML
+    private TableColumn<DemandeDm,Integer> id;
+    @FXML
+    private TableColumn<DemandeDm, Date> date;
+    @FXML
+    private TableColumn<DemandeDm,Boolean> valide;
 
     OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        demandes.setItems(FXCollections.observableArrayList(getDemandes()));
+        table.setEditable(true);
+        id.setCellValueFactory(new PropertyValueFactory<DemandeDm,Integer>("idDemande"));
+        ser.setCellValueFactory(new PropertyValueFactory<DemandeDm,Service>("service"));
+        date.setCellValueFactory(new PropertyValueFactory<DemandeDm,Date>("dateDemande"));
+        valide.setCellValueFactory(new PropertyValueFactory<DemandeDm,Boolean>("valide"));
+        table.setItems(FXCollections.observableArrayList(getDemandes()));
+        table.getSelectionModel().selectFirst();
+        table.requestLayout();
+        //demandes;
     }
     public void onDemande(ActionEvent event)throws IOException {
-        int dm=demandes.getSelectionModel().getSelectedItem().getIdDemande();
+        int dm=table.getSelectionModel().getSelectedItem().getIdDemande();
         ObjectMapper mapper = new ObjectMapper();
 
         Request request = new Request.Builder()
@@ -39,7 +63,7 @@ public class TraiterDemandes implements Initializable {
 
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
-
+        initialize(null,null);
     }
 
     private List<DemandeDm> getDemandes() {

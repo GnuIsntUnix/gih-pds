@@ -43,10 +43,19 @@ public class DemandeDaoImp implements IDemandeDao {
     @Override
     public DemandeDm getById(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        System.out.println("Transaction started successfully");
-        DemandeDm demandeDm = entityManager.find(DemandeDm.class, id);
-        transaction.commit();
+        DemandeDm demandeDm =null;
+        try {
+            transaction.begin();
+            System.out.println("Transaction started successfully");
+            demandeDm = entityManager.find(DemandeDm.class, id);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
         return demandeDm;
     }
 

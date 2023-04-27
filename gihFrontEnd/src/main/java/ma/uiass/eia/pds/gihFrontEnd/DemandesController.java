@@ -54,11 +54,6 @@ public class DemandesController implements Initializable {
     OkHttpClient okHttpClient = new OkHttpClient();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // cbTypeDm.setItems(FXCollections.observableArrayList(getTypeDM()));
-        cbServices.setItems(FXCollections.observableArrayList(getServices()));
-
-        cbDM.setItems(FXCollections.observableArrayList(getDM()));
-        /*cbTypeDm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
         cbTypeDm.setItems(FXCollections.observableArrayList(getTypeDM()));
         cbDM.setDisable(true);
         cbTypeDm.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -80,8 +75,6 @@ public class DemandesController implements Initializable {
         qtteColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
 
 
-
-
     }
     @FXML
     public void onBtnAjouter(ActionEvent event) throws IOException {
@@ -95,25 +88,25 @@ public class DemandesController implements Initializable {
         DetailDemandeDm detailDemande = new DetailDemandeDm(dm, qte);
         DemandesTable.getItems().add(detailDemande);
 
-       // RequestBody body = RequestBody.create(
-           //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
+        // RequestBody body = RequestBody.create(
+        //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
 
-       // Request request = new Request.Builder()
-             //   .url("http://localhost:9998/detaildemandedm/save")
-               // .post(body)
-                //.build();
+        // Request request = new Request.Builder()
+        //   .url("http://localhost:9998/detaildemandedm/save")
+        // .post(body)
+        //.build();
 
-       // Call call = okHttpClient.newCall(request);
-       // Response response = call.execute();
-       // System.out.println(response.code());
+        // Call call = okHttpClient.newCall(request);
+        // Response response = call.execute();
+        // System.out.println(response.code());
 
     }
 
     @FXML
     public void onBtnValider(ActionEvent event) throws IOException {
-       // ObjectMapper mapper = JsonMapper.builder()
-              //  .addModule(new JavaTimeModule())
-                //.build();
+        // ObjectMapper mapper = JsonMapper.builder()
+        //  .addModule(new JavaTimeModule())
+        //.build();
         ObjectMapper mapper = new ObjectMapper();
 
 

@@ -10,6 +10,7 @@ import java.util.List;
 public class ServiceDaoImp implements IServiceDao {
     private final EntityManager entityManager;
     private IEspaceDao espaceDao;
+    private IStockDao stockDao=new StockDaoImp();
 
     public ServiceDaoImp() {
         entityManager = HibernateUtil.getEntityManager();
@@ -65,6 +66,17 @@ public class ServiceDaoImp implements IServiceDao {
 
     @Override
     public void update(Service service, int id) {
-
+        EntityTransaction transaction= entityManager.getTransaction();
+        try{
+            transaction.begin();
+            service.setStock(stockDao.getById(id));
+            entityManager.merge(service);
+            transaction.commit();
+        }catch (Exception e){
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
     }
 }
