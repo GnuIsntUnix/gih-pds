@@ -2,19 +2,15 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 
@@ -23,7 +19,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LivraisonController implements Initializable {
@@ -60,80 +55,23 @@ public class LivraisonController implements Initializable {
     private TableView<DetailLivraison> tbvLivraison;
 
     @FXML
-    private Button btnFAjouter;
-
-    @FXML
-    private TableColumn<?, ?> clAction;
-
-    @FXML
-    private TableColumn<?, ?> clAdresse;
-
-    @FXML
-    private TableColumn<?, ?> clCDate;
-
-    @FXML
-    private TableColumn<?, ?> clCFournisseur;
-
-    @FXML
-    private TableColumn<?, ?> clCLivraison;
-
-
-    @FXML
-    private TableColumn<?, ?> clEmail;
-
-
-    @FXML
-    private TableColumn<?, ?> clNom;
-
-
-    @FXML
-    private TableColumn<?, ?> clTel;
-
-    @FXML
     private Tab tabConsulter;
-
-    @FXML
-    private Tab tabCreate;
 
     @FXML
     private Tab tabFournisseur;
 
     @FXML
-    private TableView<?> tableCLivraison;
-
-    @FXML
-    private TableView<?> tableFournisseurs;
-
-    @FXML
-    private TextField txtAdresse;
-
-    @FXML
-    private TextField txtEmail;
-
-    @FXML
-    private TextField txtNom;
-
-    @FXML
-    private TextField txtTel;
-
-
-    @FXML
-    void onBtnFAjouter(ActionEvent event) {
+    void onSelectionConsulter(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("consulterLivraison.fxml"));
+        tabConsulter.setContent(fxmlLoader);
 
     }
 
-    @FXML
-    void onSelectionConsulter(ActionEvent event) {
-
-    }
 
     @FXML
-    void onSelectionCreate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSelectionFournisseur(ActionEvent event) {
+    void onSelectionFournisseur(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("fournisseur.fxml"));
+        tabFournisseur.setContent(fxmlLoader);
 
     }
 
@@ -162,39 +100,39 @@ public class LivraisonController implements Initializable {
         });
 
         cboxFournisseur.setItems(FXCollections.observableArrayList(getFournisseur()));
-        cboxFournisseur.getItems().add(new Fournisseur("Ajouter un nouveau fournisseur..."));
-        cboxFournisseur.setOnAction(e ->{
-            String fournisseur = "";
-            try {
-                fournisseur = cboxFournisseur.getSelectionModel().getSelectedItem().toString();
-            }
-            catch (Exception ignore){
-
-            }
-            System.out.println(fournisseur);
-            String finalFournisseur = fournisseur;
-            Platform.runLater(() -> {
-                if ("Ajouter un nouveau fournisseur...".equals(Objects.requireNonNull(finalFournisseur))) {
-                    Parent fxmlLoader = null;
-                    try {
-                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("ajouterFournisseur.fxml"));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Scene scene = new Scene(fxmlLoader);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent windowEvent) {
-                            initialize(null, null);
-                            stage.close();
-                        }
-                    });
-                    stage.showAndWait();                }
-            });
-
-        });
+//        cboxFournisseur.getItems().add(new Fournisseur("Ajouter un nouveau fournisseur..."));
+//        cboxFournisseur.setOnAction(e ->{
+//            String fournisseur = "";
+//            try {
+//                fournisseur = cboxFournisseur.getSelectionModel().getSelectedItem().toString();
+//            }
+//            catch (Exception ignore){
+//
+//            }
+//            System.out.println(fournisseur);
+//            String finalFournisseur = fournisseur;
+//            Platform.runLater(() -> {
+//                if ("Ajouter un nouveau fournisseur...".equals(Objects.requireNonNull(finalFournisseur))) {
+//                    Parent fxmlLoader = null;
+//                    try {
+//                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("ajouterFournisseur.fxml"));
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                    Scene scene = new Scene(fxmlLoader);
+//                    Stage stage = new Stage();
+//                    stage.setScene(scene);
+//                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                        @Override
+//                        public void handle(WindowEvent windowEvent) {
+//                            initialize(null, null);
+//                            stage.close();
+//                        }
+//                    });
+//                    stage.showAndWait();                }
+//            });
+//
+//        });
     }
 
 
@@ -318,7 +256,7 @@ public class LivraisonController implements Initializable {
     }
 
     public Stock getStock(){
-        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/1").build();
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/1").build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -330,23 +268,6 @@ public class LivraisonController implements Initializable {
             throw new RuntimeException(e);
         }
         return stock;
-    }
-    public void saveFournisseur(Fournisseur fournisseur) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        RequestBody body = RequestBody.create(
-                MediaType.parse("application/json"), mapper.writeValueAsString(fournisseur));
-
-        System.out.println(mapper.writeValueAsString(fournisseur));
-
-        Request request = new Request.Builder()
-                .url("http://localhost:9998/fournisseur/save")
-                .post(body)
-                .build();
-
-        Call call = okHttpClient.newCall(request);
-        Response response = call.execute();
-        initialize(null, null);
     }
 
 

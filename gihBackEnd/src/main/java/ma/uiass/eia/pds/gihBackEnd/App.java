@@ -51,7 +51,7 @@ public class App
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
 
 
-//               fournisseurDao.create(new Fournisseur("F1"," "," "," "));
+//        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
 //
 //
 //
@@ -94,7 +94,7 @@ public class App
 //        //-------------------------- Dm -------------------------------------
 //     dmDao.create(new DM("BND","Bande", typeDMDao.getById(1)));
 //        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
-//
+
 
 //----------------------------------Hadchi dyal hamza kan kaytester bih yamkan liktmas7o ila bghiti-------------------------------------------
 

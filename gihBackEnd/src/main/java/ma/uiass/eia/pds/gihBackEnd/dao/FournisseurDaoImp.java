@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.DM;
 import ma.uiass.eia.pds.gihBackEnd.model.Fournisseur;
+import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -36,7 +37,7 @@ public class FournisseurDaoImp implements IFournisseurDao{
 
     @Override
     public Fournisseur getById(int id) {
-        return null;
+        return entityManager.find(Fournisseur.class, id);
     }
 
     @Override
@@ -47,12 +48,34 @@ public class FournisseurDaoImp implements IFournisseurDao{
 
     @Override
     public void delete(int id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.remove(this.getById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void update(Fournisseur fournisseur) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.merge(fournisseur);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
