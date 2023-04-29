@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/19" stylesheets="@css/tabpane.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AffichageLitsController">
+   <tabs>
+      <Tab fx:id="tabLits" closable="false" text="Lits">
+         <content>
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+               <center>
+                  <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="124.59998168945313" minHeight="0.0" prefHeight="18.79998779296875" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="357.6000122070312" minHeight="10.0" prefHeight="349.6000122070312" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="31.199987792968727" minHeight="10.0" prefHeight="23.199987792968727" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TableView fx:id="tblLits" prefHeight="214.0" prefWidth="600.0" GridPane.rowIndex="1">
+                          <columns>
+                            <TableColumn fx:id="idCol" prefWidth="55.20001220703125" text="Id" />
+                              <TableColumn fx:id="marqueCol" prefWidth="77.67273330688477" text="Marque" />
+                              <TableColumn fx:id="dispCol" prefWidth="91.6363525390625" text="Disponibilite" />
+                            <TableColumn fx:id="etatCol" prefWidth="75.05448913574219" text="Etat" />
+                              <TableColumn fx:id="typeCol" prefWidth="131.7818603515625" text="Type" />
+                              <TableColumn fx:id="espaceCol" prefWidth="168.43637084960938" text="Espace" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </GridPane>
+               </center>
+               <top>
+                  <VBox prefHeight="98.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Region prefHeight="67.0" prefWidth="600.0" />
+                        <HBox alignment="CENTER" prefHeight="116.0" prefWidth="600.0" spacing="50.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <children>
+                              <ComboBox fx:id="cbBatiment" prefHeight="31.0" prefWidth="171.0" promptText="Batiments" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </top>
+            </BorderPane>
+         </content>
+      </Tab>
+      <Tab fx:id="tabStock" closable="false" onSelectionChanged="#onStockLits" text="Stock">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab fx:id="tabAdmissions" closable="false" onSelectionChanged="#onAdmissions" text="Admissions">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab fx:id="tabCommandes" closable="false" onSelectionChanged="#onCommandes" text="Commandes">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>
