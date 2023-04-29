@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
 public class CommandesController implements Initializable {
 
 
-    private static Service service = MenuControllerChefService.getService();
-
     @FXML
     private Button btnAjouter;
 
@@ -58,9 +56,8 @@ public class CommandesController implements Initializable {
 
         int qte = Integer.parseInt(txtQte.getText());
         TypeLit typeLit = cbTypeLit.getSelectionModel().getSelectedItem();
-        Service service = CommandesController.service;
 
-        Commande commande = new Commande(service, typeLit, qte);
+        Commande commande = new Commande(MenuControllerChefService.getService(), typeLit, qte);
         System.out.println(commande);
 
         RequestBody body = RequestBody.create(
@@ -92,7 +89,7 @@ public class CommandesController implements Initializable {
     }
 
     public List<Commande> getCommandes(){
-        Request request = new Request.Builder().url("http://localhost:9998/commande/getcommandes/byservice/"+CommandesController.service.getIdService()).build();
+        Request request = new Request.Builder().url("http://localhost:9998/commande/getcommandes/byservice/"+MenuControllerChefService.getService().getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

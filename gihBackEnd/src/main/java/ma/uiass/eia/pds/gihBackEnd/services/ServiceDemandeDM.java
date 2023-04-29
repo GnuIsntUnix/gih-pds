@@ -26,9 +26,13 @@ public class ServiceDemandeDM {
     }
 
     public List<DemandeDm> getDemandeDMByService(int id) {
-        Service service = serviceDaoImp.getById(id);
-        List<DemandeDm> Demandes = new ArrayList<>();
-        return service.getDemandeDms();
+        List<DemandeDm> demandeDm = demandeDao.getAll();
+        List<DemandeDm> byService = new ArrayList<>();
+        demandeDm.forEach(demandeDm1 -> {
+            if (demandeDm1.getService().getIdService() == id)
+                byService.add(demandeDm1);
+        });
+        return byService;
 
     }
 

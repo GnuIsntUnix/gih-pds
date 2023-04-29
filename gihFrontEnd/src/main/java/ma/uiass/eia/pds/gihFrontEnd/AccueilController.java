@@ -108,6 +108,7 @@ public class AccueilController implements Initializable {
     public void onCboxSelection(ActionEvent event) throws IOException {
         Service service = cboxServices.getSelectionModel().getSelectedItem();
         MenuControllerChefService.setService(service);
+        System.out.println(service);
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
                 .getWindow();

@@ -30,8 +30,6 @@ import java.util.ResourceBundle;
 
 public class AffichageLitsController implements Initializable {
 
-    private static Service service = MenuControllerChefService.getService();
-
     @FXML
     private TableColumn<Lit, Espace> espaceCol;
     @FXML
@@ -161,7 +159,7 @@ public class AffichageLitsController implements Initializable {
     }
 
     public List<Batiment> getBatiments(){
-        Request request = new Request.Builder().url("http://localhost:9998/batiment/getbatiments/byservice/"+service.getIdService()).build();
+        Request request = new Request.Builder().url("http://localhost:9998/batiment/getbatiments/byservice/"+ MenuControllerChefService.getService().getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -172,6 +170,7 @@ public class AffichageLitsController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(batiments);
         return batiments;
     }
 
