@@ -149,6 +149,13 @@ public class FournisseurController implements Initializable {
                     // Set the edit button action
                     editButton.setOnAction(event -> {
                         // Handle the edit button action here
+                        int row = getIndex();
+                        Fournisseur selectedFournisseur = tableFournisseur.getItems().get(row);
+                        TextField nomField = new TextField(selectedFournisseur.getNom());
+                        TextField adresseField = new TextField(selectedFournisseur.getAdresse());
+                        TextField telField = new TextField(selectedFournisseur.getTel());
+                        TextField emailField = new TextField(selectedFournisseur.getEmail());
+
 
 
                     });
