@@ -2,9 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import javax.persistence.*;
 
-import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeLit;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import org.hibernate.Session;
 
@@ -74,6 +72,7 @@ public class LitDaoImp implements ILitDao{
         }
     }
 
+
     @Override
     public void update(Lit lit, int id) {
         Lit lit1 = getById(id);
@@ -92,6 +91,50 @@ public class LitDaoImp implements ILitDao{
         query.setParameter("id", typeLit.getIdType());
         return query.getResultList();
     }
+    public void affecter(int id){
+        CommandeDaoImp commandeDaoImp=new CommandeDaoImp();
+        ServiceDaoImp serviceDaoImp=new ServiceDaoImp();
+        Commande c = commandeDaoImp.getById(id);
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        Service serviceStock = serviceDaoImp.getById(1);
+        Espace stock = serviceStock.getStock();
+        try{
+            Query query=entityManager.createQuery("from tlit where idTypeLit ="+c.getTypeLit() +"and idEspace="+stock.getIdEspace()+";");
+            query.setMaxResults(c.getQuantite());
+            List<Lit> lits=query.getResultList();
+            serviceStock.getStock().getLits().forEach(lit -> {
+                lit.setEspace(c.getService().getStock());
+            });
+            for (Lit lit : lits) {
+                entityManager.merge(lit);
+            }
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+    }
+    public void switchEtat(int id){
+        LitDaoImp litDaoImp=new LitDaoImp();
+        Lit lit=litDaoImp.getById(id);
+        EntityManager entityManager = HibernateUtil.getEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        if(lit.getEtat()==EtatLit.D)
+            lit.setEtat(EtatLit.O);
+        else if (lit.getEtat()==EtatLit.O)
+            lit.setEtat(EtatLit.D);
 
+        try {
+            entityManager.merge(lit);
+            transaction.commit();
+        }catch (Exception ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        }
+    }
 
 }

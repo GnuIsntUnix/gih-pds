@@ -4,9 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 
@@ -19,18 +23,18 @@ import java.util.ResourceBundle;
 
 public class LivraisonController implements Initializable {
 
+
+
     @FXML
     private Button btnAjouter;
 
     @FXML
     private Button btnValider;
 
-
+    @FXML
+    private ComboBox<TypeDM> cboxTypedm;
     @FXML
     private ComboBox<DM> cboxdm;
-
-    @FXML
-    private DatePicker dpDate;
 
     @FXML
     private ComboBox<Fournisseur> cboxFournisseur;
@@ -39,21 +43,103 @@ public class LivraisonController implements Initializable {
     private TextField txtQte;
 
     @FXML
-    private ListView<DetailLivraison> lstDetails;
+    private TableColumn<DetailLivraison, DM> clDM;
+
+    @FXML
+    private TableColumn<DetailLivraison, Fournisseur> clFournisseur;
+
+    @FXML
+    private TableColumn<DetailLivraison, Integer> clQte;
+
+    @FXML
+    private TableView<DetailLivraison> tbvLivraison;
+
+    @FXML
+    private Tab tabConsulter;
+
+    @FXML
+    private Tab tabFournisseur;
+
+    @FXML
+    void onSelectionConsulter(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("consulterLivraison.fxml"));
+        tabConsulter.setContent(fxmlLoader);
+
+    }
+
+
+    @FXML
+    void onSelectionFournisseur(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("fournisseur.fxml"));
+        tabFournisseur.setContent(fxmlLoader);
+
+    }
+
+
 
     OkHttpClient okHttpClient = new OkHttpClient();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cboxdm.setItems(FXCollections.observableArrayList(getDM()));
+
+        clDM.setCellValueFactory(new PropertyValueFactory<>("dm"));
+        clQte.setCellValueFactory(new PropertyValueFactory<>("Qte"));
+        clFournisseur.setCellValueFactory(new PropertyValueFactory<>("Fournisseur"));
+
+        cboxdm.setDisable(true);
+        cboxTypedm.setItems(FXCollections.observableArrayList(getTypeDMS()));
+        cboxTypedm.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue != null) {
+                cboxdm.setItems(FXCollections.observableArrayList((getDmByType(newValue.getIdType()))));
+                cboxdm.setDisable(false);
+                cboxdm.getSelectionModel().clearSelection();
+            } else {
+                cboxdm.setItems(null);
+            }
+        });
+
         cboxFournisseur.setItems(FXCollections.observableArrayList(getFournisseur()));
-
-
+//        cboxFournisseur.getItems().add(new Fournisseur("Ajouter un nouveau fournisseur..."));
+//        cboxFournisseur.setOnAction(e ->{
+//            String fournisseur = "";
+//            try {
+//                fournisseur = cboxFournisseur.getSelectionModel().getSelectedItem().toString();
+//            }
+//            catch (Exception ignore){
+//
+//            }
+//            System.out.println(fournisseur);
+//            String finalFournisseur = fournisseur;
+//            Platform.runLater(() -> {
+//                if ("Ajouter un nouveau fournisseur...".equals(Objects.requireNonNull(finalFournisseur))) {
+//                    Parent fxmlLoader = null;
+//                    try {
+//                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("ajouterFournisseur.fxml"));
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+//                    Scene scene = new Scene(fxmlLoader);
+//                    Stage stage = new Stage();
+//                    stage.setScene(scene);
+//                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                        @Override
+//                        public void handle(WindowEvent windowEvent) {
+//                            initialize(null, null);
+//                            stage.close();
+//                        }
+//                    });
+//                    stage.showAndWait();                }
+//            });
+//
+//        });
     }
 
-    public List<DM> getDM(){
-        Request request = new Request.Builder().url("http://localhost:9998/dm/getdms").build();
+
+
+
+    public List<DM> getDmByType(int id){
+        Request request = new Request.Builder().url("http://localhost:9998/dm/getdms/bytype/"+ id).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -92,7 +178,7 @@ public class LivraisonController implements Initializable {
         Stock stock = getStock();
 
         DetailLivraison detailLivraison = new DetailLivraison(dm, qte,fournisseur);
-        lstDetails.getItems().add(detailLivraison);
+        tbvLivraison.getItems().add(detailLivraison);
 
         List<ExemplaireDm> exemplaireDms = new ArrayList<>();
 
@@ -123,14 +209,13 @@ public class LivraisonController implements Initializable {
     @FXML
     void onBtnValider(ActionEvent event) throws IOException {
 
-        LocalDate date = dpDate.getValue();
         Stock stock = getStock();
 
         ObjectMapper mapper = new ObjectMapper();
 
-        List<DetailLivraison> list = lstDetails.getItems().stream().toList();
+        List<DetailLivraison> list = tbvLivraison.getItems().stream().toList();
         Livraison livraison = new Livraison();
-        livraison.setDate(date);
+        livraison.setDate(LocalDate.now());
 
         for (DetailLivraison d : list){
             d.setLivraison(livraison);
@@ -152,10 +237,26 @@ public class LivraisonController implements Initializable {
         Response response = call.execute();
         response.close();
         initialize(null, null);
+        tbvLivraison.setItems(FXCollections.observableList(new ArrayList<>()));
+    }
+
+    public List<TypeDM> getTypeDMS(){
+        Request request = new Request.Builder().url("http://localhost:9998/typedm/gettypes").build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        Response response = null;
+        List<TypeDM> typeDMS = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            typeDMS = mapper.readValue(response.body().charStream(), new TypeReference<List<TypeDM>>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return typeDMS;
     }
 
     public Stock getStock(){
-        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/1").build();
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/1").build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

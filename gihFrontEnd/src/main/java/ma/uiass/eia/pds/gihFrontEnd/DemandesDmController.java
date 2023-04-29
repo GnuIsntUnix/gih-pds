@@ -2,16 +2,27 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import ma.uiass.eia.pds.gihBackEnd.model.DemandeDm;
 import ma.uiass.eia.pds.gihBackEnd.model.EtatDemandeDM;
+import ma.uiass.eia.pds.gihBackEnd.model.Service;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +31,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DemandesDmController implements Initializable {
+    private Service service = MenuControllerChefService.getService();
 
     @FXML
     private TableColumn<DemandeDm, Void> actionColumn;
@@ -39,18 +51,82 @@ public class DemandesDmController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //tableDemandes.setItems(getDemandes());
+        System.out.println(service.getNomService());
 
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etatDemande"));
         demandeColumn.setCellValueFactory(new PropertyValueFactory<>("idDemande"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateDemande"));
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        actionColumn.setCellFactory(col -> new TableCell<>() {
+            private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+
+            private final Button deleteBtn = new Button("", deleteIcon);
+
+            private final HBox hBox = new HBox(deleteBtn);
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+
+                }
+                else {
+                    deleteBtn.setOnAction(event -> {
+                        System.out.println("trash");
+                        int row = getIndex();
+                        DemandeDm demande = tableDemandes.getItems().get(row);
+                        if (demande.getEtatDemande() == EtatDemandeDM.INITIALISE) {
+                            int numdemande = tableDemandes.getItems().get(row).getIdDemande();
+                            System.out.println(numdemande);
+                            //tableDemandes.getItems().remove(row);
+                            try {
+                                deleteDemande(numdemande);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            initialize(null, null);
+                        } else {
+                            Notifications.create()
+                                    .title("warning")
+                                    .text("Demande déja" + demande.getEtatDemande())
+                                    .showWarning();
+
+                        }
+                    });
+                    hBox.setSpacing(5);
+                    setGraphic(hBox);
+
+                }
+            }
 
 
-
+        });
+        System.out.println(getDemandes());
+        tableDemandes.setItems(FXCollections.observableList(getDemandes()));
     }
 
-    public List<DemandeDm> getDemandes(int id){
-        Request request = new Request.Builder().url("http://localhost:9998/demande/getdemandes/byservice/"+ id).build();
+
+        public void deleteDemande(int id) throws IOException {
+//            Request request = new Request.Builder().url("http://localhost:9998/demande/delete/"+ id).delete().build();
+//
+//            Response response = null;
+//            try {
+//                response = okHttpClient.newCall(request).execute();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+            Request request = new Request.Builder()
+                    .url("http://localhost:9998/demande/delete/"+ id)
+                    .delete()
+                    .build();
+
+            Response response = okHttpClient.newCall(request).execute();
+
+        }
+
+    public List<DemandeDm> getDemandes(){
+        Request request = new Request.Builder().url("http://localhost:9998/demande/getdemandes/byservice/"+ service.getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

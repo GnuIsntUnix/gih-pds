@@ -27,6 +27,11 @@ public class Fournisseur {
         @Column(name = "Tel")
         private String tel;
 
+        @Override
+        public String toString() {
+                return this.nom;
+        }
+
         @OneToMany(mappedBy = "fournisseur")
         private List<DetailLivraison> detailLivraison;
 
@@ -39,6 +44,10 @@ public class Fournisseur {
                 this.email = email;
                 this.adresse = adresse;
                 this.tel = tel;
+        }
+
+        public Fournisseur(String nom) {
+                this.nom = nom;
         }
 
         public int getId() {

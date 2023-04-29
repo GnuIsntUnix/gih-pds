@@ -61,7 +61,20 @@ public class EspaceDaoImp implements IEspaceDao{
 
     @Override
     public void update(Espace espace) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            System.out.println("begin");
+            entityManager.merge(espace);
+            transaction.commit();
+            System.out.println("commited");
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override

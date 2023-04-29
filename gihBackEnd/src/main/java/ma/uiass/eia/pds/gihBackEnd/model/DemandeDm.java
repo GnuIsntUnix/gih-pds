@@ -41,7 +41,13 @@ public class DemandeDm {
     private List<DetailDemandeDm> detailDemandeDms= new ArrayList<>();
 
 
+    public EtatDemandeDM getEtatDemande() {
+        return etatDemande;
+    }
 
+    public void setEtatDemande(EtatDemandeDM etatDemande) {
+        this.etatDemande = etatDemande;
+    }
 
     public DemandeDm() {
     }
