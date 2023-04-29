@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DemandesDmController implements Initializable {
-    private Service service = MenuControllerChefService.getService();
 
     @FXML
     private TableColumn<DemandeDm, Void> actionColumn;
@@ -51,7 +50,7 @@ public class DemandesDmController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(service.getNomService());
+        System.out.println(MenuControllerChefService.getService().getNomService());
 
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etatDemande"));
         demandeColumn.setCellValueFactory(new PropertyValueFactory<>("idDemande"));
@@ -126,7 +125,7 @@ public class DemandesDmController implements Initializable {
         }
 
     public List<DemandeDm> getDemandes(){
-        Request request = new Request.Builder().url("http://localhost:9998/demande/getdemandes/byservice/"+ service.getIdService()).build();
+        Request request = new Request.Builder().url("http://localhost:9998/demande/getdemandes/byservice/"+ MenuControllerChefService.getService().getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

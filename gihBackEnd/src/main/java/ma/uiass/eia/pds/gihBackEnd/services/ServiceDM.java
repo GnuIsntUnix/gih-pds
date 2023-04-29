@@ -57,9 +57,13 @@ public class ServiceDM {
     }
 
     public List<DM> getDMbyIdType(int idType){
-        TypeDM typeDM = typeDmDao.getById(idType);
-        System.out.println(typeDM.getDms());
-        return typeDM.getDms();
+        List<DM> dms = dmDao.getAll();
+        List<DM> byType = new ArrayList<>();
+        dms.forEach(dm -> {
+            if(dm.getTypeDM().getIdType() == idType)
+                byType.add(dm);
+        });
+        return byType;
     }
     public void affecterExemplaire(int id,int idStock){
         Stock stock=stockDao.getById(idStock);

@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 
 public class ConsulterStockLitsChefController implements Initializable {
 
-    private static Service service = MenuControllerChefService.getService();
 
     private OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -53,7 +52,7 @@ public class ConsulterStockLitsChefController implements Initializable {
         colNbr.setCellValueFactory(table ->
                 new SimpleIntegerProperty(getLitsByType(table.getValue().getIdType())).asObject());
         tblStock.setItems(FXCollections.observableList(getTypesLits()));
-        System.out.println(service.getStock());
+        System.out.println(MenuControllerChefService.getService().getStock());
 
     }
 
@@ -93,7 +92,7 @@ public class ConsulterStockLitsChefController implements Initializable {
 
 
     private Stock getStock(){
-        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/"+service.getIdService()).build();
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/"+MenuControllerChefService.getService().getIdService()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
