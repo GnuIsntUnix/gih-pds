@@ -5,11 +5,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import ma.uiass.eia.pds.gihBackEnd.model.Fournisseur;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PopupModifierFournisseurController implements Initializable {
+
+
+    private Fournisseur fournisseur;
+
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
 
     @FXML
     private Button btnAjouter;

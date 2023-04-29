@@ -7,9 +7,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 
 <TabPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.LivraisonController">
    <tabs>
@@ -48,5 +48,10 @@
       </Tab>
       <Tab fx:id="tabConsulter" closable="false" onSelectionChanged="#onSelectionConsulter" text="Consulter les livraisons" />
       <Tab fx:id="tabFournisseur" closable="false" onSelectionChanged="#onSelectionFournisseur" text="Fournisseurs" />
+      <Tab fx:id="tabAffecter" closable="false" onSelectionChanged="#onAffecter" text="Affecter DM">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
    </tabs>
 </TabPane>
