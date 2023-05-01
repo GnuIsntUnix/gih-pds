@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
@@ -21,9 +24,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class DemandesController implements Initializable {
-
-
-    private static Service service = MenuControllerChefService.getService();
     @FXML
     private Button bttnAjouter;
 
@@ -51,6 +51,8 @@ public class DemandesController implements Initializable {
     private TableColumn<DetailDemandeDm, Integer> qtteColumn;
     @FXML
     private Button bttnsupprimer;
+    @FXML
+            private Tab tabConsulter;
 
 
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -94,17 +96,17 @@ public class DemandesController implements Initializable {
         DetailDemandeDm detailDemande = new DetailDemandeDm(dm, qte);
         DemandesTable.getItems().add(detailDemande);
 
-        // RequestBody body = RequestBody.create(
-        //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
+       // RequestBody body = RequestBody.create(
+           //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
 
-        // Request request = new Request.Builder()
-        //   .url("http://localhost:9998/detaildemandedm/save")
-        // .post(body)
-        //.build();
+       // Request request = new Request.Builder()
+             //   .url("http://localhost:9998/detaildemandedm/save")
+               // .post(body)
+                //.build();
 
-        // Call call = okHttpClient.newCall(request);
-        // Response response = call.execute();
-        // System.out.println(response.code());
+       // Call call = okHttpClient.newCall(request);
+       // Response response = call.execute();
+       // System.out.println(response.code());
 
     }
 
@@ -175,9 +177,9 @@ public class DemandesController implements Initializable {
 
     @FXML
     public void onBtnValider(ActionEvent event) throws IOException {
-        // ObjectMapper mapper = JsonMapper.builder()
-        //  .addModule(new JavaTimeModule())
-        //.build();
+       // ObjectMapper mapper = JsonMapper.builder()
+              //  .addModule(new JavaTimeModule())
+                //.build();
         ObjectMapper mapper = new ObjectMapper();
 
 
@@ -185,7 +187,7 @@ public class DemandesController implements Initializable {
         System.out.println(list);
 
 
-        DemandeDm demandeDm = new DemandeDm(service, LocalDate.now());
+        DemandeDm demandeDm = new DemandeDm(MenuControllerChefService.getService(),LocalDate.now());
         System.out.println(demandeDm);
         for (DetailDemandeDm d : list){
             d.setDemandeDm(demandeDm);
@@ -314,5 +316,10 @@ public class DemandesController implements Initializable {
             throw new RuntimeException(e);
         }
         return services;
+    }
+
+    public void onTabConsulter(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("ConsultationDemandeDm.fxml"));
+        tabConsulter.setContent(fxmlLoader);
     }
 }

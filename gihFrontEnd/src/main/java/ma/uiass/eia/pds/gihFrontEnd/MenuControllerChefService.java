@@ -82,7 +82,7 @@ public class MenuControllerChefService implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnRetour.setOnAction( new SceneChangeEventHandler("accueil.fxml"));
+        //btnRetour.setOnAction( new SceneChangeEventHandler("accueil.fxml"));
         lblService.setDisable(false);
         lblService.setText(MenuControllerChefService.service.getNomService());
     }
@@ -125,5 +125,13 @@ public class MenuControllerChefService implements Initializable {
         stage.setTitle(fxmlResourceName);
         stage.show();
         stage.centerOnScreen();
+    }
+
+    public void onBtnRetour(ActionEvent event) throws IOException {
+        MenuControllerChefService.setService(null);
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+        changeScene(stage,"accueil.fxml");
     }
 }

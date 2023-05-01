@@ -11,43 +11,47 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="606.0" spacing="30.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.LivraisonController">
-    <children>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Effecctuer une livraison">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-            <Tab text="Consulter les livraisons" />
-          <Tab text="Fournisseurs" />
-        </tabs>
-      </TabPane>
-      <HBox alignment="CENTER" prefHeight="86.0" prefWidth="606.0" spacing="30.0">
-         <children>
-            <VBox prefHeight="108.0" prefWidth="234.0" spacing="20.0">
-               <children>
-                  <ComboBox fx:id="cboxTypedm" prefWidth="150.0" promptText="Type DM" />
-                    <ComboBox fx:id="cboxdm" prefHeight="26.0" prefWidth="150.0" promptText="DM" />
-               </children>
+<TabPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.LivraisonController">
+   <tabs>
+      <Tab fx:id="tabCreate" closable="false" text="Effectuer une livraison">
+         <content>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="606.0" spacing="30.0">
+                <children>
+                  <HBox alignment="CENTER" prefHeight="86.0" prefWidth="606.0" spacing="30.0">
+                     <children>
+                        <VBox prefHeight="108.0" prefWidth="234.0" spacing="20.0">
+                           <children>
+                              <ComboBox fx:id="cboxTypedm" prefWidth="150.0" promptText="Type DM" />
+                                <ComboBox fx:id="cboxdm" prefHeight="26.0" prefWidth="150.0" promptText="DM" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="108.0" prefWidth="186.0" spacing="20.0">
+                           <children>
+                                <TextField fx:id="txtQte" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Qte" />
+                              <ComboBox fx:id="cboxFournisseur" prefWidth="150.0" promptText="Fournisseur" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                    <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" text="Ajouter" />
+                  <TableView fx:id="tbvLivraison" maxWidth="375.0" prefHeight="200.0" prefWidth="300.0">
+                    <columns>
+                      <TableColumn fx:id="clDM" prefWidth="125.0" text="DM" />
+                      <TableColumn fx:id="clQte" prefWidth="125.0" text="Qte" />
+                        <TableColumn fx:id="clFournisseur" minWidth="20.0" prefWidth="125.0" text="Fournisseur" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnValider" mnemonicParsing="false" onAction="#onBtnValider" text="Valider" />
+                </children>
             </VBox>
-            <VBox prefHeight="108.0" prefWidth="186.0" spacing="20.0">
-               <children>
-                    <TextField fx:id="txtQte" maxWidth="150.0" minWidth="150.0" prefHeight="26.0" prefWidth="200.0" promptText="Qte" />
-                  <ComboBox fx:id="cboxFournisseur" prefWidth="150.0" promptText="Fournisseur" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-        <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" text="Ajouter" />
-      <TableView fx:id="tbvLivraison" maxWidth="375.0" prefHeight="200.0" prefWidth="300.0">
-        <columns>
-          <TableColumn fx:id="clDM" prefWidth="125.0" text="DM" />
-          <TableColumn fx:id="clQte" prefWidth="125.0" text="Qte" />
-            <TableColumn fx:id="clFournisseur" minWidth="20.0" prefWidth="125.0" text="Fournisseur" />
-        </columns>
-      </TableView>
-      <Button fx:id="btnValider" mnemonicParsing="false" onAction="#onBtnValider" text="Valider" />
-    </children>
-</VBox>
+         </content>
+      </Tab>
+      <Tab fx:id="tabConsulter" closable="false" onSelectionChanged="#onSelectionConsulter" text="Consulter les livraisons" />
+      <Tab fx:id="tabFournisseur" closable="false" onSelectionChanged="#onSelectionFournisseur" text="Fournisseurs" />
+      <Tab fx:id="tabAffecter" closable="false" onSelectionChanged="#onAffecter" text="Affecter DM">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>

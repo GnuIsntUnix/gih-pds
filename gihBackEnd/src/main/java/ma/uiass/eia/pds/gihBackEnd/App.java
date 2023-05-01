@@ -51,108 +51,51 @@ public class App
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
 
 
-//               fournisseurDao.create(new Fournisseur("F1"," "," "," "));
-//
-//
-//
-//            //------------------------  Services   -----------------------------
-//        serviceDao.create(new Service("LOGI", "Logistique"));
-//        serviceDao.create(new Service("DERMATO", "Dermatologie"));
-//        serviceDao.create(new Service("RADIO", "Radiologie"));
-//        serviceDao.create(new Service("CHR", "Chirurgie"));
-//        serviceDao.create(new Service("NEURO", "Neurologie"));
-//
-//        marqueDao.create(new Marque("MarqueTest"));
-//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
-//        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
-//        batimentDao.create(new Batiment("Batiment C", serviceDao.getById(2)));
-//        batimentDao.create(new Batiment("Batiment D", serviceDao.getById(3)));
-//        typeLitDao.create(new TypeLit("Electrique"));
-//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
-//        espaceDao.create(new Chambre(10, batimentDao.getById(2), 2, TypeChambre.S));
-//        espaceDao.create(new Chambre(5, batimentDao.getById(3), 2, TypeChambre.S));
-//
-//        typeLitDao.create(new TypeLit("Mecanique"));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(7)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
-//
-//
-//
-//        //------------------------- TypeDm ----------------------------------
-//       typeDMDao.create(new TypeDM("Fourniture"));
-//       typeDMDao.create(new TypeDM("Instrument Leger"));
-//      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-//      typeDMDao.create(new TypeDM("Mobilier"));
-//       typeDMDao.create(new TypeDM("Equipement Leger"));
-//        //-------------------------- Dm -------------------------------------
-//     dmDao.create(new DM("BND", "Bande", typeDMDao.getById(1)));
-//        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
-////
+        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
 
-//----------------------------------Hadchi dyal hamza kan kaytester bih yamkan liktmas7o ila bghiti-------------------------------------------
 
-       // System.out.println(demandeDmDao.getById(4).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
-     //       List<DetailDemandeDm> list = new ArrayList<>();
-//            DemandeDm demandeDm = new DemandeDm(serviceDao.getById(2), LocalDate.of(2023, 1, 29));
-//            DetailDemandeDm detailDemandeDm = new DetailDemandeDm(dmDao.getById(6), 3, demandeDmDao.getById(6));
-////            list.add(detailDemandeDm);
-////            demandeDm.setDetailDemandeDms(list);
-////            demandeDmDao.create(demandeDm);
-////            detailDemandeDmDao.create(detailDemandeDm);
-//        demandeDmDao.getById(6).getDetailDemandeDms().add(detailDemandeDm);
-//        for(int i=1;i<=5;i++){
-//            ExemplaireDm exemplaireDm=new ExemplaireDm(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm(),stockDao.getById(1));
-//            exemplaireDm.setId(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId());
-//            exemplaireDmDao.create(exemplaireDm);
-//            stockDao.getById(1).getDms().add(exemplaireDm);
-//        }
-//        ExemplaireDm exemplaireDm=demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0);
-//        demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().add(exemplaireDm);
-//        stockDao.getById(1).setDms(new ArrayList<>());
-//        stockDao.update(stockDao.getById(1));
 
-//        Stock stock= (Stock) espaceDao.getById(1);
-//        List<ExemplaireDm> list=stock.getDms();
+            //------------------------  Services   -----------------------------
+        serviceDao.create(new Service("LOGI", "Logistique"));
+        serviceDao.create(new Service("DERMATO", "Dermatologie"));
+        serviceDao.create(new Service("RADIO", "Radiologie"));
+        serviceDao.create(new Service("CHR", "Chirurgie"));
+        serviceDao.create(new Service("NEURO", "Neurologie"));
 //
-//        System.out.println(list.size());
-//        stock.setDms(stock.getDms().stream()
-//                .distinct()
-//                .collect(Collectors.toList()));
-//        stockDao.update(stock);
-//        espaceDao.update(stock);
-//        System.out.println(stock.getDms());
-        //ServiceDM serviceDM=new ServiceDM();
-        //System.out.println(serviceDM.number(1,demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId()));
-//        System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getQte());
-//        if(serviceDM.number(1,demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getId())>=demandeDmDao.getById(3).getDetailDemandeDms().get(0).getQte()) {
-//            System.out.println("yes");
-//        }
-        //System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
-//        dmDao.update(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm());
-//        System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().size());
-        //System.out.println(stockDao.getById(1).getDms().size());
+        marqueDao.create(new Marque("MarqueTest"));
+        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
+        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
+        batimentDao.create(new Batiment("Batiment C", serviceDao.getById(2)));
+        batimentDao.create(new Batiment("Batiment D", serviceDao.getById(3)));
+        typeLitDao.create(new TypeLit("Electrique"));
+        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+        espaceDao.create(new Chambre(10, batimentDao.getById(2), 2, TypeChambre.S));
+        espaceDao.create(new Chambre(5, batimentDao.getById(3), 2, TypeChambre.S));
 
-//        demandeDmDao.getById(5).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().add(exemplaireDmDao.getById(1));
-//        System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
-        //System.out.println(serviceDao.getById(1).getStock().getIdEspace());
-        //dmDao.getById(3).getExemplaireDmList().get(0).getStock().setIdEspace(1);
+        typeLitDao.create(new TypeLit("Mecanique"));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(7)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
 
-        //System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
-        //for(ExemplaireDm exemplaireDm:demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList()) {
-          //  exemplaireDmDao.update(exemplaireDm, demandeDmDao.getById(6).getService().getStock().getIdEspace()+1);
-        //}
-//        System.out.println(demandeDmDao.getById(6).getDetailDemandeDms().get(0).getDm().getExemplaireDmList().get(0).getStock().getIdEspace());
-//        serviceDao.update(serviceDao.getById(1),1);
-//        stockDao.update(stockDao.getById(1),1);
-        //System.out.println(serviceDao.getById(1).getStock());
-        //System.out.println(demandeDmDao.getById(3).getDetailDemandeDms().get(0).getDm().getExemplaireDmList());
+
+
+        //------------------------- TypeDm ----------------------------------
+       typeDMDao.create(new TypeDM("Fourniture"));
+       typeDMDao.create(new TypeDM("Instrument Leger"));
+      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
+      typeDMDao.create(new TypeDM("Mobilier"));
+       typeDMDao.create(new TypeDM("Equipement Leger"));
+        //-------------------------- Dm -------------------------------------
+     dmDao.create(new DM("BND","Bande", typeDMDao.getById(1)));
+        dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
+
+
 
     }
 

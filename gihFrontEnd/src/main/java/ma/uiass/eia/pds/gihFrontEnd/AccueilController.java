@@ -40,6 +40,7 @@ public class AccueilController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnAdmin.setOnAction( new SceneChangeEventHandler("menuDashboard.fxml"));
+        btnLogistique.setOnAction( new SceneChangeEventHandler( "menu(Logistique).fxml" ));
         cboxServices.setItems(FXCollections.observableArrayList(getServices()));
     }
 
@@ -107,6 +108,7 @@ public class AccueilController implements Initializable {
     public void onCboxSelection(ActionEvent event) throws IOException {
         Service service = cboxServices.getSelectionModel().getSelectedItem();
         MenuControllerChefService.setService(service);
+        System.out.println(service);
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
                 .getWindow();

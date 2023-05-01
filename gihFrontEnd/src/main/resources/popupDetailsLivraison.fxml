@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.PopupDetailsLivraisonController">
+   <children>
+      <TableView fx:id="tableDetails" maxWidth="375.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="colDm" prefWidth="125.0" text="DM" />
+          <TableColumn fx:id="colQte" prefWidth="125.0" text="Qte" />
+            <TableColumn fx:id="colFournisseur" prefWidth="125.0" text="Fournisseur" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
