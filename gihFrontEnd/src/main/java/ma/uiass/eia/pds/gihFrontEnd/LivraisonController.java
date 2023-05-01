@@ -302,7 +302,7 @@ public class LivraisonController implements Initializable {
     }
 
     public Stock getStock(){
-        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/1").build();
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/1").build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
