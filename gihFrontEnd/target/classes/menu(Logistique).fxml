@@ -50,7 +50,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_LEFT" prefHeight="374.0" prefWidth="133.0">
                      <children>
-                        <Button fx:id="btnRetour" mnemonicParsing="false" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black;">
+                        <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#onBtnRetour" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black;">
                            <graphic>
                               <FontAwesomeIconView glyphName="ARROW_LEFT" />
                            </graphic>
