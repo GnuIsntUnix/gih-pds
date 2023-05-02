@@ -3,7 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,7 +14,7 @@ public class Ambulance {
     @Column(name = "Id")
     private int id;
     @Column(name = "miseEnCirculation")
-    private Date dateMiseEnCirculation;
+    private LocalDate dateMiseEnCirculation;
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance")
     private List<Historique> historiques;
@@ -23,11 +23,11 @@ public class Ambulance {
     private List<Revision> revisions;
     public Ambulance() {
     }
-    public Ambulance(Date dateMiseEnCirculation) {
+    public Ambulance(LocalDate dateMiseEnCirculation) {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public Ambulance(Date dateMiseEnCirculation, List<Historique> historiques, List<Revision> revisions) {
+    public Ambulance(LocalDate dateMiseEnCirculation, List<Historique> historiques, List<Revision> revisions) {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
         this.historiques = historiques;
         this.revisions = revisions;
@@ -41,11 +41,11 @@ public class Ambulance {
         this.id = id;
     }
 
-    public Date getDateMiseEnCirculation() {
+    public LocalDate getDateMiseEnCirculation() {
         return dateMiseEnCirculation;
     }
 
-    public void setDateMiseEnCirculation(Date dateMiseEnCirculation) {
+    public void setDateMiseEnCirculation(LocalDate dateMiseEnCirculation) {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 

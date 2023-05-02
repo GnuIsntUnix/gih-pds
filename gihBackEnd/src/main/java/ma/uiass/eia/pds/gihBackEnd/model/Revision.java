@@ -1,7 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TRevision")
@@ -11,7 +11,7 @@ public class Revision {
     @Column(name = "Id")
     private int id;
     @Column(name = "dateRevision")
-    private Date dateRevision;
+    private LocalDate dateRevision;
     @JoinColumn(name = "idAmbulance", referencedColumnName = "Id")
     @ManyToOne
     private Ambulance ambulance;
@@ -19,11 +19,11 @@ public class Revision {
     public Revision() {
     }
 
-    public Revision(Date dateRevision) {
+    public Revision(LocalDate dateRevision) {
         this.dateRevision = dateRevision;
     }
 
-    public Revision(Date dateRevision, Ambulance ambulance) {
+    public Revision(LocalDate dateRevision, Ambulance ambulance) {
         this.dateRevision = dateRevision;
         this.ambulance = ambulance;
     }
@@ -36,11 +36,11 @@ public class Revision {
         this.id = id;
     }
 
-    public Date getDateRevision() {
+    public LocalDate getDateRevision() {
         return dateRevision;
     }
 
-    public void setDateRevision(Date dateRevision) {
+    public void setDateRevision(LocalDate dateRevision) {
         this.dateRevision = dateRevision;
     }
 

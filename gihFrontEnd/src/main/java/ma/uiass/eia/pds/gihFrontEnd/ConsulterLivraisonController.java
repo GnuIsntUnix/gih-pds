@@ -51,6 +51,7 @@ public class ConsulterLivraisonController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+
                     System.out.println("double");
                     Parent fxmlLoader = null;
                     try {

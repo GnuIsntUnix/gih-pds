@@ -55,7 +55,7 @@ public class AdmissionDaoImp implements IAdmissionDao{
     public Admission getAdmissionByLit(int id){
         Admission admission = null;
         try{
-            Query query = entityManager.createQuery("from Admission a where a.lit.n_lit =: id");
+            Query query = entityManager.createQuery("select a from Admission a inner join a.lit l where l.admission.idAdmission = :id");
             query.setParameter("id", id);
             admission = (Admission) query.getSingleResult();
         }
@@ -63,6 +63,20 @@ public class AdmissionDaoImp implements IAdmissionDao{
 
         }
         return admission;
+    }
+    public List<Admission> getListAdmissionsByLit(int id ){
+
+
+        List<Admission> admissions = null;
+        try{
+            Query query = entityManager.createQuery("from Admission a where a.lit.n_lit =: id");
+            query.setParameter("id", id);
+            admissions = query.getResultList();
+        }
+        catch (NoResultException ignored){
+
+        }
+        return admissions;
     }
 
     @Override
@@ -88,7 +102,7 @@ public class AdmissionDaoImp implements IAdmissionDao{
             if (lit != null) {
                 lit.setDisponibiliteLit(DisponibiliteLit.Di);
                 lit.setAdmission(null);
-                admission.setLit(null);
+
             }
             EntityTransaction transaction = entityManager.getTransaction();
             try {

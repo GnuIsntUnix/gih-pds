@@ -21,6 +21,7 @@ ma\uiass\eia\pds\gihBackEnd\model\Marque.class
 ma\uiass\eia\pds\gihBackEnd\services\ServiceTypeLit.class
 ma\uiass\eia\pds\gihBackEnd\model\ChefService.class
 ma\uiass\eia\pds\gihBackEnd\model\Salle.class
+ma\uiass\eia\pds\gihBackEnd\model\Ambulance.class
 ma\uiass\eia\pds\gihBackEnd\model\Espace.class
 ma\uiass\eia\pds\gihBackEnd\model\Commande.class
 ma\uiass\eia\pds\gihBackEnd\controller\FournisseurResource.class
@@ -28,6 +29,7 @@ ma\uiass\eia\pds\gihBackEnd\controller\StockResource.class
 ma\uiass\eia\pds\gihBackEnd\services\ServiceStock.class
 ma\uiass\eia\pds\gihBackEnd\controller\ServiceResource.class
 ma\uiass\eia\pds\gihBackEnd\controller\DMResource.class
+ma\uiass\eia\pds\gihBackEnd\model\EtatAmbulance.class
 ma\uiass\eia\pds\gihBackEnd\dao\IFournisseurDao.class
 ma\uiass\eia\pds\gihBackEnd\dao\ILivraisonDao.class
 ma\uiass\eia\pds\gihBackEnd\dao\ITypeLitDao.class
@@ -42,6 +44,7 @@ ma\uiass\eia\pds\gihBackEnd\dao\MarqueDaoImp.class
 ma\uiass\eia\pds\gihBackEnd\dao\Dao.class
 ma\uiass\eia\pds\gihBackEnd\model\DetailDemandeDm.class
 ma\uiass\eia\pds\gihBackEnd\model\DemandeDm.class
+ma\uiass\eia\pds\gihBackEnd\model\Revision.class
 ma\uiass\eia\pds\gihBackEnd\dao\StockDaoImp.class
 ma\uiass\eia\pds\gihBackEnd\dto\LitDto.class
 ma\uiass\eia\pds\gihBackEnd\services\ServiceDemandeDM.class
@@ -49,6 +52,7 @@ ma\uiass\eia\pds\gihBackEnd\App.class
 ma\uiass\eia\pds\gihBackEnd\dao\BatimentDaoImp.class
 ma\uiass\eia\pds\gihBackEnd\dao\LivraisonDaoImp.class
 ma\uiass\eia\pds\gihBackEnd\model\ExemplaireDm.class
+ma\uiass\eia\pds\gihBackEnd\model\Historique.class
 ma\uiass\eia\pds\gihBackEnd\dao\TypeDmDaoImp.class
 ma\uiass\eia\pds\gihBackEnd\model\TypeSalle.class
 ma\uiass\eia\pds\gihBackEnd\controller\MarqueResource.class

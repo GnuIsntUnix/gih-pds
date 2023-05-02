@@ -23,6 +23,12 @@ public class AdmissionResource {
     public Admission getadmissionOnLit(@PathParam("id") int id) {
         return admissionDao.getAdmissionByLit(id);
     }
+    @GET
+    @Path("/getadmissionsonlit/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Admission> getadmissionsOnLit(@PathParam("id") int id) {
+        return admissionDao.getListAdmissionsByLit(id);
+    }
 
     @GET
     @Path("/getadmissions")
