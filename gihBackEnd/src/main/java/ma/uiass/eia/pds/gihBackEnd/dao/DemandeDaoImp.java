@@ -83,7 +83,18 @@ public class DemandeDaoImp implements IDemandeDao {
 
     @Override
     public void update(DemandeDm demandeDm) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.merge(demandeDm);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
