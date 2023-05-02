@@ -1,7 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "THistorique")
@@ -11,9 +11,9 @@ public class Historique {
     @Column(name = "Id")
     private int id;
     @Column(name = "dateDebut")
-    private Date dateDebut;
+    private LocalDate dateDebut;
     @Column(name = "DateProchainRevision")
-    private Date dateProchaineRevision;
+    private LocalDate dateProchaineRevision;
     @JoinColumn(name = "idAmbulance", referencedColumnName = "Id")
     @ManyToOne
     private Ambulance ambulance;
@@ -24,12 +24,12 @@ public class Historique {
     public Historique() {
     }
 
-    public Historique(Date dateDebut, Date dateProchaineRevision) {
+    public Historique(LocalDate dateDebut, LocalDate dateProchaineRevision) {
         this.dateDebut = dateDebut;
         this.dateProchaineRevision = dateProchaineRevision;
     }
 
-    public Historique(Date dateDebut, Date dateProchaineRevision, Ambulance ambulance, EtatAmbulance etatAmbulance) {
+    public Historique(LocalDate dateDebut, LocalDate dateProchaineRevision, Ambulance ambulance, EtatAmbulance etatAmbulance) {
         this.dateDebut = dateDebut;
         this.dateProchaineRevision = dateProchaineRevision;
         this.ambulance = ambulance;
@@ -44,19 +44,19 @@ public class Historique {
         this.id = id;
     }
 
-    public Date getDateDebut() {
+    public LocalDate getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateProchaineRevision() {
+    public LocalDate getDateProchaineRevision() {
         return dateProchaineRevision;
     }
 
-    public void setDateProchaineRevision(Date dateProchaineRevision) {
+    public void setDateProchaineRevision(LocalDate dateProchaineRevision) {
         this.dateProchaineRevision = dateProchaineRevision;
     }
 
