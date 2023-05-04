@@ -13,6 +13,8 @@ public class Ambulance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
+    @Column(name = "immatriculation")
+    private String immatriculation;
     @Column(name = "miseEnCirculation")
     private LocalDate dateMiseEnCirculation;
     @JsonIgnore
@@ -27,7 +29,8 @@ public class Ambulance {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public Ambulance(LocalDate dateMiseEnCirculation, List<Historique> historiques, List<Revision> revisions) {
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, List<Historique> historiques, List<Revision> revisions) {
+        this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
         this.historiques = historiques;
         this.revisions = revisions;
@@ -39,6 +42,14 @@ public class Ambulance {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImmatriculation() {
+        return immatriculation;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        this.immatriculation = immatriculation;
     }
 
     public LocalDate getDateMiseEnCirculation() {

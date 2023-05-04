@@ -94,11 +94,6 @@ public class App
 //        //-------------------------- Dm -------------------------------------
 //     dmDao.create(new DM("BND","Bande", typeDMDao.getById(1)));
 //     dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
-
-        demandeDmDao.getById(2).setValide(false);
-        demandeDmDao.update(demandeDmDao.getById(2));
-        System.out.println(demandeDmDao.getAll().size());
-        demandeDmDao.delete(demandeDmDao.getById(5).getIdDemande());
     }
 
 }
