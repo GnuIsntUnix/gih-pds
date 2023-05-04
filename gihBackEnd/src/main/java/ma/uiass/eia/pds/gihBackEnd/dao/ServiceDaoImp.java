@@ -8,13 +8,13 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import java.util.List;
 
 public class ServiceDaoImp implements IServiceDao {
-    private final EntityManager entityManager;
-    private IEspaceDao espaceDao;
+    private final EntityManager entityManager = HibernateUtil.getEntityManager();
+    private IEspaceDao espaceDao = new EspaceDaoImp();
     private IStockDao stockDao=new StockDaoImp();
 
     public ServiceDaoImp() {
-        entityManager = HibernateUtil.getEntityManager();
-        espaceDao = new EspaceDaoImp();
+
+
     }
 
     public void create(Service service) {
