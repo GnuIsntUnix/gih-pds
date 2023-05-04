@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,24 +14,31 @@ public class Ambulance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
+
+    @Column
+    private String immatriculation;
     @Column(name = "miseEnCirculation")
     private LocalDate dateMiseEnCirculation;
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance")
-    private List<Historique> historiques;
+    private List<Historique> historiques = new ArrayList<>();
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance")
-    private List<Revision> revisions;
+    private List<Revision> revisions = new ArrayList<>();
     public Ambulance() {
     }
-    public Ambulance(LocalDate dateMiseEnCirculation) {
+
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation) {
+        this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public Ambulance(LocalDate dateMiseEnCirculation, List<Historique> historiques, List<Revision> revisions) {
-        this.dateMiseEnCirculation = dateMiseEnCirculation;
-        this.historiques = historiques;
-        this.revisions = revisions;
+    public String getImmatriculation() {
+        return immatriculation;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        this.immatriculation = immatriculation;
     }
 
     public int getId() {
