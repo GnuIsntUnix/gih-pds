@@ -24,16 +24,12 @@ public class Historique {
     public Historique() {
     }
 
-    public Historique(LocalDate dateDebut, LocalDate dateProchaineRevision) {
-        this.dateDebut = dateDebut;
-        this.dateProchaineRevision = dateProchaineRevision;
-    }
 
     public Historique(LocalDate dateDebut, LocalDate dateProchaineRevision, Ambulance ambulance, EtatAmbulance etatAmbulance) {
         this.dateDebut = dateDebut;
         this.dateProchaineRevision = dateProchaineRevision;
-        this.ambulance = ambulance;
-        this.etatAmbulance = etatAmbulance;
+        this.setAmbulance(ambulance);
+        this.setEtatAmbulance(etatAmbulance);
     }
 
     public int getId() {
@@ -66,6 +62,7 @@ public class Historique {
 
     public void setAmbulance(Ambulance ambulance) {
         this.ambulance = ambulance;
+        ambulance.getHistoriques().add(this);
     }
 
     public EtatAmbulance getEtatAmbulance() {
@@ -74,5 +71,6 @@ public class Historique {
 
     public void setEtatAmbulance(EtatAmbulance etatAmbulance) {
         this.etatAmbulance = etatAmbulance;
+        etatAmbulance.getHistoriques().add(this);
     }
 }

@@ -25,7 +25,7 @@ public class Revision {
 
     public Revision(LocalDate dateRevision, Ambulance ambulance) {
         this.dateRevision = dateRevision;
-        this.ambulance = ambulance;
+        this.setAmbulance(ambulance);
     }
 
     public int getId() {
@@ -50,5 +50,6 @@ public class Revision {
 
     public void setAmbulance(Ambulance ambulance) {
         this.ambulance = ambulance;
+        ambulance.getRevisions().add(this);
     }
 }
