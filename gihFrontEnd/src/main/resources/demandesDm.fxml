@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <TabPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DemandesController">
    <tabs>
       <Tab closable="false" text="Effectuer Demande">
@@ -84,7 +83,7 @@
             </BorderPane>
          </content>
       </Tab>
-      <Tab fx:id="tabConsulter" onSelectionChanged="#onTabConsulter" text="Consulter Mes Demandes">
+      <Tab fx:id="tabConsulter" closable="false" onSelectionChanged="#onTabConsulter" text="Consulter Mes Demandes">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>

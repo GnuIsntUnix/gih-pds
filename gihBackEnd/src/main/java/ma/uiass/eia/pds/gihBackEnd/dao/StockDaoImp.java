@@ -10,10 +10,9 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class StockDaoImp implements IStockDao {
-    private final EntityManager entityManager;
+    private final EntityManager entityManager = HibernateUtil.getEntityManager();
 
     public StockDaoImp() {
-        entityManager = HibernateUtil.getEntityManager();
     }
 
     public void create(Stock stock) {
