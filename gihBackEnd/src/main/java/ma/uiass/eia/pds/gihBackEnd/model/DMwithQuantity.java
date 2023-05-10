@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "TDMwithQuatity")
+@Table(name = "TDMwithQuantity")
 public class DMwithQuantity extends DM {
 
     @Column(name = "Quantité")
