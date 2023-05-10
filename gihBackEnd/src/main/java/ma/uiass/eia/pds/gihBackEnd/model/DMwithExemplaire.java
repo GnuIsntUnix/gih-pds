@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "TDm")
+@Table(name = "TDMwithExemplaire")
 public class DMwithExemplaire extends DM{
 
     @OneToMany(mappedBy = "dm", fetch = FetchType.LAZY)
     private List<ExemplaireDm> exemplaireDmList = new ArrayList<>();
 
-    public DMwithExemplaire(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison,List<ExemplaireDm> exemplaireDmList) {
-        super(code, nom, typeDM, detailDemandeDm, detailLivraison);
+    public DMwithExemplaire() {
+    }
+
+    public DMwithExemplaire(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison, List<ExemplaireDm> exemplaireDmList, Stock stock) {
+        super(code, nom, typeDM, detailDemandeDm, detailLivraison,stock);
         this.exemplaireDmList = exemplaireDmList;
     }
 

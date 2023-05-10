@@ -9,7 +9,7 @@ import javax.persistence.*;
 public abstract class DM {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private int id;
 
@@ -31,17 +31,33 @@ public abstract class DM {
     @OneToOne(mappedBy = "dm")
     @JsonIgnore
     private DetailLivraison detailLivraison;
+    @JoinColumn(name = "idStock", referencedColumnName = "Id")
+    @ManyToOne
+    @JsonIgnore
+    private Stock stock;
 
-    public DM(String code, String nom, TypeDM typeDM) {
-
+    public DM() {
     }
 
-    public DM(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison) {
+    public DM(String code, String nom, TypeDM typeDM) {
+        this.code=code;
+        this.nom=nom;
+        this.typeDM=typeDM;
+    }
+    public DM(String code, String nom, TypeDM typeDM,Stock stock) {
+        this.code=code;
+        this.nom=nom;
+        this.typeDM=typeDM;
+        this.stock=stock;
+    }
+
+    public DM(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison,Stock stock) {
         this.code = code;
         this.nom = nom;
         this.typeDM = typeDM;
         this.detailDemandeDm = detailDemandeDm;
         this.detailLivraison = detailLivraison;
+        this.stock=stock;
     }
 
     public String getCode() {
@@ -90,6 +106,13 @@ public abstract class DM {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
 

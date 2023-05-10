@@ -8,30 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "TDm")
+@Table(name = "TDMwithQuatity")
 public class DMwithQuantity extends DM {
 
     @Column(name = "Quantité")
     private int quantite;
-    @JoinColumn(name = "idStock", referencedColumnName = "Id")
-    @ManyToOne
-    @JsonIgnore
-    private Stock stock;
+
     @Override
     public String toString() {
         return "name : "+getNom()+" Quantité : "+quantite;
     }
 
-    public DMwithQuantity(int quantite,String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison,Stock stock) {
-        super(code, nom, typeDM, detailDemandeDm, detailLivraison);
+    public DMwithQuantity() {
+    }
+
+    public DMwithQuantity(int quantite, String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison, Stock stock) {
+        super(code, nom, typeDM, detailDemandeDm, detailLivraison,stock);
         this.quantite = quantite;
-        this.stock=stock;
     }
 
     public DMwithQuantity(int quantite,String code, String nom, TypeDM typeDM, Stock stock) {
-        super(code, nom, typeDM);
+        super(code, nom, typeDM,stock);
         this.quantite = quantite;
-        this.stock = stock;
     }
 
     public int getQuantite() {
@@ -42,11 +40,5 @@ public class DMwithQuantity extends DM {
         this.quantite = quantite;
     }
 
-    public Stock getStock() {
-        return stock;
-    }
 
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
 }
