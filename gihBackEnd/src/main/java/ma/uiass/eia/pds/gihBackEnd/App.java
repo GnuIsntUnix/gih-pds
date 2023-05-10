@@ -49,6 +49,7 @@ public class App
         Dao<Livraison> livraisonDao = new LivraisonDaoImp();
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
+        Dao<Ambulance> ambulanceDao = new AmbulanceDaoImp();
 
 
 //        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
@@ -84,7 +85,7 @@ public class App
 //        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
 //
 //
-//
+
 //        //------------------------- TypeDm ----------------------------------
 //       typeDMDao.create(new TypeDM("Fourniture"));
 //       typeDMDao.create(new TypeDM("Instrument Leger"));
@@ -94,6 +95,23 @@ public class App
 //        //-------------------------- Dm -------------------------------------
 //     dmDao.create(new DM("BND","Bande", typeDMDao.getById(1)));
 //     dmDao.create(new DM("PN", "Pensement", typeDMDao.getById(2)));
+
+        //---------------------------------------------------------------------
+//        System.out.println(detailDemandeDmDao.getAll().size());
+//        Stock stock=stockDao.getById(1);
+//        List<ExemplaireDm> list=new ArrayList<>();
+//        for (ExemplaireDm exemplaireDm: exemplaireDmDao.getAll()){
+//            if(exemplaireDm.getId()==1)
+//                list.add(exemplaireDm);
+//        }
+//        System.out.println(list);
+
+//        exemplaireDm.setStock(stock);
+//        exemplaireDmDao.update(exemplaireDm);
+        //---------------------------------------------------------------------
+        //System.out.println(demandeDmDao.getAll().get(0).getDetailDemandeDms().get(0).getDm().getDetailDemandeDm());
+
+
     }
 
 }

@@ -7,6 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.List;
 
 public class ExemplaireDMDaoImp implements IExemplaireDMDao{
@@ -42,7 +43,8 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
 
     @Override
     public List<ExemplaireDm> getAll() {
-        return null;
+        Query query = entityManager.createQuery("from ExemplaireDm");
+        return query.getResultList();
     }
 
     @Override
@@ -57,6 +59,7 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
             transaction.begin();
             this.entityManager.merge(exemplaireDm);
             transaction.commit();
+            System.out.println("i got called out");
         }
         catch (Exception e) {
             if (transaction != null) {
@@ -64,7 +67,6 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
             }
             e.printStackTrace();
         }
-        System.out.println("i got called out");
     }
 
     @Override

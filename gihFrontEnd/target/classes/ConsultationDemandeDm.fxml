@@ -15,4 +15,12 @@
         </columns>
       </TableView>
    </center>
+   <bottom>
+      <TableView fx:id="tableDetail" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="dm" prefWidth="300.0" text="DM" />
+          <TableColumn fx:id="qte" prefWidth="299.3333435058594" text="Quantité" />
+        </columns>
+      </TableView>
+   </bottom>
 </BorderPane>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import ma.uiass.eia.pds.gihBackEnd.model.DM;
+import ma.uiass.eia.pds.gihBackEnd.model.DMwithExemplaire;
 import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
 
 import java.io.IOException;
@@ -24,9 +25,8 @@ public class DMJsonSerializer extends StdSerializer<DM> {
         gen.writeStartObject();
         gen.writeStringField("code", value.getCode());
         gen.writeStringField("nom", value.getNom());
-
         gen.writeArrayFieldStart("exemplaireDmList");
-        for (ExemplaireDm exemplaireDm : value.getExemplaireDmList()) {
+        for (ExemplaireDm exemplaireDm : ((DMwithExemplaire) value).getExemplaireDmList()) {
             gen.writeStartObject();
             gen.writeStringField("code", exemplaireDm.getCode());
             gen.writeObjectField("stock", exemplaireDm.getStock());

@@ -1,15 +1,12 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name = "TDm")
-public class DM {
+public abstract class DM {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,56 +24,24 @@ public class DM {
     @ManyToOne
     private TypeDM typeDM;
 
-    @OneToMany(mappedBy = "dm", fetch = FetchType.LAZY)
-    private List<ExemplaireDm> exemplaireDmList = new ArrayList<>();
+    @OneToOne(mappedBy = "dm")
+    @JsonIgnore
+    private DetailDemandeDm detailDemandeDm;
 
     @OneToOne(mappedBy = "dm")
     @JsonIgnore
     private DetailLivraison detailLivraison;
 
-    @OneToOne(mappedBy = "dm")
-    @JsonIgnore
-    private DetailDemandeDm detailDemandeDm;
-
     public DM(String code, String nom, TypeDM typeDM) {
+
+    }
+
+    public DM(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison) {
         this.code = code;
         this.nom = nom;
         this.typeDM = typeDM;
-    }
-
-    public DM(String code, String nom, TypeDM typeDM, DetailLivraison detailLivraison) {
-        this.code = code;
-        this.nom = nom;
-        this.typeDM = typeDM;
-        this.detailLivraison = detailLivraison;
-    }
-
-    public List<ExemplaireDm> getExemplaireDmList() {
-        return exemplaireDmList;
-    }
-
-    public void setExemplaireDmList(List<ExemplaireDm> exemplaireDmList) {
-        this.exemplaireDmList = exemplaireDmList;
-    }
-
-
-    public DetailDemandeDm getDetailDemandeDm() {
-        return detailDemandeDm;
-    }
-
-    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
         this.detailDemandeDm = detailDemandeDm;
-    }
-
-    public DM() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.detailLivraison = detailLivraison;
     }
 
     public String getCode() {
@@ -103,6 +68,14 @@ public class DM {
         this.typeDM = typeDM;
     }
 
+    public DetailDemandeDm getDetailDemandeDm() {
+        return detailDemandeDm;
+    }
+
+    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
+        this.detailDemandeDm = detailDemandeDm;
+    }
+
     public DetailLivraison getDetailLivraison() {
         return detailLivraison;
     }
@@ -111,8 +84,13 @@ public class DM {
         this.detailLivraison = detailLivraison;
     }
 
-    @Override
-    public String toString() {
-        return nom ;
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 }

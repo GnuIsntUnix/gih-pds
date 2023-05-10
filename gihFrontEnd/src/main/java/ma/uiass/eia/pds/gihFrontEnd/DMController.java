@@ -68,8 +68,12 @@ public class DMController implements Initializable {
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(DM.class, new DMJsonSerializer());
         mapper.registerModule(simpleModule);
-
-        DM dm = new DM(code, nom, typeDM);
+        DM dm =null;
+        if(typeDM.getNomType()=="Instrument Leger"||typeDM.getNomType()=="Equipement Leger") {
+            dm = new DMwithQuantity(1, code, nom, typeDM, getStock(1));
+        }else{
+            dm=new DMwithExemplaire(code,nom,typeDM);
+        }
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(dm));
