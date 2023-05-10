@@ -58,6 +58,9 @@ public class LivraisonController implements Initializable {
     private Tab tabConsulter;
 
     @FXML
+    private Tab tabDM;
+
+    @FXML
     private Tab tabFournisseur;
     @FXML
     private Tab tabAffecter;
@@ -81,6 +84,13 @@ public class LivraisonController implements Initializable {
     void onAffecter(Event event) throws IOException {
         Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("AffecterDM.fxml"));
         tabAffecter.setContent(fxmlLoader);
+
+    }
+
+    @FXML
+    void onDMs(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("dms.fxml"));
+        tabDM.setContent(fxmlLoader);
 
     }
 
