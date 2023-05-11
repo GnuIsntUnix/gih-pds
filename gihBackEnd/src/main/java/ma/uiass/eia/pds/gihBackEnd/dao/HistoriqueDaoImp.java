@@ -11,10 +11,9 @@ import java.util.List;
 
 public class HistoriqueDaoImp implements IHistoriqueDao{
 
-    private EntityManager entityManager;
+    private EntityManager entityManager = HibernateUtil.getEntityManager();
 
     public HistoriqueDaoImp() {
-        entityManager = HibernateUtil.getEntityManager();
     }
 
     @Override

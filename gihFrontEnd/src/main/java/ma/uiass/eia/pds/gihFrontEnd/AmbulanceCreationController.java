@@ -124,7 +124,6 @@ public class AmbulanceCreationController implements Initializable {
                 .build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
-        EtatAmbulance etatAmbulance= ambulance.getHistoriques().get(0).getEtatAmbulance();
         initialize(null,null);
     }
     /*

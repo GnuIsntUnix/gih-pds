@@ -22,7 +22,7 @@ public class AmbulanceResource {
     @Path("/ambulancecreation")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createAmbulance(Ambulance ambulance){
-        ambulanceDaoImp.create(ambulance);
+        serviceAmbulance.add(ambulance);
         return "created";
     }
     @POST

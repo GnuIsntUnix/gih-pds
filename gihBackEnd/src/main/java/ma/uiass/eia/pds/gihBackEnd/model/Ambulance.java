@@ -44,6 +44,14 @@ public class Ambulance {
         this.dateDeCreation=LocalDate.now();
     }
 
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, LocalDate dateDeCreation, List<Historique> historiques, List<Revision> revisions) {
+        this.immatriculation = immatriculation;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.dateDeCreation = dateDeCreation;
+        this.historiques = historiques;
+        this.revisions = revisions;
+    }
+
     public String getImmatriculation() {
         return immatriculation;
     }
