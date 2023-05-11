@@ -13,10 +13,10 @@ public abstract class DM {
     @Column(name = "Id")
     private int id;
 
-    @Column(name = "Code")
+    @Column(name = "Code", unique = true)
     private String code;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nom;
 
 
@@ -43,21 +43,26 @@ public abstract class DM {
         this.code=code;
         this.nom=nom;
         this.typeDM=typeDM;
+        typeDM.getDms().add(this);
     }
     public DM(String code, String nom, TypeDM typeDM,Stock stock) {
         this.code=code;
         this.nom=nom;
         this.typeDM=typeDM;
+        typeDM.getDms().add(this);
         this.stock=stock;
+        stock.getDms().add(this);
     }
 
     public DM(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison,Stock stock) {
         this.code = code;
         this.nom = nom;
-        this.typeDM = typeDM;
+        this.typeDM=typeDM;
+        typeDM.getDms().add(this);
         this.detailDemandeDm = detailDemandeDm;
         this.detailLivraison = detailLivraison;
         this.stock=stock;
+        stock.getDms().add(this);
     }
 
     public String getCode() {

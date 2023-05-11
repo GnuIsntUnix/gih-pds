@@ -14,7 +14,7 @@ public class Stock extends Espace{
 
     @OneToMany(mappedBy="stock")
     @JsonIgnore
-    private  List<DM> dms;
+    private  List<DM> dms = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne
