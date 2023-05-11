@@ -16,7 +16,7 @@ public class Batiment extends Instances {
     @Column(name = "Id")
     private int idBatiment;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nomBatiment;
 
     @JsonIgnore

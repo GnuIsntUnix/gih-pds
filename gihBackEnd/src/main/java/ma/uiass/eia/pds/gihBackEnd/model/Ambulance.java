@@ -19,7 +19,7 @@ public class Ambulance {
     @Column(name = "Id")
     private int id;
 
-    @Column
+    @Column(unique = true)
     private String immatriculation;
     @Column(name = "miseEnCirculation")
     @JsonDeserialize(using = LocalDateDeserializer.class)

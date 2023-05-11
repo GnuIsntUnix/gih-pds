@@ -28,7 +28,6 @@ public class DMJsonSerializer extends StdSerializer<DM> {
         gen.writeArrayFieldStart("exemplaireDmList");
         for (ExemplaireDm exemplaireDm : ((DMwithExemplaire) value).getExemplaireDmList()) {
             gen.writeStartObject();
-            gen.writeStringField("code", exemplaireDm.getCode());
             gen.writeObjectField("stock", exemplaireDm.getStock());
             gen.writeEndObject();
         }

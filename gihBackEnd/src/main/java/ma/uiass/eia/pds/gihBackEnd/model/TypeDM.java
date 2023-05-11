@@ -4,6 +4,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,12 +16,12 @@ public class TypeDM {
     @Column(name = "Id")
     private int idType;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nomType;
 
     @OneToMany(mappedBy = "typeDM")
     @JsonIgnore
-    private List<DM> dms;
+    private List<DM> dms = new ArrayList<>();
 
     public TypeDM(String nomType, List<DM> dms) {
         this.nomType = nomType;
