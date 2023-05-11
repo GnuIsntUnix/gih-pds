@@ -14,8 +14,6 @@ public class ExemplaireDm {
     @Column(name = "Id")
     private int id;
 
-    @Column(name = "Nom")
-    private String code;
 
     @ManyToOne
     @JoinColumn(name = "idDM", referencedColumnName = "Id")
@@ -33,8 +31,7 @@ public class ExemplaireDm {
 
     public ExemplaireDm(DM dm, Stock stock) {
         this.dm = dm;
-        this.stock = stock;
-        this.code = dm.getNom();
+        this.stock = stock;;
     }
 
     public Stock getStock() {
@@ -53,13 +50,7 @@ public class ExemplaireDm {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public DM getDm() {
         return dm;

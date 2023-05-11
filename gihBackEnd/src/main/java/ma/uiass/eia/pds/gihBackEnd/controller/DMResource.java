@@ -22,7 +22,7 @@ public class DMResource {
     @GET
     @Path("/getdms/service/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ExemplaireDm> getServices(@PathParam("id") int id){
+    public List<DM> getServices(@PathParam("id") int id){
         return serviceDM.getDMsByService(id);
     }
 
@@ -30,7 +30,9 @@ public class DMResource {
     @GET
     @Path("/getdms/bytype/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<DM> getDMByType(@PathParam("id") int id){return serviceDM.getDMbyIdType(id);}
+    public List<DM> getDMByType(@PathParam("id") int id){
+        return serviceDM.getDMbyIdType(id);
+    }
     @POST
     @Path("/save/persist")
     @Consumes(MediaType.APPLICATION_JSON)

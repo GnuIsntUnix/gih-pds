@@ -18,7 +18,7 @@ public class TypeLit {
     @Column(name = "Id")
     private int idType;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nomTypeLit;
 
     @JsonIgnore

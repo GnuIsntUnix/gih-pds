@@ -7,6 +7,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,9 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import ma.uiass.eia.pds.gihBackEnd.model.DemandeDm;
-import ma.uiass.eia.pds.gihBackEnd.model.EtatDemandeDM;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,6 +33,12 @@ public class DemandesDmController implements Initializable {
 
     @FXML
     private TableColumn<DemandeDm, Void> actionColumn;
+    @FXML
+    private TableColumn<DetailDemandeDm, DM> dm;
+    @FXML
+    private TableColumn<DetailDemandeDm, Integer> qte;
+    @FXML
+    private TableView<DetailDemandeDm> tableDetail;
 
     @FXML
     private TableColumn<DemandeDm, LocalDate> dateColumn;
@@ -55,6 +60,8 @@ public class DemandesDmController implements Initializable {
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etatDemande"));
         demandeColumn.setCellValueFactory(new PropertyValueFactory<>("idDemande"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateDemande"));
+        dm.setCellValueFactory(new PropertyValueFactory<>("dm"));
+        qte.setCellValueFactory(new PropertyValueFactory<>("qte"));
         //////////////////////////////////////////////////////////////////////////////////////////////////
         actionColumn.setCellFactory(col -> new TableCell<>() {
             private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
@@ -102,6 +109,11 @@ public class DemandesDmController implements Initializable {
 
         });
         System.out.println(getDemandes());
+        tableDemandes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                tableDetail.setItems((FXCollections.observableArrayList(tableDemandes.getSelectionModel().getSelectedItem().getDetailDemandeDms())));
+            }
+        });
         tableDemandes.setItems(FXCollections.observableList(getDemandes()));
     }
 

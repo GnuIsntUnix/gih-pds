@@ -1,6 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.DM;
+import ma.uiass.eia.pds.gihBackEnd.model.DMwithExemplaire;
 import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
@@ -21,7 +22,9 @@ public class DmDaoImp implements IDmDao{
     @Override
     public void create(DM dm) {
         EntityTransaction transaction = entityManager.getTransaction();
-        List<ExemplaireDm> exemplaireDms = dm.getExemplaireDmList();
+        List<ExemplaireDm> exemplaireDms = null;
+        if(dm instanceof DMwithExemplaire)
+            exemplaireDms = ((DMwithExemplaire) dm).getExemplaireDmList();
         ExemplaireDMDaoImp exemplaireDMDaoImp = new ExemplaireDMDaoImp();
         try {
             transaction.begin();
@@ -34,15 +37,22 @@ public class DmDaoImp implements IDmDao{
             }
             e.printStackTrace();
         }
+        if(dm instanceof DMwithExemplaire){
+            exemplaireDms.forEach(exemplaireDm -> {
+                exemplaireDm.setDm(dm);
+                exemplaireDMDaoImp.create(exemplaireDm);
+            });
+        }
 
-        exemplaireDms.forEach(exemplaireDm -> {
-            exemplaireDm.setDm(dm);
-            exemplaireDMDaoImp.create(exemplaireDm);
-        });
     }
     public void createv2(DM dm) {
         EntityTransaction transaction = entityManager.getTransaction();
-        List<ExemplaireDm> exemplaireDms = dm.getExemplaireDmList();
+        List<ExemplaireDm> exemplaireDms=null;
+        if(dm instanceof DMwithExemplaire)
+            exemplaireDms = ((DMwithExemplaire) dm).getExemplaireDmList();
+        else {
+            create(dm);
+        }
         ExemplaireDMDaoImp exemplaireDMDaoImp = new ExemplaireDMDaoImp();
         try {
             transaction.begin();
