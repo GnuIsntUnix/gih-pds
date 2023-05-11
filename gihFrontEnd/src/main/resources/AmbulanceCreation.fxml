@@ -7,14 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
    <children>
       <Button fx:id="create" layoutX="468.0" layoutY="44.0" mnemonicParsing="false" onAction="#onCreate" prefHeight="25.0" prefWidth="77.0" text="ajouter" />
-      <TableView fx:id="table" layoutY="111.0" prefHeight="289.0" prefWidth="600.0">
+      <TableView fx:id="table" layoutY="111.0" prefHeight="289.0" prefWidth="690.0">
         <columns>
-          <TableColumn fx:id="id" prefWidth="172.66665649414062" text="Id" />
-          <TableColumn fx:id="immatriculation" minWidth="0.0" prefWidth="201.33331298828125" text="Immatriculation" />
-            <TableColumn fx:id="dateDeMiseEnCirculation" prefWidth="224.66668701171875" text="date de mise en circulation" />
+          <TableColumn fx:id="id" prefWidth="65.33334600925446" text="Id" />
+          <TableColumn fx:id="immatriculation" minWidth="0.0" prefWidth="119.99999237060547" text="Immatriculation" />
+            <TableColumn fx:id="dateDeCreation" prefWidth="160.00001525878906" text="date de creation" />
+            <TableColumn fx:id="dateDeMiseEnCirculation" prefWidth="173.333251953125" text="date de mise en circulation" />
+            <TableColumn fx:id="etat" prefWidth="168.66668701171875" text="etat ambulance" />
         </columns>
       </TableView>
       <TextField fx:id="immText" layoutX="52.0" layoutY="44.0" promptText="Immatriculation" />

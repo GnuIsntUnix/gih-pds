@@ -25,6 +25,10 @@ public class Ambulance {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateMiseEnCirculation;
+    @Column(name = "dateDeCreation")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateDeCreation;
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance")
     private List<Historique> historiques = new ArrayList<>();
@@ -37,6 +41,7 @@ public class Ambulance {
     public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.dateDeCreation=LocalDate.now();
     }
 
     public String getImmatriculation() {
@@ -77,5 +82,13 @@ public class Ambulance {
 
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    public LocalDate getDateDeCreation() {
+        return dateDeCreation;
+    }
+
+    public void setDateDeCreation(LocalDate dateDeCreation) {
+        this.dateDeCreation = dateDeCreation;
     }
 }

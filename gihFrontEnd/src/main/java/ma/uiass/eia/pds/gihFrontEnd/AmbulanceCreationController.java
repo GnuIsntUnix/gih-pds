@@ -15,13 +15,16 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
+import ma.uiass.eia.pds.gihBackEnd.model.EtatAmbulance;
 import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
+import ma.uiass.eia.pds.gihBackEnd.model.Historique;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +37,8 @@ public class AmbulanceCreationController implements Initializable {
     TableColumn<Ambulance,String> immatriculation;
     @FXML
     TableColumn<Ambulance, LocalDate> dateDeMiseEnCirculation;
+    @FXML
+    private TableColumn<Ambulance, LocalDate> dateDeCreation;
     @FXML
     TextField immText;
     @FXML
@@ -48,6 +53,20 @@ public class AmbulanceCreationController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
+        dateDeCreation.setCellValueFactory((new PropertyValueFactory<Ambulance,LocalDate>("dateDeCreation")));
+
+
+        LocalDate minDate=LocalDate.now();
+        date.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
+                if (date.isBefore(minDate)) {
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
+         }});
+
         table.setItems(FXCollections.observableArrayList(getAmbulance()));
         table.getSelectionModel().selectFirst();
         table.requestLayout();
@@ -105,6 +124,7 @@ public class AmbulanceCreationController implements Initializable {
                 .build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
+        EtatAmbulance etatAmbulance= ambulance.getHistoriques().get(0).getEtatAmbulance();
         initialize(null,null);
     }
     /*

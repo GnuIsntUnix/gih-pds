@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "THistorique")
@@ -73,4 +74,6 @@ public class Historique {
         this.etatAmbulance = etatAmbulance;
         etatAmbulance.getHistoriques().add(this);
     }
+
+
 }
