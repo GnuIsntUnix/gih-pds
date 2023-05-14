@@ -16,6 +16,10 @@ public class Revision {
     @ManyToOne
     private Ambulance ambulance;
 
+    @OneToOne
+    @JoinColumn(name = "idState", referencedColumnName = "id")
+    private State state;
+
     public Revision() {
     }
 
@@ -26,6 +30,14 @@ public class Revision {
     public Revision(LocalDate dateRevision, Ambulance ambulance) {
         this.dateRevision = dateRevision;
         this.setAmbulance(ambulance);
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public int getId() {
