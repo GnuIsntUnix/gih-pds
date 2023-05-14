@@ -54,4 +54,7 @@ public class EtatAmbulance {
     public void setHistoriques(List<Historique> historiques) {
         this.historiques = historiques;
     }
+    public String toString(){
+        return this.nom;
+    }
 }

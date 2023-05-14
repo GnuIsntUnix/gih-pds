@@ -13,12 +13,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
-import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.EtatAmbulance;
-import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
-import ma.uiass.eia.pds.gihBackEnd.model.Historique;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +39,8 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     private TableColumn<Ambulance, LocalDate> dateDeCreation;
     @FXML
+    private TableColumn<Ambulance, Void> action;
+    @FXML
     TextField immText;
     @FXML
     DatePicker date;
@@ -55,6 +56,39 @@ public class AmbulanceCreationController implements Initializable {
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
         dateDeCreation.setCellValueFactory((new PropertyValueFactory<Ambulance,LocalDate>("dateDeCreation")));
 
+        action.setCellFactory(col -> new TableCell<>() {
+            private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+
+            private final Button deleteBtn = new Button("", deleteIcon);
+
+            private final HBox hBox = new HBox(deleteBtn);
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+
+                }
+                else {
+                    deleteBtn.setOnAction(event -> {
+                        int row = getIndex();
+                        try {
+                            deleteAmbulance(table.getItems().get(row).getId());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        initialize(null, null);
+
+                    });
+                    hBox.setSpacing(5);
+                    setGraphic(hBox);
+
+                }
+            }
+
+
+        });
 
         LocalDate minDate=LocalDate.now();
         date.setDayCellFactory(picker -> new DateCell() {
@@ -71,19 +105,19 @@ public class AmbulanceCreationController implements Initializable {
         table.getSelectionModel().selectFirst();
         table.requestLayout();
 
-        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
-        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
-            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
-            LocalDate newDate = event.getNewValue();
-            int row = pos.getRow();
-            Ambulance ambulance = event.getTableView().getItems().get(row);
-            ambulance.setDateMiseEnCirculation(newDate);
-            try {
-                updateData(ambulance);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
+//        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
+//            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
+//            LocalDate newDate = event.getNewValue();
+//            int row = pos.getRow();
+//            Ambulance ambulance = event.getTableView().getItems().get(row);
+//            ambulance.setDateMiseEnCirculation(newDate);
+//            try {
+//                updateData(ambulance);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
     }
 
     private void updateData(Ambulance ambulance) throws IOException {
@@ -126,6 +160,15 @@ public class AmbulanceCreationController implements Initializable {
         Response response = call.execute();
         initialize(null,null);
     }
+    public void deleteAmbulance(int id) throws IOException{
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/delete/"+ id)
+                .delete()
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+    }
+
     /*
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

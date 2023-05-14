@@ -31,4 +31,11 @@ public class AmbulanceResource {
     public void mergeAmbulance(Ambulance ambulance){
         ambulanceDaoImp.update(ambulance);
     }
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteDemande(@PathParam("id") int id){
+        serviceAmbulance.deleteById(id);
+        return "Deleted !";
+    }
 }

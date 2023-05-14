@@ -98,7 +98,17 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @FXML
     void onRevisions(ActionEvent event) {
-
+        ConsulterRevisionsController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
+        Parent fxmlLoader = null;
+        try {
+            fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("consulterRevisions.fxml"));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        Scene scene = new Scene(fxmlLoader);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     public List<Historique> getHistorique(int id){

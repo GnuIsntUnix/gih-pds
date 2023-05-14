@@ -30,10 +30,10 @@ public class Ambulance {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDeCreation;
     @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
+    @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Historique> historiques = new ArrayList<>();
     @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
+    @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
     public Ambulance() {
     }

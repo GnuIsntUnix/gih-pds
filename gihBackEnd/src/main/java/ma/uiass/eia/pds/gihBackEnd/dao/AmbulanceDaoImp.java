@@ -44,7 +44,9 @@ public class AmbulanceDaoImp implements IAmbulanceDao{
     public void delete(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
-            transaction.begin();
+            if(!transaction.isActive()){
+                transaction.begin();
+            }
             this.entityManager.remove(this.getById(id));
             transaction.commit();
         } catch (Exception e) {

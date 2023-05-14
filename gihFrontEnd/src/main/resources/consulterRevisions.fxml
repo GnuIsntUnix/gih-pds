@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ConsulterRevisions"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterRevisionsController">
+  <columns>
+    <TableColumn fx:id="idR" prefWidth="203.33336889743805" text="Id" />
+    <TableColumn fx:id="dR" prefWidth="210.66664123535156" text="Date de prochaine revision" />
+  </columns>
+</TableView>
