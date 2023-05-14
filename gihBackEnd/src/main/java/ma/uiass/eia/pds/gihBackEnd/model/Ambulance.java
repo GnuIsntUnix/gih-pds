@@ -1,6 +1,10 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,22 +19,36 @@ public class Ambulance {
     @Column(name = "Id")
     private int id;
 
-    @Column
+    @Column(unique = true)
     private String immatriculation;
     @Column(name = "miseEnCirculation")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateMiseEnCirculation;
-    @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
-    private List<Historique> historiques = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance")
     private List<Revision> revisions = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "idState", referencedColumnName = "id")
+    private State state;
+
+
     public Ambulance() {
     }
 
     public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public String getImmatriculation() {
@@ -55,14 +73,6 @@ public class Ambulance {
 
     public void setDateMiseEnCirculation(LocalDate dateMiseEnCirculation) {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
-    }
-
-    public List<Historique> getHistoriques() {
-        return historiques;
-    }
-
-    public void setHistoriques(List<Historique> historiques) {
-        this.historiques = historiques;
     }
 
     public List<Revision> getRevisions() {

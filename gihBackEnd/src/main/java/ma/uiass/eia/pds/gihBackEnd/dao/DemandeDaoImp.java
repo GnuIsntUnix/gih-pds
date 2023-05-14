@@ -55,9 +55,12 @@ public class DemandeDaoImp implements IDemandeDao {
     @Override
     public void delete(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
+        DemandeDm demandeDm=this.getById(id);
         try {
-            transaction.begin();
-            this.entityManager.remove(this.getById(id));
+            if(!transaction.isActive()){
+                transaction.begin();
+            }
+            this.entityManager.remove(demandeDm);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

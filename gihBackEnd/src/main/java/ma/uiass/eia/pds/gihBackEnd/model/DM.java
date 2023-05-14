@@ -1,25 +1,22 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name = "TDm")
-public class DM {
+public abstract class DM {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private int id;
 
-    @Column(name = "Code")
+    @Column(name = "Code", unique = true)
     private String code;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nom;
 
 
@@ -27,56 +24,45 @@ public class DM {
     @ManyToOne
     private TypeDM typeDM;
 
-    @OneToMany(mappedBy = "dm", fetch = FetchType.LAZY)
-    private List<ExemplaireDm> exemplaireDmList = new ArrayList<>();
-
-    @OneToOne(mappedBy = "dm")
-    @JsonIgnore
-    private DetailLivraison detailLivraison;
-
     @OneToOne(mappedBy = "dm")
     @JsonIgnore
     private DetailDemandeDm detailDemandeDm;
 
-    public DM(String code, String nom, TypeDM typeDM) {
-        this.code = code;
-        this.nom = nom;
-        this.typeDM = typeDM;
-    }
-
-    public DM(String code, String nom, TypeDM typeDM, DetailLivraison detailLivraison) {
-        this.code = code;
-        this.nom = nom;
-        this.typeDM = typeDM;
-        this.detailLivraison = detailLivraison;
-    }
-
-    public List<ExemplaireDm> getExemplaireDmList() {
-        return exemplaireDmList;
-    }
-
-    public void setExemplaireDmList(List<ExemplaireDm> exemplaireDmList) {
-        this.exemplaireDmList = exemplaireDmList;
-    }
-
-
-    public DetailDemandeDm getDetailDemandeDm() {
-        return detailDemandeDm;
-    }
-
-    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
-        this.detailDemandeDm = detailDemandeDm;
-    }
+    @OneToOne(mappedBy = "dm")
+    @JsonIgnore
+    private DetailLivraison detailLivraison;
+    @JoinColumn(name = "idStock", referencedColumnName = "Id")
+    @ManyToOne
+    @JsonIgnore
+    private Stock stock;
 
     public DM() {
     }
 
-    public int getId() {
-        return id;
+    public DM(String code, String nom, TypeDM typeDM) {
+        this.code=code;
+        this.nom=nom;
+        this.typeDM=typeDM;
+        typeDM.getDms().add(this);
+    }
+    public DM(String code, String nom, TypeDM typeDM,Stock stock) {
+        this.code=code;
+        this.nom=nom;
+        this.typeDM=typeDM;
+        typeDM.getDms().add(this);
+        this.stock=stock;
+        stock.getDms().add(this);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public DM(String code, String nom, TypeDM typeDM, DetailDemandeDm detailDemandeDm, DetailLivraison detailLivraison,Stock stock) {
+        this.code = code;
+        this.nom = nom;
+        this.typeDM=typeDM;
+        typeDM.getDms().add(this);
+        this.detailDemandeDm = detailDemandeDm;
+        this.detailLivraison = detailLivraison;
+        this.stock=stock;
+        stock.getDms().add(this);
     }
 
     public String getCode() {
@@ -103,6 +89,14 @@ public class DM {
         this.typeDM = typeDM;
     }
 
+    public DetailDemandeDm getDetailDemandeDm() {
+        return detailDemandeDm;
+    }
+
+    public void setDetailDemandeDm(DetailDemandeDm detailDemandeDm) {
+        this.detailDemandeDm = detailDemandeDm;
+    }
+
     public DetailLivraison getDetailLivraison() {
         return detailLivraison;
     }
@@ -111,8 +105,20 @@ public class DM {
         this.detailLivraison = detailLivraison;
     }
 
-    @Override
-    public String toString() {
-        return nom ;
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
+
 }

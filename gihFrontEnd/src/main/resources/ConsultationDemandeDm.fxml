@@ -16,10 +16,10 @@
       </TableView>
    </center>
    <bottom>
-      <TableView fx:id="tblDetailDemande" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableDetail" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="colDM" prefWidth="271.0" text="DM" />
-          <TableColumn fx:id="colQtte" prefWidth="328.0" text="Quantité" />
+          <TableColumn fx:id="dm" prefWidth="300.0" text="DM" />
+          <TableColumn fx:id="qte" prefWidth="299.3333435058594" text="Quantité" />
         </columns>
       </TableView>
    </bottom>

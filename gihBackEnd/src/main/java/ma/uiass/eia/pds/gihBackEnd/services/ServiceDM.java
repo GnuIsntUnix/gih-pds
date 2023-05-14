@@ -27,9 +27,9 @@ public class ServiceDM {
         demandeDao = new DemandeDaoImp();
     }
 
-    public List<ExemplaireDm> getDMsByService(int idService){
+    public List<DM> getDMsByService(int idService){
         Service s = serviceDao.getById(idService);
-        List<ExemplaireDm> dms = s.getStock().getDms();
+        List<DM> dms = s.getStock().getDms();
         return dms;
     }
 
@@ -70,16 +70,20 @@ public class ServiceDM {
         ExemplaireDm exemplaireDm=exemplaireDMDaoImp.getById(id);
         exemplaireDm.setStock(stock);
         exemplaireDMDaoImp.update(exemplaireDm);
-        System.out.println("i have been used");
+        System.out.println("Affectation d'exemplaire complete");
     }
+
     public int number(int stockId, int dmId){
-        List<ExemplaireDm> list=stockDao.getById(1).getDms();
+        DMwithExemplaire dm= (DMwithExemplaire) dmDao.getById(dmId);
+        List<ExemplaireDm> list=dm.getExemplaireDmList();
         System.out.println(list.size());
-        List<ExemplaireDm> target=new ArrayList<>();
-        for(ExemplaireDm exemplaireDm:list){
-            if(exemplaireDm.getDm().getId()==dmId)
-                target.add(exemplaireDm);
-        }
-        return target.size();
+        return list.size();
+    }
+    public void affecterDm(int id,int idStock){
+        Stock stock=stockDao.getById(idStock);
+        DM dm=dmDao.getById(id);
+        ((DMwithQuantity)dm).setStock(stock);
+        dmDao.update(dm);
+        System.out.println("Affectation de DM complete");
     }
 }

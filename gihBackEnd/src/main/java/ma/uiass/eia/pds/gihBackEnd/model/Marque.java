@@ -16,7 +16,7 @@ public class Marque implements Serializable{
     @Column(name = "Id")
     private int idMarque;
 
-    @Column(name="Nom")
+    @Column(name="Nom", unique = true)
     private String nomMarque;
 
     @JsonIgnore

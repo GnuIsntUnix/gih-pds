@@ -7,6 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class DetailDemandeDaoImp implements IDetailDemandeDao{
@@ -40,8 +41,7 @@ public class DetailDemandeDaoImp implements IDetailDemandeDao{
 
     @Override
     public List<DetailDemandeDm> getAll() {
-
-        Query query = entityManager.createQuery("from DetailDemandeDm", DemandeDm.class);
+        Query query = entityManager.createQuery("from DetailDemandeDm", DetailDemandeDm.class);
         return query.getResultList();
     }
 

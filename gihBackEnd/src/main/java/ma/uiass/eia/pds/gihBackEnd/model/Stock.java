@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class Stock extends Espace{
 
     @OneToMany(mappedBy="stock")
     @JsonIgnore
-    private List<ExemplaireDm> dms;
+    private  List<DM> dms = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne
@@ -30,14 +31,14 @@ public class Stock extends Espace{
     }
 
 
-    public List<ExemplaireDm> getDms() {
+    public List<DM> getDms() {
         dms=dms.stream()
                 .distinct()
                 .collect(Collectors.toList());
         return dms;
     }
 
-    public void setDms(List<ExemplaireDm> dms) {
+    public void setDms(List<DM> dms) {
         this.dms = dms;
     }
 

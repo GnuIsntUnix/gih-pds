@@ -1,13 +1,7 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
-import ma.uiass.eia.pds.gihBackEnd.dao.DemandeDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.dao.IDemandeDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.IServiceDao;
-import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
-import ma.uiass.eia.pds.gihBackEnd.model.DemandeDm;
-import ma.uiass.eia.pds.gihBackEnd.model.DetailDemandeDm;
-import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
+import ma.uiass.eia.pds.gihBackEnd.dao.*;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 
 import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
@@ -17,6 +11,7 @@ public class ServiceDemandeDM {
     private IServiceDao serviceDaoImp = new ServiceDaoImp();
     private IDemandeDao demandeDao=new DemandeDaoImp();
     private ServiceDM serviceDM=new ServiceDM();
+    private IStockDao stockDao=new StockDaoImp();
     public ServiceDemandeDM(){
         IDemandeDao demandeDao= new DemandeDaoImp();
     }
@@ -44,19 +39,33 @@ public class ServiceDemandeDM {
         boolean valide=true;
         for(DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
             int i=1;
-            if(serviceDM.number(1,detailDemandeDm.getDm().getId())>=detailDemandeDm.getQte()){
-                for(ExemplaireDm exemplaireDm:detailDemandeDm.getDm().getExemplaireDmList()) {
-                    System.out.println(exemplaireDm);
-                    serviceDM.affecterExemplaire(exemplaireDm.getId(), service.getStock().getIdEspace());
-                    i++;
-                    if (i > detailDemandeDm.getQte())
-                        break;
+            if(detailDemandeDm.getDm() instanceof DMwithExemplaire){
+                if(serviceDM.number(1,detailDemandeDm.getDm().getId())>=detailDemandeDm.getQte()){
+                    for(ExemplaireDm exemplaireDm:((DMwithExemplaire)detailDemandeDm.getDm()).getExemplaireDmList()) {
+                        serviceDM.affecterExemplaire(exemplaireDm.getId(), service.getStock().getIdEspace());
+                        i++;
+                        if (i > detailDemandeDm.getQte())
+                            break;
+                    }
+                }
+                else{
+                    valide=false;
                 }
             }
             else{
-                valide=false;
+                if(((DMwithQuantity)detailDemandeDm.getDm()).getQuantite()>=detailDemandeDm.getQte()){
+                    for(int j=1;j<=detailDemandeDm.getQte();j++){
+                        int id= stockDao.getById(1).getDms().get(j).getId();
+                        serviceDM.affecterDm(id,service.getStock().getIdEspace());
+                    }
+                }
+                else{
+                    valide=false;
+                }
+
             }
         }
+        demandeDao.update(demandeDm);
         if (valide) {
             demandeDm.setValide(true);
             demandeDao.update(demandeDm);

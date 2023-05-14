@@ -19,10 +19,10 @@ public class Service extends Instances implements Serializable {
     @Column(name = "Id")
     private int idService;
 
-    @Column(name = "Code")
+    @Column(name = "Code", unique = true)
     private String codeS;
 
-    @Column(name = "Nom")
+    @Column(name = "Nom", unique = true)
     private String nomService;
 
 

@@ -193,19 +193,26 @@ public class LivraisonController implements Initializable {
 
         int qte = Integer.parseInt(txtQte.getText());
         DM dm = cboxdm.getSelectionModel().getSelectedItem();
+
         Fournisseur fournisseur = cboxFournisseur.getSelectionModel().getSelectedItem();
         Stock stock = getStock();
 
         DetailLivraison detailLivraison = new DetailLivraison(dm, qte,fournisseur);
         tbvLivraison.getItems().add(detailLivraison);
 
-        List<ExemplaireDm> exemplaireDms = new ArrayList<>();
+        if(dm instanceof DMwithExemplaire){
+            List<ExemplaireDm> exemplaireDms = new ArrayList<>();
 
-        for (int i = 0; i<qte; i++){
-            exemplaireDms.add(new ExemplaireDm(dm, stock));
+            for (int i = 0; i<qte; i++){
+                exemplaireDms.add(new ExemplaireDm(dm, stock));
+            }
+
+            ((DMwithExemplaire) dm).setExemplaireDmList(exemplaireDms);
+        }else{
+            //KAMAL HNA A MOHAMMED BABA
+            // ET CHECKI WACH LES METHODE DYAWLAK FIHOM TEST DYAL WACH DM 3IBARA 3AN DMwithExemplaire
+            // WALA DMwithQuantity
         }
-
-        dm.setExemplaireDmList(exemplaireDms);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), mapper.writeValueAsString(dm));

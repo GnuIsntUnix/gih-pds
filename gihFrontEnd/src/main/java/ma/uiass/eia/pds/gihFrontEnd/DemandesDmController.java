@@ -7,6 +7,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,16 +30,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DemandesDmController implements Initializable {
-    @FXML
-    private TableColumn<DM, DM> colDM;
-
-    @FXML
-    private TableColumn<DM, Integer> colQtte;
-    @FXML
-    private TableView<DetailDemandeDm> tblDetailDemande;
 
     @FXML
     private TableColumn<DemandeDm, Void> actionColumn;
+    @FXML
+    private TableColumn<DetailDemandeDm, DM> dm;
+    @FXML
+    private TableColumn<DetailDemandeDm, Integer> qte;
+    @FXML
+    private TableView<DetailDemandeDm> tableDetail;
 
     @FXML
     private TableColumn<DemandeDm, LocalDate> dateColumn;
@@ -55,14 +55,13 @@ public class DemandesDmController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        tableDemandes.setItems(null);
         System.out.println(MenuControllerChefService.getService().getNomService());
 
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etatDemande"));
         demandeColumn.setCellValueFactory(new PropertyValueFactory<>("idDemande"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateDemande"));
-        colDM.setCellValueFactory(new PropertyValueFactory<>("dm"));
-        colQtte.setCellValueFactory(new PropertyValueFactory<>("qte"));
+        dm.setCellValueFactory(new PropertyValueFactory<>("dm"));
+        qte.setCellValueFactory(new PropertyValueFactory<>("qte"));
         //////////////////////////////////////////////////////////////////////////////////////////////////
         actionColumn.setCellFactory(col -> new TableCell<>() {
             private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
@@ -83,19 +82,15 @@ public class DemandesDmController implements Initializable {
                         System.out.println("trash");
                         int row = getIndex();
                         DemandeDm demande = tableDemandes.getItems().get(row);
-                        int numdemande = tableDemandes.getItems().get(row).getIdDemande();
                         if (demande.getEtatDemande() == EtatDemandeDM.INITIALISE) {
-                            Request request = new Request.Builder()
-                                    .url("http://localhost:9998/demande/delete/"+ numdemande)
-                                    .delete()
-                                    .build();
+                            int numdemande = tableDemandes.getItems().get(row).getIdDemande();
+                            System.out.println(numdemande);
+                            //tableDemandes.getItems().remove(row);
                             try {
-                                Response response= okHttpClient.newCall(request).execute();
+                                deleteDemande(numdemande);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            System.out.println(numdemande);
-                            tableDemandes.getItems().remove(row);
                             initialize(null, null);
                         } else {
                             Notifications.create()
@@ -114,11 +109,12 @@ public class DemandesDmController implements Initializable {
 
         });
         System.out.println(getDemandes());
+        tableDemandes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                tableDetail.setItems((FXCollections.observableArrayList(tableDemandes.getSelectionModel().getSelectedItem().getDetailDemandeDms())));
+            }
+        });
         tableDemandes.setItems(FXCollections.observableList(getDemandes()));
-        DemandeDm demandeDm = tableDemandes.getSelectionModel().getSelectedItem();
-        tblDetailDemande.setItems(FXCollections.observableArrayList(demandeDm.getDetailDemandeDms()));
-
-
     }
 
 
