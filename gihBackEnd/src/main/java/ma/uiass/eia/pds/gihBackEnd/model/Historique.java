@@ -73,7 +73,6 @@ public class Historique {
 
     public void setAmbulance(Ambulance ambulance) {
         this.ambulance = ambulance;
-        ambulance.getHistoriques().add(this);
     }
 
     public EtatAmbulance getEtatAmbulance() {

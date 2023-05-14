@@ -32,24 +32,30 @@ public class Ambulance {
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Historique> historiques = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "idState", referencedColumnName = "id")
+    private State state;
+
+
     public Ambulance() {
     }
 
     public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
-        this.dateDeCreation=LocalDate.now();
     }
 
-    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, LocalDate dateDeCreation, List<Historique> historiques, List<Revision> revisions) {
-        this.immatriculation = immatriculation;
-        this.dateMiseEnCirculation = dateMiseEnCirculation;
-        this.dateDeCreation = dateDeCreation;
-        this.historiques = historiques;
-        this.revisions = revisions;
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public String getImmatriculation() {
@@ -74,14 +80,6 @@ public class Ambulance {
 
     public void setDateMiseEnCirculation(LocalDate dateMiseEnCirculation) {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
-    }
-
-    public List<Historique> getHistoriques() {
-        return historiques;
-    }
-
-    public void setHistoriques(List<Historique> historiques) {
-        this.historiques = historiques;
     }
 
     public List<Revision> getRevisions() {
