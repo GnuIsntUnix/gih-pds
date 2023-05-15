@@ -8,14 +8,15 @@ import javax.persistence.Entity;
 @DiscriminatorValue("F")
 public class F extends State{
     @Column
-    private double q;
+    private double q=0;
 
-    public F(double a, double b, double x, double y, String stateName, Revision revision, double q) {
-        super(a, b, x, y, stateName, revision);
+    public F(double a, double b, double x, double y, Revision revision, double q) {
+        super(a, b, x, y, "F", revision);
         this.q = q;
     }
 
     public F() {
+        this.setStateName("F");
     }
 
     public double getQ() {
