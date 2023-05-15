@@ -158,7 +158,7 @@ public class AmbulanceCreationController implements Initializable {
                 .build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
-        initialize(null,null);
+        //initialize(null,null);
     }
     public void deleteAmbulance(int id) throws IOException{
         Request request = new Request.Builder()

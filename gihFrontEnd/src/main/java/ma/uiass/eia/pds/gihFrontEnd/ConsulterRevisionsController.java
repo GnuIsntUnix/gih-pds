@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.Historique;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;

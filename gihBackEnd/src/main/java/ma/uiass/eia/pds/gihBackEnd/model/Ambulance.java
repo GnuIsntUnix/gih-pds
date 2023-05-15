@@ -28,10 +28,8 @@ public class Ambulance {
     @Column(name = "dateDeCreation")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate dateDeCreation;
-    @JsonIgnore
-    @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
-    private List<Historique> historiques = new ArrayList<>();
+    private LocalDate dateDeCreation = LocalDate.now();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
