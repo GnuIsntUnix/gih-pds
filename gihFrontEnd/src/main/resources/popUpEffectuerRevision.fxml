@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AmbulanceRevisionController">
+   <padding>
+      <Insets bottom="10" left="10" right="10" top="10" />
+   </padding>
+   <GridPane hgap="10" vgap="10">
+      <Label text="Numéro d'ambulance:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      <TextField fx:id="numeroField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+      <Label text="Date d'entrée:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <DatePicker fx:id="dateEntreePicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+      <Label text="Date de sortie:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <DatePicker fx:id="dateSortiePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+      <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+      <Label text="Kilométrage:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+      <TextField fx:id="kilometrageField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+      <Label text="Type de révision:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+      <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <RadioButton fx:id="typeUrgenteButton" text="Urgente" />
+         <RadioButton fx:id="typeSimpleButton" text="Simple" />
+         <RadioButton fx:id="typeApprofondieButton" text="Approfondie" />
+      </HBox>
+
+      <HBox prefHeight="47.0" prefWidth="478.0" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <Button onAction="#valider" text="Valider" />
+         <Button onAction="#annuler" text="Annuler" />
+      </HBox>
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+   </GridPane>
+</VBox>
