@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
+import ma.uiass.eia.pds.gihBackEnd.model.Revision;
+import ma.uiass.eia.pds.gihBackEnd.services.ServiceRevision;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -40,6 +43,7 @@ public class AmbulanceCreationController implements Initializable {
     DatePicker date;
     @FXML
     Button create;
+
     OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
