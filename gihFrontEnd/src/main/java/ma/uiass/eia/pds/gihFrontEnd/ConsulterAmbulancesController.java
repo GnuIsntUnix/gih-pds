@@ -14,12 +14,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.State;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,44 +41,37 @@ public class ConsulterAmbulancesController implements Initializable {
     private TableColumn<Ambulance, String> immatriculCol;
 
     @FXML
-    private Button btnHistorique;
+    private TableColumn<Ambulance,Integer> km;
 
     @FXML
     private Button btnRevisions;
+    @FXML
+    TableColumn<Ambulance, State> state;
 
     @FXML
     private TableColumn<Ambulance, LocalDate> dateCol;
 
 
-    @FXML
-    private TableColumn<Ambulance, Integer> idCol;
-
     private OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
-
-
+        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
+        state.setCellValueFactory(new PropertyValueFactory<Ambulance,State>("state"));
 
         tblAmbulances.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue){
-                    btnHistorique.setDisable(false);
                     btnRevisions.setDisable(false);
                 }
             }
         });
 
     }
-
-
-
-
 
     @FXML
     void onRevisions(ActionEvent event) {
@@ -93,8 +88,6 @@ public class ConsulterAmbulancesController implements Initializable {
         stage.showAndWait();
     }
 
-
-
     public List<Ambulance> getAmbulance(){
         Request request = new Request.Builder().url("http://localhost:9998/ambulance/getambulances").build();
         ObjectMapper mapper = new ObjectMapper();
@@ -108,7 +101,4 @@ public class ConsulterAmbulancesController implements Initializable {
         }
         return ambulances;
     }
-
-
-
 }

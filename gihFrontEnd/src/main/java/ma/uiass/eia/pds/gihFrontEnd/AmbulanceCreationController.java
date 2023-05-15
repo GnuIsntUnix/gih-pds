@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 import org.controlsfx.control.Notifications;
@@ -37,11 +40,13 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     TableColumn<Ambulance, LocalDate> dateDeMiseEnCirculation;
     @FXML
-    private TableColumn<Ambulance, LocalDate> dateDeCreation;
+    private TableColumn<Ambulance, Integer> km;
     @FXML
     private TableColumn<Ambulance, Void> action;
     @FXML
     TextField immText;
+    @FXML
+    TextField kmText;
     @FXML
     DatePicker date;
     @FXML
@@ -55,7 +60,21 @@ public class AmbulanceCreationController implements Initializable {
         id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
-        dateDeCreation.setCellValueFactory((new PropertyValueFactory<Ambulance,LocalDate>("dateDeCreation")));
+
+        km.setCellValueFactory((new PropertyValueFactory<Ambulance,Integer>("km")));
+        km.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getKm()).asObject());
+        km.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        km.setOnEditCommit(event -> {
+            TablePosition<Ambulance, Integer> pos = event.getTablePosition();
+            int row = pos.getRow();
+            Ambulance ambulance = event.getTableView().getItems().get(row);
+            ambulance.setKm(event.getNewValue());
+            try {
+                updateData(ambulance);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         action.setCellFactory(col -> new TableCell<>() {
             private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
@@ -150,7 +169,7 @@ public class AmbulanceCreationController implements Initializable {
     }
 
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue());
+        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), Integer.parseInt(kmText.getText()));
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()

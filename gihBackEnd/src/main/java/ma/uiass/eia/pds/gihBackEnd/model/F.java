@@ -26,4 +26,7 @@ public class F extends State{
     public void setQ(double q) {
         this.q = q;
     }
+    public  String toString(){
+        return "Fonctionnelle";
+    }
 }

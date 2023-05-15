@@ -108,4 +108,5 @@ public abstract class State {
     public void setRevision(Revision revision) {
         this.revision = revision;
     }
+
 }
