@@ -1,0 +1,8 @@
+.myLink{
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+}
+.myLink:hover{
+    -fx-text-fill: #aad897;
+    -fx-underline: true;
+}
