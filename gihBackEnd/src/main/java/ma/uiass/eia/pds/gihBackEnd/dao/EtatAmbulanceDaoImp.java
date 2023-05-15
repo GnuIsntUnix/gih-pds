@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.EtatAmbulance;
+import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class EtatAmbulanceDaoImp implements IEtatAmbulanceDao{
 
-    private EntityManager entityManager;
+    private EntityManager entityManager = HibernateUtil.getEntityManager();
 
     @Override
     public void create(EtatAmbulance etatAmbulance) {

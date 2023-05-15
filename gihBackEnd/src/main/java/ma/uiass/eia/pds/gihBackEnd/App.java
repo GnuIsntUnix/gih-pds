@@ -52,49 +52,49 @@ public class App
         Dao<Ambulance> ambulanceDao = new AmbulanceDaoImp();
 
 
-//        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
+        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
+
+
+
+            //------------------------  Services   -----------------------------
+        serviceDao.create(new Service("LOGI", "Logistique"));
+        serviceDao.create(new Service("DERMATO", "Dermatologie"));
+        serviceDao.create(new Service("RADIO", "Radiologie"));
+        serviceDao.create(new Service("CHR", "Chirurgie"));
+        serviceDao.create(new Service("NEURO", "Neurologie"));
 //
-//
-//
-//            //------------------------  Services   -----------------------------
-//        serviceDao.create(new Service("LOGI", "Logistique"));
-//        serviceDao.create(new Service("DERMATO", "Dermatologie"));
-//        serviceDao.create(new Service("RADIO", "Radiologie"));
-//        serviceDao.create(new Service("CHR", "Chirurgie"));
-//        serviceDao.create(new Service("NEURO", "Neurologie"));
-////
-//        marqueDao.create(new Marque("MarqueTest"));
-//        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
-//        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
-//        batimentDao.create(new Batiment("Batiment C", serviceDao.getById(2)));
-//        batimentDao.create(new Batiment("Batiment D", serviceDao.getById(3)));
-//        typeLitDao.create(new TypeLit("Electrique"));
-//        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
-//        espaceDao.create(new Chambre(10, batimentDao.getById(2), 2, TypeChambre.S));
-//        espaceDao.create(new Chambre(5, batimentDao.getById(3), 2, TypeChambre.S));
-//
-//        typeLitDao.create(new TypeLit("Mecanique"));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(7)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
-//        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
-//
-//
-//
-//        //------------------------- TypeDm ----------------------------------
-//       typeDMDao.create(new TypeDM("Fourniture"));
-//       typeDMDao.create(new TypeDM("Instrument Leger"));
-//      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-//      typeDMDao.create(new TypeDM("Mobilier"));
-//       typeDMDao.create(new TypeDM("Equipement Leger"));
-//        //-------------------------- Dm -------------------------------------
-//     dmDao.create(new DMwithQuantity(40,"BND","Bande", typeDMDao.getById(1),stockDao.getById(1)));
-//     dmDao.create(new DMwithQuantity(40,"PN", "Pensement", typeDMDao.getById(2),stockDao.getById(1)));
+        marqueDao.create(new Marque("MarqueTest"));
+        batimentDao.create(new Batiment("Batiment A", serviceDao.getById(1)));
+        batimentDao.create(new Batiment("Batiment B", serviceDao.getById(2)));
+        batimentDao.create(new Batiment("Batiment C", serviceDao.getById(2)));
+        batimentDao.create(new Batiment("Batiment D", serviceDao.getById(3)));
+        typeLitDao.create(new TypeLit("Electrique"));
+        espaceDao.create(new Chambre(1, batimentDao.getById(1), 2, TypeChambre.S));
+        espaceDao.create(new Chambre(10, batimentDao.getById(2), 2, TypeChambre.S));
+        espaceDao.create(new Chambre(5, batimentDao.getById(3), 2, TypeChambre.S));
+
+        typeLitDao.create(new TypeLit("Mecanique"));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(1), espaceDao.getById(1)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(1)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.Di, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(6)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(7)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
+        litDao.create(new Lit(EtatLit.O, DisponibiliteLit.O, marqueDao.getById(1), typeLitDao.getById(2), espaceDao.getById(8)));
+
+
+
+        //------------------------- TypeDm ----------------------------------
+       typeDMDao.create(new TypeDM("Fourniture"));
+       typeDMDao.create(new TypeDM("Instrument Leger"));
+      typeDMDao.create(new TypeDM("Outil de Diagnostique"));
+      typeDMDao.create(new TypeDM("Mobilier"));
+       typeDMDao.create(new TypeDM("Equipement Leger"));
+        //-------------------------- Dm -------------------------------------
+     dmDao.create(new DMwithQuantity(40,"BND","Bande", typeDMDao.getById(1),stockDao.getById(1)));
+     dmDao.create(new DMwithQuantity(40,"PN", "Pensement", typeDMDao.getById(2),stockDao.getById(1)));
 
         //---------------------------------------------------------------------
 //        System.out.println(detailDemandeDmDao.getAll().size());
@@ -105,12 +105,11 @@ public class App
 //                list.add(exemplaireDm);
 //        }
 //        System.out.println(list);
-
+//
 //        exemplaireDm.setStock(stock);
 //        exemplaireDmDao.update(exemplaireDm);
-        //---------------------------------------------------------------------
-        //System.out.println(demandeDmDao.getAll().get(0).getDetailDemandeDms().get(0).getDm().getDetailDemandeDm());
-
+//        ---------------------------------------------------------------------
+//        System.out.println(demandeDmDao.getAll().get(0).getDetailDemandeDms().get(0).getDm().getDetailDemandeDm());
 
     }
 

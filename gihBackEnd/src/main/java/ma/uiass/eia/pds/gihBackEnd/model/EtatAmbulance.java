@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihBackEnd.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class EtatAmbulance {
     private String nom;
     @JsonIgnore
     @OneToMany(mappedBy = "etatAmbulance")
-    private List<Historique> historiques;
+    private List<Historique> historiques = new ArrayList<>();
 
     public EtatAmbulance() {
     }
@@ -52,5 +53,8 @@ public class EtatAmbulance {
 
     public void setHistoriques(List<Historique> historiques) {
         this.historiques = historiques;
+    }
+    public String toString(){
+        return this.nom;
     }
 }

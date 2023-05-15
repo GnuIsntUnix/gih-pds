@@ -15,6 +15,7 @@ public class RevisionResource {
 
     @Path("/getrevisionsonambulance/{id}")
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Revision> getOnAmbulance(@PathParam("id") int id){
         return serviceRevision.getOnAmbulance(id);
     }
