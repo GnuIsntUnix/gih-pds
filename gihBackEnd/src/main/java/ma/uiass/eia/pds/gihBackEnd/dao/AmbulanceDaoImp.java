@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Fournisseur;
+import ma.uiass.eia.pds.gihBackEnd.model.State;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -76,5 +77,10 @@ public class AmbulanceDaoImp implements IAmbulanceDao{
     @Override
     public void update(Ambulance ambulance, int id) {
 
+    }
+
+    public List<Ambulance> getByState(int id){
+        Query query = entityManager.createQuery("from Ambulance a where a.state.id = "+id, Ambulance.class);
+        return query.getResultList();
     }
 }

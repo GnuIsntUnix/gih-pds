@@ -50,6 +50,7 @@ public class AmbulanceCreationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         table.setEditable(true);
         id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
@@ -158,7 +159,7 @@ public class AmbulanceCreationController implements Initializable {
                 .build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
-        //initialize(null,null);
+        initialize(null,null);
     }
     public void deleteAmbulance(int id) throws IOException{
         Request request = new Request.Builder()
