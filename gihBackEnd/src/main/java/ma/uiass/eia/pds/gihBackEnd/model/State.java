@@ -1,10 +1,19 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME,include = JsonTypeInfo.As.PROPERTY,property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value=F.class,name="F"),
+        @JsonSubTypes.Type(value = NFCD.class,name="NFCD"),
+        @JsonSubTypes.Type(value = NFLD.class,name="NFLD")
+})
 public abstract class State {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +37,7 @@ public abstract class State {
         this.stateName = stateName;
         this.revision = revision;
     }
+
 
     public List<Ambulance> getAmbulances() {
         return ambulances;
