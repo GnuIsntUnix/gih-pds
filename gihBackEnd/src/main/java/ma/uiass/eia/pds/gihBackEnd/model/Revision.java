@@ -1,5 +1,10 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -11,6 +16,8 @@ public class Revision {
     @Column(name = "Id")
     private int id;
     @Column(name = "dateRevision")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateRevision;
     @JoinColumn(name = "idAmbulance", referencedColumnName = "Id")
     @ManyToOne

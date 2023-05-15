@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "Type", length = 255)
 @JsonTypeInfo(use= JsonTypeInfo.Id.NAME,include = JsonTypeInfo.As.PROPERTY,property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value=F.class,name="F"),

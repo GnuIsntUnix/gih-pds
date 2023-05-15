@@ -19,8 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.EtatAmbulance;
-import ma.uiass.eia.pds.gihBackEnd.model.Historique;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -49,8 +47,6 @@ public class ConsulterAmbulancesController implements Initializable {
     @FXML
     private TableColumn<Ambulance, LocalDate> dateCol;
 
-    @FXML
-    private TableColumn<Ambulance, EtatAmbulance> etatCol;
 
     @FXML
     private TableColumn<Ambulance, Integer> idCol;
@@ -62,8 +58,7 @@ public class ConsulterAmbulancesController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
-        etatCol.setCellValueFactory(table ->
-                new SimpleObjectProperty<>(getLast(table.getValue().getId()).getEtatAmbulance()));
+
 
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
 
@@ -81,20 +76,7 @@ public class ConsulterAmbulancesController implements Initializable {
 
 
 
-    @FXML
-    void onHistorique(ActionEvent event) {
-        ConsulterHistoriquesController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
-        Parent fxmlLoader = null;
-        try {
-            fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("consulterHistoriques.fxml"));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        Scene scene = new Scene(fxmlLoader);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
+
 
     @FXML
     void onRevisions(ActionEvent event) {
@@ -111,21 +93,7 @@ public class ConsulterAmbulancesController implements Initializable {
         stage.showAndWait();
     }
 
-    public List<Historique> getHistorique(int id){
-        Request request = new Request.Builder().url("http://localhost:9998/historique/gethistoriquesforambulance/" + id).build();
-        Call call = okHttpClient.newCall(request);
-        ObjectMapper mapper = new ObjectMapper();
 
-        Response response = null;
-        List<Historique> historiques = null;
-        try {
-            response = okHttpClient.newCall(request).execute();
-            historiques = mapper.readValue(response.body().charStream(), new TypeReference<List<Historique>>() {});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return historiques;
-    }
 
     public List<Ambulance> getAmbulance(){
         Request request = new Request.Builder().url("http://localhost:9998/ambulance/getambulances").build();
@@ -141,14 +109,6 @@ public class ConsulterAmbulancesController implements Initializable {
         return ambulances;
     }
 
-    public Historique getLast(int id){
-        List<Historique> historiques = getHistorique(id);
-        Historique last = new Historique();
-        if (historiques.size() > 0){
-            last = historiques.get(historiques.size()-1);
-        }
-        return last;
-    }
 
 
 }

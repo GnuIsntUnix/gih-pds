@@ -1,9 +1,11 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("F")
 public class F extends State{
     @Column
     private double q;

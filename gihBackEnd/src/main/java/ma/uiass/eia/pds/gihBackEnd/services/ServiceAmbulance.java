@@ -10,9 +10,7 @@ import java.util.List;
 
 public class ServiceAmbulance {
     private IAmbulanceDao ambulanceDao = new AmbulanceDaoImp();
-    private IHistoriqueDao historiqueDao = new HistoriqueDaoImp();
     private IRevisionDao revisionDao = new RevisionDaoImp();
-    private IEtatAmbulanceDao etatAmbulanceDao = new EtatAmbulanceDaoImp();
     private IStateDao stateDao=new StateDaoImp();
 
     public ServiceAmbulance() {
@@ -20,12 +18,12 @@ public class ServiceAmbulance {
     }
     public void add(Ambulance ambulance){
         ambulanceDao.create(ambulance);
-        Revision revision=new Revision(LocalDate.now().plusDays(30),ambulance);
-        revisionDao.create(revision);
-        State state=new F(0,0,0,0,"Fonctionnel",revision,0);
-        stateDao.create(state);
-        ambulance.setState(state);
-        ambulanceDao.update(ambulance);
+//        Revision revision=new Revision(LocalDate.now().plusDays(30),ambulance);
+//        revisionDao.create(revision);
+        //State state=new F(0,0,0,0,"Fonctionnel",revision,0);
+        //stateDao.create(state);
+        //ambulance.setState(stateDao.getById(1));
+        //ambulanceDao.update(ambulance);
 
     }
 
