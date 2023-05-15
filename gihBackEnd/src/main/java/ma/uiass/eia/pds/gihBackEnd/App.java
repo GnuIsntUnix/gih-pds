@@ -50,7 +50,12 @@ public class App
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
         Dao<Ambulance> ambulanceDao = new AmbulanceDaoImp();
+        Dao<State> stateDao = new StateDaoImp();
 
+
+//        stateDao.create(new F());
+//        stateDao.create(new NFCD());
+//        stateDao.create(new NFLD());
 
 //        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
 //
@@ -105,12 +110,11 @@ public class App
 //                list.add(exemplaireDm);
 //        }
 //        System.out.println(list);
-
+//
 //        exemplaireDm.setStock(stock);
 //        exemplaireDmDao.update(exemplaireDm);
-        //---------------------------------------------------------------------
-        //System.out.println(demandeDmDao.getAll().get(0).getDetailDemandeDms().get(0).getDm().getDetailDemandeDm());
-
+//        ---------------------------------------------------------------------
+//        System.out.println(demandeDmDao.getAll().get(0).getDetailDemandeDms().get(0).getDm().getDetailDemandeDm());
 
     }
 

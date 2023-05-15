@@ -1,6 +1,5 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
-import ma.uiass.eia.pds.gihBackEnd.model.Historique;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 

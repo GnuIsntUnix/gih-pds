@@ -22,7 +22,7 @@ public class AmbulanceResource {
     @Path("/ambulancecreation")
     @Consumes(MediaType.APPLICATION_JSON)
     public String createAmbulance(Ambulance ambulance){
-        ambulanceDaoImp.create(ambulance);
+        serviceAmbulance.add(ambulance);
         return "created";
     }
     @POST
@@ -30,5 +30,19 @@ public class AmbulanceResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void mergeAmbulance(Ambulance ambulance){
         ambulanceDaoImp.update(ambulance);
+    }
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteDemande(@PathParam("id") int id){
+        serviceAmbulance.deleteById(id);
+        return "Deleted !";
+    }
+
+    @GET
+    @Path("/getambulances/bystate/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Ambulance> getByState(@PathParam("id") int id){
+        return ambulanceDaoImp.getByState(id);
     }
 }

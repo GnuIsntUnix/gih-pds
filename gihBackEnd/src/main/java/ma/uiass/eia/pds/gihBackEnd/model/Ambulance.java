@@ -25,9 +25,14 @@ public class Ambulance {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateMiseEnCirculation;
+    @Column(name = "dateDeCreation")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateDeCreation = LocalDate.now();
+
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
+    @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
 
     @ManyToOne
@@ -81,5 +86,13 @@ public class Ambulance {
 
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    public LocalDate getDateDeCreation() {
+        return dateDeCreation;
+    }
+
+    public void setDateDeCreation(LocalDate dateDeCreation) {
+        this.dateDeCreation = dateDeCreation;
     }
 }

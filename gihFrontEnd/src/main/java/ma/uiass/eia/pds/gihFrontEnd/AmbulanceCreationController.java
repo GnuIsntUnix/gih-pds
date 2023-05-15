@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,17 +13,17 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
-import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.EtatLit;
-import ma.uiass.eia.pds.gihBackEnd.model.Revision;
-import ma.uiass.eia.pds.gihBackEnd.services.ServiceRevision;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -38,37 +37,88 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     TableColumn<Ambulance, LocalDate> dateDeMiseEnCirculation;
     @FXML
+    private TableColumn<Ambulance, LocalDate> dateDeCreation;
+    @FXML
+    private TableColumn<Ambulance, Void> action;
+    @FXML
     TextField immText;
     @FXML
     DatePicker date;
     @FXML
     Button create;
-
     OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         table.setEditable(true);
         id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
+        dateDeCreation.setCellValueFactory((new PropertyValueFactory<Ambulance,LocalDate>("dateDeCreation")));
+
+        action.setCellFactory(col -> new TableCell<>() {
+            private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+
+            private final Button deleteBtn = new Button("", deleteIcon);
+
+            private final HBox hBox = new HBox(deleteBtn);
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+
+                }
+                else {
+                    deleteBtn.setOnAction(event -> {
+                        int row = getIndex();
+                        try {
+                            deleteAmbulance(table.getItems().get(row).getId());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        initialize(null, null);
+
+                    });
+                    hBox.setSpacing(5);
+                    setGraphic(hBox);
+
+                }
+            }
+
+
+        });
+
+        LocalDate minDate=LocalDate.now();
+        date.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
+                if (date.isBefore(minDate)) {
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
+         }});
+
         table.setItems(FXCollections.observableArrayList(getAmbulance()));
         table.getSelectionModel().selectFirst();
         table.requestLayout();
 
-        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
-        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
-            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
-            LocalDate newDate = event.getNewValue();
-            int row = pos.getRow();
-            Ambulance ambulance = event.getTableView().getItems().get(row);
-            ambulance.setDateMiseEnCirculation(newDate);
-            try {
-                updateData(ambulance);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
+//        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
+//            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
+//            LocalDate newDate = event.getNewValue();
+//            int row = pos.getRow();
+//            Ambulance ambulance = event.getTableView().getItems().get(row);
+//            ambulance.setDateMiseEnCirculation(newDate);
+//            try {
+//                updateData(ambulance);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
     }
 
     private void updateData(Ambulance ambulance) throws IOException {
@@ -111,6 +161,15 @@ public class AmbulanceCreationController implements Initializable {
         Response response = call.execute();
         initialize(null,null);
     }
+    public void deleteAmbulance(int id) throws IOException{
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/delete/"+ id)
+                .delete()
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+    }
+
     /*
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
