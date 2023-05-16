@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -9,34 +10,41 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
    <children>
-      <Button fx:id="create" layoutX="586.0" layoutY="61.0" mnemonicParsing="false" onAction="#onCreate" prefHeight="25.0" prefWidth="77.0" text="ajouter" />
-      <TableView fx:id="table" layoutY="111.0" prefHeight="289.0" prefWidth="690.0">
+      <Button fx:id="create" layoutX="714.0" layoutY="68.0" mnemonicParsing="false" onAction="#onCreate" prefHeight="25.0" prefWidth="77.0" text="ajouter" />
+      <TableView fx:id="table" layoutY="111.0" prefHeight="289.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="immatriculation" minWidth="0.0" prefWidth="129.33328247070312" text="Immatriculation" />
             <TableColumn fx:id="dateDeMiseEnCirculation" prefWidth="242.6666717529297" text="date de mise en circulation" />
-            <TableColumn fx:id="km" prefWidth="134.66668701171875" text="Kilométrage" />
-            <TableColumn fx:id="action" prefWidth="181.99996948242188" text="action" />
+            <TableColumn fx:id="km" prefWidth="167.33331298828125" text="Kilométrage" />
+            <TableColumn fx:id="typeCol" prefWidth="150.00003051757812" text="Type" />
+            <TableColumn fx:id="action" prefWidth="108.6666259765625" text="action" />
         </columns>
       </TableView>
-      <DatePicker fx:id="date" layoutX="201.0" layoutY="61.0" prefHeight="25.0" prefWidth="184.0" />
-      <TextField fx:id="kmText" layoutX="401.0" layoutY="61.0" />
-      <TextField fx:id="immText" layoutX="28.0" layoutY="61.0" />
-      <Label layoutX="47.0" layoutY="36.0" prefHeight="25.0" prefWidth="112.0" text="Immatriculation">
+      <DatePicker fx:id="date" layoutX="178.0" layoutY="68.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="kmText" layoutX="378.0" layoutY="68.0" />
+      <TextField fx:id="immText" layoutX="5.0" layoutY="68.0" />
+      <Label layoutX="24.0" layoutY="43.0" prefHeight="25.0" prefWidth="112.0" text="Immatriculation">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="212.0" layoutY="36.0" prefHeight="25.0" prefWidth="162.0" text="date de mise en circulation">
+      <Label layoutX="189.0" layoutY="43.0" prefHeight="25.0" prefWidth="162.0" text="date de mise en circulation">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="430.0" layoutY="36.0" prefHeight="25.0" prefWidth="77.0" text="Kilométrage">
+      <Label layoutX="407.0" layoutY="43.0" prefHeight="25.0" prefWidth="77.0" text="Kilométrage">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="599.0" layoutY="43.0" prefHeight="25.0" prefWidth="77.0" text="Type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="typeCombo" layoutX="550.0" layoutY="66.0" prefWidth="150.0" />
    </children>
 </Pane>

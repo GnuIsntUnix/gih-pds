@@ -31,7 +31,8 @@ public class Ambulance {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDeCreation = LocalDate.now();
-
+    @Column(name = "typeAmbulance")
+    private TypeAmbulance typeAmbulance;
 
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
@@ -45,7 +46,14 @@ public class Ambulance {
     public Ambulance() {
     }
 
-    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation,String km) {
+    public Ambulance(String immatriculation,LocalDate dateMiseEnCirculation, String km, TypeAmbulance typeAmbulance) {
+        this.immatriculation = immatriculation;
+        this.km = km;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.typeAmbulance = typeAmbulance;
+    }
+
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, String km) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
         this.km=km;
@@ -105,5 +113,13 @@ public class Ambulance {
 
     public void setKm(String km) {
         this.km = km;
+    }
+
+    public TypeAmbulance getTypeAmbulance() {
+        return typeAmbulance;
+    }
+
+    public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
+        this.typeAmbulance = typeAmbulance;
     }
 }

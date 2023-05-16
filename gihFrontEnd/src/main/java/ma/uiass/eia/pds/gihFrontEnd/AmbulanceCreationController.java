@@ -8,7 +8,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -33,7 +35,9 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     TableView<Ambulance> table;
     @FXML
-    TableColumn<Ambulance,Integer> id;
+    TableColumn<Ambulance,TypeAmbulance> typeCol;
+    @FXML
+    ComboBox<TypeAmbulance> typeCombo;
     @FXML
     TableColumn<Ambulance,String> immatriculation;
     @FXML
@@ -59,6 +63,25 @@ public class AmbulanceCreationController implements Initializable {
         //id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<Ambulance,TypeAmbulance>("typeAmbulance"));
+        typeCombo.setItems(FXCollections.observableArrayList(TypeAmbulance.B,TypeAmbulance.U,TypeAmbulance.I));
+        typeCol.setCellFactory(column -> {
+                    return new ComboBoxTableCell<>(TypeAmbulance.B,TypeAmbulance.U,TypeAmbulance.I);
+                }
+        );
+        typeCol.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Ambulance,TypeAmbulance>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Ambulance,TypeAmbulance> event) {
+                        event.getRowValue().setTypeAmbulance(event.getNewValue());
+                        try {
+                            updateEtat(event.getRowValue());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+        );
 
         km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
         km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKm()));
@@ -120,23 +143,38 @@ public class AmbulanceCreationController implements Initializable {
                 }
          }});
 
+
         table.setItems(FXCollections.observableArrayList(getAmbulance()));
         table.getSelectionModel().selectFirst();
         table.requestLayout();
 
-//        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
-//        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
-//            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
-//            LocalDate newDate = event.getNewValue();
-//            int row = pos.getRow();
-//            Ambulance ambulance = event.getTableView().getItems().get(row);
-//            ambulance.setDateMiseEnCirculation(newDate);
-//            try {
-//                updateData(ambulance);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+        dateDeMiseEnCirculation.setCellFactory(col -> new DateEditingCell());
+        dateDeMiseEnCirculation.setOnEditCommit((TableColumn.CellEditEvent<Ambulance, LocalDate> event) -> {
+            TablePosition<Ambulance, LocalDate> pos = event.getTablePosition();
+            LocalDate newDate = event.getNewValue();
+            int row = pos.getRow();
+            Ambulance ambulance = event.getTableView().getItems().get(row);
+            ambulance.setDateMiseEnCirculation(newDate);
+            try {
+                updateData(ambulance);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+    private void updateEtat(Ambulance ambulance) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        RequestBody body = RequestBody.create(
+                MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
+        System.out.println(mapper.writeValueAsString(ambulance));
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/merge")
+                .post(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+
     }
 
     private void updateData(Ambulance ambulance) throws IOException {
@@ -180,7 +218,7 @@ public class AmbulanceCreationController implements Initializable {
     }
     int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(),kmText.getText());
+        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), kmText.getText(), typeCombo.getValue());
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()
@@ -199,94 +237,6 @@ public class AmbulanceCreationController implements Initializable {
 
         Response response = okHttpClient.newCall(request).execute();
     }
-
-    /*
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (service != null) {
-            action.setCellFactory(col -> new TableCell<>() {
-                private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
-                private final FontAwesomeIconView editIcon = new FontAwesomeIconView(FontAwesomeIcon.PENCIL);
-                private final Button deleteBtn = new Button("", deleteIcon);
-                private final Button editBtn = new Button("", editIcon);
-                private final HBox hBox = new HBox(editBtn, deleteBtn);
-
-                {
-                    TableViewD.setEditable(true);
-                    deleteBtn.setOnAction(event -> {
-                        int row = getIndex();
-                        DetailDemandeDM detail = TableViewD.getItems().get(row);
-                        System.out.println("hello3");
-                        String codedetail = detail.getCode();
-                        System.out.println("hello3");
-                        dmDS.deleteDetail(codedetail);
-                        System.out.println("hello3");
-                        TableViewD.getItems().remove(detail);
-                        TableViewD.refresh();
-                    });
-
-                    editBtn.setOnAction(event -> {
-                        int row = getIndex();
-                        DetailDemandeDM detail = TableViewD.getItems().get(row);
-                        String codedetail = detail.getCode();
-
-                        Stage dialog = new Stage();
-                        dialog.initModality(Modality.APPLICATION_MODAL);
-                        dialog.setTitle("Modifier quantité");
-
-                        TextField newquantiteT = new TextField(String.valueOf(detail.getQuantite()));
-                        Label newquantiteL = new Label("Nouvelle quantité");
-                        HBox newquantiteH = new HBox(newquantiteL, newquantiteT);
-                        newquantiteH.setAlignment(Pos.CENTER);
-
-                        Button updateButton = new Button("Modifier");
-                        updateButton.setOnAction(event1 -> {
-                            int quantiteN = Integer.parseInt(newquantiteT.getText());
-                            dmDS.updateQuantiteDetailDM(codedetail, quantiteN);
-                            detail.setQuantite(quantiteN);
-                            TableViewD.refresh();
-                            dialog.close();
-                        });
-
-                        VBox dialogVbox = new VBox(newquantiteH, updateButton);
-                        dialogVbox.setAlignment(Pos.CENTER);
-                        dialogVbox.setSpacing(10);
-                        dialogVbox.setPadding(new Insets(10));
-
-                        Scene dialogScene = new Scene(dialogVbox);
-                        dialog.setScene(dialogScene);
-                        dialog.showAndWait();
-                    });
-
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(hBox);
-                    }
-                }
-            });
-            ObservableList<TypeDM> TypeDMDtoObservableList = FXCollections.observableList(tdm.getAll());
-            List<String> typedms = new ArrayList<>();
-            for (TypeDM t : TypeDMDtoObservableList) {
-                typedms.add(t.getNomType());
-            }
-            ObservableList<String> typetoObservableList = FXCollections.observableList(typedms);
-            ObservableList<Service> ServiceDtoObservableList = FXCollections.observableList(ss.getAll());
-            ColonneQuantite.setCellValueFactory(new PropertyValueFactory<>("Quantite"));
-            ColonneDM.setCellValueFactory(new PropertyValueFactory<>("dispositif"));
-            //serviceBox1.setItems(ServiceDtoObservableList);
-            typeDMBox.setItems(typetoObservableList);
-            quantité.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 2000, 1));
-            typeDMBox.getSelectionModel().selectedItemProperty().addListener(((observableValue, olType, newType) -> remplirDM()));
-            remplirDM();
-            }
-
-    */
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     class DateEditingCell extends TableCell<Ambulance, LocalDate> {

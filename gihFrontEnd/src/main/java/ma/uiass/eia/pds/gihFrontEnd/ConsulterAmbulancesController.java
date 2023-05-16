@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.State;
+import ma.uiass.eia.pds.gihBackEnd.model.TypeAmbulance;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,6 +40,8 @@ public class ConsulterAmbulancesController implements Initializable {
     private TableView<Ambulance> tblAmbulances;
     @FXML
     private TableColumn<Ambulance, String> immatriculCol;
+    @FXML
+    private TableColumn<Ambulance, TypeAmbulance> type;
 
     @FXML
     private TableColumn<Ambulance,Integer> km;
@@ -56,6 +59,7 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        type.setCellValueFactory(new PropertyValueFactory<>("typeAmbulance"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
