@@ -35,7 +35,7 @@ public class Ambulance {
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idState", referencedColumnName = "id")
     private State state;
 

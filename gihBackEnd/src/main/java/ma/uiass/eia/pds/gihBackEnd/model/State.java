@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -21,16 +20,17 @@ public abstract class State {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
-    private double A=0, B=0, x=0, y=0;
+    private static double A=0, B=0;
+    private double x=0, y=0;
     @Column(unique = true)
     private String stateName;
 
     @OneToOne(mappedBy = "state")
     private Revision revision;
 
-    @OneToMany(mappedBy = "state")
+    @OneToOne(mappedBy = "state")
     @JsonIgnore
-    private List<Ambulance> ambulances;
+    private Ambulance ambulance;
 
     public State(double a, double b, double x, double y, String stateName, Revision revision) {
         A = a;
@@ -42,12 +42,12 @@ public abstract class State {
     }
 
 
-    public List<Ambulance> getAmbulances() {
-        return ambulances;
+    public Ambulance getAmbulance() {
+        return ambulance;
     }
 
-    public void setAmbulances(List<Ambulance> ambulances) {
-        this.ambulances = ambulances;
+    public void setAmbulance(Ambulance ambulances) {
+        this.ambulance = ambulances;
     }
 
     public State() {

@@ -24,6 +24,7 @@ public class VisualisationAmbulancesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         XYChart.Series<String, Number> seriesF = new XYChart.Series<>();
         seriesF.setName("Fonctionnel");
         seriesF.getData().add(new XYChart.Data<>("Fonctionnel", getAmbulances(1).size()));
