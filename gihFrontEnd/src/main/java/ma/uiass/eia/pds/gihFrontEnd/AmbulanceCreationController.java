@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +61,9 @@ public class AmbulanceCreationController implements Initializable {
 
         km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
         km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKilometrage());
+        km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
+        km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKm()));
+        km.setCellFactory(TextFieldTableCell.forTableColumn());
         km.setOnEditCommit(event -> {
             TablePosition<Ambulance, String> pos = event.getTablePosition();
             int row = pos.getRow();
@@ -179,11 +181,7 @@ public class AmbulanceCreationController implements Initializable {
     }
     int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance((generateRandomWord(3)+i).toUpperCase(),date.getValue(), Integer.parseInt(kmText.getText()));
-        if(i<99)
-            i++;
-        else
-            i=0;
+        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), Integer.parseInt(kmText.getText()));
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()
