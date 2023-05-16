@@ -56,7 +56,7 @@ public class App
 //        stateDao.create(new F());
 //        stateDao.create(new NFCD());
 //        stateDao.create(new NFLD());
-
+//
 //        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));
 //
 //

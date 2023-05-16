@@ -13,4 +13,7 @@ public class NFLD extends State{
     public NFLD(double a, double b, double x, double y, Revision revision) {
         super(a, b, x, y, "NFLD", revision);
     }
+    public String toString(){
+        return "Non Fonctionelle longue Durée";
+    }
 }
