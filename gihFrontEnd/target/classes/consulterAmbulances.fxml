@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="666.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterAmbulancesController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterAmbulancesController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -20,10 +20,10 @@
    <children>
       <TableView fx:id="tblAmbulances" prefHeight="200.0" prefWidth="200.0">
          <columns>
-            <TableColumn fx:id="idCol" prefWidth="113.4545567035675" text="Id" />
-            <TableColumn fx:id="immatriculCol" minWidth="0.0" prefWidth="187.63634490966797" text="Immatriculation" />
-            <TableColumn fx:id="dateCol" prefWidth="187.63629150390625" text="Date de mise en circulation" />
-            <TableColumn fx:id="etatCol" prefWidth="175.41816871327887" text="Etat actuel" />
+            <TableColumn fx:id="immatriculCol" minWidth="0.0" prefWidth="114.6666488647461" text="Immatriculation" />
+            <TableColumn fx:id="dateCol" prefWidth="179.9999771118164" text="Date de mise en circulation" />
+            <TableColumn fx:id="km" prefWidth="99.3333740234375" text="Kilométrage" />
+            <TableColumn fx:id="state" prefWidth="271.3332824707031" text="Etat Actuelle" />
          </columns>
       </TableView>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="1">

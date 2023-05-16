@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
+import ma.uiass.eia.pds.gihBackEnd.model.State;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,17 +44,17 @@ public class ConsulterAmbulancesController implements Initializable {
     private TableColumn<Ambulance, String> immatriculCol;
 
     @FXML
-    private Button btnHistorique;
+    private TableColumn<Ambulance,Integer> km;
 
     @FXML
     private Button btnRevisions;
 
     @FXML
-    private TableColumn<Ambulance, LocalDate> dateCol;
-
+    TableColumn<Ambulance, State> state;
 
     @FXML
-    private TableColumn<Ambulance, Integer> idCol;
+    private TableColumn<Ambulance, LocalDate> dateCol;
+
 
     private OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -61,8 +63,7 @@ public class ConsulterAmbulancesController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
-
-
+        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
         tblAmbulances.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -91,6 +92,7 @@ public class ConsulterAmbulancesController implements Initializable {
                 }
             }
         });
+        state.setCellValueFactory(new PropertyValueFactory<Ambulance,State>("state"));
 
         tblAmbulances.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
