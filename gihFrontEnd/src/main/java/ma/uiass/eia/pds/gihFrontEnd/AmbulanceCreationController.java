@@ -84,6 +84,7 @@ public class AmbulanceCreationController implements Initializable {
         );
 
         km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
+
         km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKm()));
         km.setCellFactory(TextFieldTableCell.forTableColumn());
         km.setOnEditCommit(event -> {
@@ -91,6 +92,19 @@ public class AmbulanceCreationController implements Initializable {
             int row = pos.getRow();
             Ambulance ambulance = event.getTableView().getItems().get(row);
             ambulance.setKm(event.getNewValue());
+            try {
+                updateData(ambulance);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        immatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
+        immatriculation.setCellFactory(TextFieldTableCell.forTableColumn());
+        immatriculation.setOnEditCommit(event -> {
+            TablePosition<Ambulance, String> pos = event.getTablePosition();
+            int row = pos.getRow();
+            Ambulance ambulance = event.getTableView().getItems().get(row);
+            ambulance.setImmatriculation(event.getNewValue());
             try {
                 updateData(ambulance);
             } catch (IOException e) {
