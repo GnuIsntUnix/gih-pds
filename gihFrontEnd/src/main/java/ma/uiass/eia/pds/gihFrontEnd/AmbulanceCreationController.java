@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     TableColumn<Ambulance, LocalDate> dateDeMiseEnCirculation;
     @FXML
-    private TableColumn<Ambulance, Integer> km;
+    private TableColumn<Ambulance, String> km;
     @FXML
     private TableColumn<Ambulance, Void> action;
     @FXML
@@ -55,15 +56,15 @@ public class AmbulanceCreationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         table.setEditable(true);
-        id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
+        //id.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("id"));
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
 
-        km.setCellValueFactory((new PropertyValueFactory<Ambulance,Integer>("km")));
-        km.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getKm()).asObject());
-        km.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
+        km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKm()));
+        km.setCellFactory(TextFieldTableCell.forTableColumn());
         km.setOnEditCommit(event -> {
-            TablePosition<Ambulance, Integer> pos = event.getTablePosition();
+            TablePosition<Ambulance, String> pos = event.getTablePosition();
             int row = pos.getRow();
             Ambulance ambulance = event.getTableView().getItems().get(row);
             ambulance.setKm(event.getNewValue());
@@ -179,11 +180,7 @@ public class AmbulanceCreationController implements Initializable {
     }
     int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance((generateRandomWord(3)+i).toUpperCase(),date.getValue(), Integer.parseInt(kmText.getText()));
-        if(i<99)
-            i++;
-        else
-            i=0;
+        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), Integer.parseInt(kmText.getText()));
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()

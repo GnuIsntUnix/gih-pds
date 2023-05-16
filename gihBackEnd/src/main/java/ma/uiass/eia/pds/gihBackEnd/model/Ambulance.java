@@ -22,7 +22,7 @@ public class Ambulance {
     @Column(unique = true)
     private String immatriculation;
     @Column(name="kilométrage")
-    private int km;
+    private String km;
     @Column(name = "miseEnCirculation")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -45,7 +45,7 @@ public class Ambulance {
     public Ambulance() {
     }
 
-    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation,int km) {
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation,String km) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
         this.km=km;
@@ -99,11 +99,11 @@ public class Ambulance {
         this.dateDeCreation = dateDeCreation;
     }
 
-    public int getKm() {
+    public String getKm() {
         return km;
     }
 
-    public void setKm(int km) {
+    public void setKm(String km) {
         this.km = km;
     }
 }
