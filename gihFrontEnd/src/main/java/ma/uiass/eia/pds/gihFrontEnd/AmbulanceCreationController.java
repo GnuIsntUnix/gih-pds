@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AmbulanceCreationController implements Initializable {
     @FXML
@@ -167,9 +165,25 @@ public class AmbulanceCreationController implements Initializable {
         }
         return ambulances;
     }
-
+    private List<String> listofImm=new ArrayList<>();
+    public String generateRandomWord(int wordLength) {
+        Random r = new Random(); // Intialize a Random Number Generator with SysTime as the seed
+        StringBuilder sb = new StringBuilder(wordLength);
+        for(int i = 0; i < wordLength; i++) { // For each letter in the word
+            char tmp = (char) ('a' + r.nextInt('z' - 'a')); // Generate a letter between a and z
+            sb.append(tmp); // Add it to the String
+        }
+        if(!listofImm.contains(sb.toString()))
+            return sb.toString();
+        return generateRandomWord(wordLength);
+    }
+    int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), Integer.parseInt(kmText.getText()));
+        Ambulance ambulance=new Ambulance((generateRandomWord(3)+i).toUpperCase(),date.getValue(), Integer.parseInt(kmText.getText()));
+        if(i<99)
+            i++;
+        else
+            i=0;
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()
