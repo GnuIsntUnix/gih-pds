@@ -180,7 +180,7 @@ public class AmbulanceCreationController implements Initializable {
     }
     int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
-        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(), Integer.parseInt(kmText.getText()));
+        Ambulance ambulance=new Ambulance(immText.getText(),date.getValue(),kmText.getText());
         ObjectMapper mapper=new ObjectMapper();
         RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
         Request request = new Request.Builder()
