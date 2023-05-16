@@ -28,7 +28,6 @@
       </TableView>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="btnHistorique" disable="true" mnemonicParsing="false" onAction="#onHistorique" text="Historique" />
             <Button fx:id="btnRevisions" disable="true" mnemonicParsing="false" onAction="#onRevisions" text="Revisions" />
          </children>
          <padding>

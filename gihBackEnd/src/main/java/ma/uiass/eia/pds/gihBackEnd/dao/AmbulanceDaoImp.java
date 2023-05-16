@@ -83,4 +83,9 @@ public class AmbulanceDaoImp implements IAmbulanceDao{
         Query query = entityManager.createQuery("from Ambulance a where a.state.id = "+id, Ambulance.class);
         return query.getResultList();
     }
+
+    public Ambulance getByRevision(int id) {
+        Query query = entityManager.createQuery("from Ambulance a where a.revision.id = "+id, Ambulance.class);
+        return (Ambulance) query.getSingleResult();
+    }
 }

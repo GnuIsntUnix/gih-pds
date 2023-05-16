@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import okhttp3.Call;
@@ -61,12 +64,38 @@ public class ConsulterAmbulancesController implements Initializable {
 
 
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
+        tblAmbulances.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+
+                    System.out.println("double");
+                    Parent fxmlLoader = null;
+                    EffectuerRevisionController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
+                    try {
+                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popUpEffectuerRevision.fxml"));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Scene scene = new Scene(fxmlLoader);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
+                            initialize(null, null);
+                            stage.close();
+                        }
+                    });
+                    stage.showAndWait();
+                }
+            }
+        });
 
         tblAmbulances.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue){
-                    btnHistorique.setDisable(false);
                     btnRevisions.setDisable(false);
                 }
             }

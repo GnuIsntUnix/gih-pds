@@ -23,6 +23,10 @@ public class ServiceAmbulance {
         System.out.println(stateDao.getById(1));
         ambulanceDao.update(ambulance);
     }
+    public Ambulance searchById(int id){
+        Ambulance ambulance = ambulanceDao.getById(id);
+        return ambulance;
+    }
 
     public void deleteById(int id) {
         ambulanceDao.delete(id);

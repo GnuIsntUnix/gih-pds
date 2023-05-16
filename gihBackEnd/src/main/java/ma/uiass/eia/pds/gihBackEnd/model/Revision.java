@@ -15,14 +15,29 @@ public class Revision {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
+
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String kilometrage) {
+        this.kilometrage = kilometrage;
+    }
+
+    @Column(name= "kilometrage")
+    private String kilometrage;
     @Column(name = "dateRevision")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateRevision;
     @Column(name="dateSortie")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateSortie;
     @Column(name="description")
     private String description;
+
+
 
 
 

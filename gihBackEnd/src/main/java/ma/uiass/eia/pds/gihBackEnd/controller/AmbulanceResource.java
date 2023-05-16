@@ -38,6 +38,12 @@ public class AmbulanceResource {
         serviceAmbulance.deleteById(id);
         return "Deleted !";
     }
+    @GET
+    @Path("/getambulances/byrevision/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Ambulance getByService(@PathParam("id") int id){
+        return ambulanceDaoImp.getByRevision(id);
+    }
 
     @GET
     @Path("/getambulances/bystate/{id}")

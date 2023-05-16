@@ -39,6 +39,26 @@ public class Ambulance {
     @JoinColumn(name = "idState", referencedColumnName = "id")
     private State state;
 
+    @Column(name= "kilometrage")
+    private String kilometrage;
+
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String kilometrage) {
+        this.kilometrage = kilometrage;
+    }
+
+    public Ambulance(int id, String immatriculation, LocalDate dateMiseEnCirculation, LocalDate dateDeCreation, List<Revision> revisions, State state, String kilometrage) {
+        this.id = id;
+        this.immatriculation = immatriculation;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.dateDeCreation = dateDeCreation;
+        this.revisions = revisions;
+        this.state = state;
+        this.kilometrage = kilometrage;
+    }
 
     public Ambulance() {
     }

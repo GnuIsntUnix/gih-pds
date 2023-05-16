@@ -24,7 +24,7 @@ public class RevisionResource {
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String createLit(Revision revision){
+    public String saveRevision(Revision revision){
         serviceRevision.add(revision);
         return "Saved !";
     }
@@ -33,7 +33,7 @@ public class RevisionResource {
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateLit(Revision revision){
+    public String updateRevision(Revision revision){
         serviceRevision.update(revision);
         return "Updated !";
     }
@@ -41,7 +41,7 @@ public class RevisionResource {
     @DELETE
     @Path("/delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String deleteLit(@PathParam("id") int id){
+    public String deleteRevision(@PathParam("id") int id){
         serviceRevision.deleteById(id);
         return "Deleted !";
     }
