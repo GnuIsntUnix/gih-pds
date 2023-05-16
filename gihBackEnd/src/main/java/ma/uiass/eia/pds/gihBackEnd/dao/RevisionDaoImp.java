@@ -1,5 +1,6 @@
 package ma.uiass.eia.pds.gihBackEnd.dao;
 
+import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class RevisionDaoImp implements IRevisionDao{
     private EntityManager entityManager;
+    private AmbulanceDaoImp ambulanceDao = new AmbulanceDaoImp();
 
     public RevisionDaoImp() {
         entityManager = HibernateUtil.getEntityManager();
@@ -18,9 +20,12 @@ public class RevisionDaoImp implements IRevisionDao{
     @Override
     public void create(Revision revision) {
         EntityTransaction transaction = entityManager.getTransaction();
+        Ambulance ambulance = revision.getAmbulance();
+        ambulance.setKilometrage(revision.getKilometrage());
         try {
             transaction.begin();
             this.entityManager.persist(revision);
+            ambulanceDao.update(ambulance);
             transaction.commit();
         }
         catch (Exception e) {

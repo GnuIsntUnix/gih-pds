@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public class AmbulanceCreationController implements Initializable {
     @FXML
     TableColumn<Ambulance, LocalDate> dateDeMiseEnCirculation;
     @FXML
-    private TableColumn<Ambulance, Integer> km;
+    private TableColumn<Ambulance, String> km;
     @FXML
     private TableColumn<Ambulance, Void> action;
     @FXML
@@ -59,14 +60,13 @@ public class AmbulanceCreationController implements Initializable {
         immatriculation.setCellValueFactory(new PropertyValueFactory<Ambulance,String>("immatriculation"));
         dateDeMiseEnCirculation.setCellValueFactory(new PropertyValueFactory<Ambulance,LocalDate>("dateMiseEnCirculation"));
 
-        km.setCellValueFactory((new PropertyValueFactory<Ambulance,Integer>("km")));
-        km.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getKm()).asObject());
-        km.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
+        km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKilometrage());
         km.setOnEditCommit(event -> {
-            TablePosition<Ambulance, Integer> pos = event.getTablePosition();
+            TablePosition<Ambulance, String> pos = event.getTablePosition();
             int row = pos.getRow();
             Ambulance ambulance = event.getTableView().getItems().get(row);
-            ambulance.setKm(event.getNewValue());
+            ambulance.setKilometrage(event.getNewValue());
             try {
                 updateData(ambulance);
             } catch (IOException e) {

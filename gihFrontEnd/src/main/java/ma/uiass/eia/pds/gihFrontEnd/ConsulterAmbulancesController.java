@@ -60,7 +60,6 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
@@ -122,6 +121,12 @@ public class ConsulterAmbulancesController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.showAndWait();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                initialize(null, null);
+            }
+        });
     }
 
 
