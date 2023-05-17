@@ -7,10 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
@@ -74,14 +71,26 @@ public class ConsulterRevisionsController implements Initializable {
                 {
                     sortirBtn.setOnAction(event -> {
                         Revision revision = getTableView().getItems().get(getIndex());
-                        revision.setDateSortie(LocalDate.now());
-                        try {
-                            update(revision);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        LocalDate currentDate = LocalDate.now();
+
+                        if (currentDate.isAfter(revision.getDateRevision())) {
+                            revision.setDateSortie(currentDate);
+                            try {
+                                update(revision);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            initialize(null, null);
+                        } else {
+                            // Handle error: Date sortie should be greater than date entree
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Invalid Date");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Date sortie faut etre plus grande que date entree.");
+                            alert.showAndWait();
                         }
-                        initialize(null,null);
                     });
+
 
                 }
 

@@ -103,6 +103,12 @@ public class Ambulance {
         this.revisions = revisions;
     }
 
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, String kilometrage) {
+        this.immatriculation = immatriculation;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.kilometrage = kilometrage;
+    }
+
     public LocalDate getDateDeCreation() {
         return dateDeCreation;
     }

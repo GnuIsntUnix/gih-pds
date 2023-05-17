@@ -62,7 +62,7 @@ public class ConsulterAmbulancesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
-        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
+        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("kilometrage"));
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
         tblAmbulances.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

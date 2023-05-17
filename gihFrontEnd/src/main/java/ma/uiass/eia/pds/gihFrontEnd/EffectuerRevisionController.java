@@ -1,23 +1,19 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeRevision;
-import ma.uiass.eia.pds.gihBackEnd.services.ServiceAmbulance;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class EffectuerRevisionController implements Initializable {
@@ -101,6 +97,17 @@ public class EffectuerRevisionController implements Initializable {
                 .build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();
+
+  /*      String responseBody = response.body().string();
+        ObjectMapper mapper1=new ObjectMapper();
+        // Check if a revision with the same date already exists
+        Revision[] existingRevisions = mapper1.readValue(responseBody, Revision[].class);
+        for (Revision existingRevision : existingRevisions) {
+            if (existingRevision.getDateRevision().isEqual(dateEntree)) {
+                showAlert("A revision is already scheduled for this date.");
+                return; // Exit the method if a revision is found
+            }
+        }*/
         initialize(null,null);
         annuler(null);
 
@@ -118,8 +125,53 @@ public class EffectuerRevisionController implements Initializable {
         numeroField.setText(EffectuerRevisionController.ambulance.getImmatriculation());
         System.out.println("initialize");
 
+        LocalDate minDate=LocalDate.now();
+        dateEntreePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
+                if (date.isBefore(minDate)) {
+                    setStyle("-fx-background-color: #ffc0cb;");
+                }
+            }});
+        dateSortiePicker.setDisable(true);
+        dateEntreePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LocalDate minDate2 = newValue; // Update minDate2 with the new value
+                dateSortiePicker.setDisable(false);
+                dateSortiePicker.setDayCellFactory(picker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate date, boolean empty) {
+                        super.updateItem(date, empty);
+                        setDisable(date.isBefore(minDate2)); // désactiver les dates antérieures
+                        if (date.isBefore(minDate2)) {
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                });
+            }
+        });
+//        kilometrageField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!newValue.matches("\\d*")) {
+//                kilometrageField.setText(newValue.replaceAll("[^\\d]", ""));
+//                showAlert("Veuillez saisir uniquement des chiffres");
+//            }
+//            if(Integer.parseInt(newValue)<1){
+//                showAlert("Veuillez saisir un nombre positif");
+//            }
+//        });
+
+
     }
 
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     public String getSelectedRevisionType() {
         RadioButton selectedButton = (RadioButton) revisionTypeGroup.getSelectedToggle();
         if (selectedButton != null) {
@@ -128,4 +180,6 @@ public class EffectuerRevisionController implements Initializable {
             return null;
         }
     }
+
+
 }

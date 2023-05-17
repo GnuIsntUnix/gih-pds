@@ -62,7 +62,8 @@ public class AmbulanceDaoImp implements IAmbulanceDao{
     public void update(Ambulance ambulance) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
-            transaction.begin();
+            if(!transaction.isActive())
+                transaction.begin();
             this.entityManager.merge(ambulance);
             transaction.commit();
         }

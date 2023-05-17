@@ -64,6 +64,7 @@ public class Revision {
         this.setAmbulance(ambulance);
     }
 
+
     public State getState() {
         return state;
     }

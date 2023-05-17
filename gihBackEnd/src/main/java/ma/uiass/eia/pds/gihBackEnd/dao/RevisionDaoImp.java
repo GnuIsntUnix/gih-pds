@@ -23,9 +23,8 @@ public class RevisionDaoImp implements IRevisionDao{
         Ambulance ambulance = revision.getAmbulance();
         ambulance.setKilometrage(revision.getKilometrage());
         try {
-            transaction.begin();
             this.entityManager.persist(revision);
-            ambulanceDao.update(ambulance);
+
             transaction.commit();
         }
         catch (Exception e) {
@@ -34,6 +33,7 @@ public class RevisionDaoImp implements IRevisionDao{
             }
             e.printStackTrace();
         }
+        ambulanceDao.update(ambulance);
     }
 
     @Override
@@ -51,7 +51,8 @@ public class RevisionDaoImp implements IRevisionDao{
     public void delete(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
-            transaction.begin();
+            if(!transaction.isActive())
+                transaction.begin();
             this.entityManager.remove(this.getById(id));
             transaction.commit();
         } catch (Exception e) {
@@ -66,7 +67,8 @@ public class RevisionDaoImp implements IRevisionDao{
     public void update(Revision revision) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
-            transaction.begin();
+            if(!transaction.isActive())
+                transaction.begin();
             this.entityManager.merge(revision);
             transaction.commit();
         }
