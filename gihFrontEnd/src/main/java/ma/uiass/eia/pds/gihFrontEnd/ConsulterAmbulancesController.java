@@ -64,7 +64,7 @@ public class ConsulterAmbulancesController implements Initializable {
         type.setCellValueFactory(new PropertyValueFactory<>("typeAmbulance"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
-        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("km"));
+        km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("kilometrage"));
         tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
         state.setCellValueFactory(new PropertyValueFactory<Ambulance,State>("state"));
 

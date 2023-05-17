@@ -90,9 +90,9 @@ public class AmbulanceCreationController implements Initializable {
                 }
         );
 
-        km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("km")));
+        km.setCellValueFactory((new PropertyValueFactory<Ambulance,String>("kilometrage")));
 
-        km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKm()));
+        km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKilometrage()));
         km.setCellFactory(TextFieldTableCell.forTableColumn());
         km.setOnEditCommit(event -> {
             TablePosition<Ambulance, String> pos = event.getTablePosition();
@@ -112,7 +112,7 @@ public class AmbulanceCreationController implements Initializable {
                 lesAmbulances.add(ambulance);
             }*/
             lesAmbulances.remove(ambulance);
-            ambulance.setKm(event.getNewValue());
+            ambulance.setKilometrage(event.getNewValue());
             lesAmbulances.add(ambulance);
         });
         immatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
