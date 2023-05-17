@@ -12,11 +12,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.EffectuerRevisionController" style="-fx-background-color: #E4F9E9;">
+
+<VBox style="-fx-background-color: #E4F9E9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.EffectuerRevisionController">
    <padding>
       <Insets bottom="10" left="10" right="10" top="10" />
    </padding>
-   <GridPane hgap="10" vgap="10" style="-fx-background-color: #C2F4D8;">
+   <GridPane hgap="10" style="-fx-background-color: #C2F4D8;" vgap="10">
       <Label text="Numéro d'ambulance:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
       <TextField fx:id="numeroField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
@@ -40,8 +41,8 @@
       </HBox>
 
       <HBox prefHeight="47.0" prefWidth="478.0" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="6">
-         <Button onAction="#valider" text="Valider" style="-fx-background-color: #63E87C; -fx-text-fill: white;"/>
-         <Button onAction="#annuler" text="Annuler" style="-fx-background-color: #FF7F7F; -fx-text-fill: white;"/>
+         <Button fx:id="bttnValider" onAction="#valider" style="-fx-background-color: #63E87C; -fx-text-fill: white;" text="Valider" />
+         <Button fx:id="bttnAnnuler" onAction="#annuler" style="-fx-background-color: #FF7F7F; -fx-text-fill: white;" text="Annuler" />
       </HBox>
       <columnConstraints>
          <ColumnConstraints />

@@ -80,12 +80,12 @@ public class Revision {
     public void setId(int id) {
         this.id = id;
     }
-    public Revision(int id, LocalDate dateRevision, String description, Ambulance ambulance, State state) {
-        this.id = id;
+    public Revision( LocalDate dateRevision, String description, Ambulance ambulance,String kilometrage, State state) {
         this.dateRevision = dateRevision;
         this.description = description;
         this.ambulance = ambulance;
         this.state = state;
+        this.kilometrage=kilometrage;
     }
 
     public String getDescription() {

@@ -10,22 +10,23 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class RevisionDaoImp implements IRevisionDao{
-    private EntityManager entityManager;
+    private EntityManager entityManager= HibernateUtil.getEntityManager();
     private AmbulanceDaoImp ambulanceDao = new AmbulanceDaoImp();
 
     public RevisionDaoImp() {
-        entityManager = HibernateUtil.getEntityManager();
+
     }
 
     @Override
     public void create(Revision revision) {
         EntityTransaction transaction = entityManager.getTransaction();
-        Ambulance ambulance = revision.getAmbulance();
+        Ambulance ambulance = ambulanceDao.getById(revision.getAmbulance().getId());
         ambulance.setKilometrage(revision.getKilometrage());
+        ambulanceDao.update(ambulance);
         try {
-            this.entityManager.persist(revision);
-
+            entityManager.persist(revision);
             transaction.commit();
+            System.out.println("commited and ended");
         }
         catch (Exception e) {
             if (transaction != null) {
@@ -33,7 +34,7 @@ public class RevisionDaoImp implements IRevisionDao{
             }
             e.printStackTrace();
         }
-        ambulanceDao.update(ambulance);
+
     }
 
     @Override

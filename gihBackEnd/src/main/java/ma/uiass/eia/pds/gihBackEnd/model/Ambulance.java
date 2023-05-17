@@ -126,4 +126,8 @@ public class Ambulance {
     public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
         this.typeAmbulance = typeAmbulance;
     }
+
+    public String getKilometrage() {
+        return this.kilometrage;
+    }
 }

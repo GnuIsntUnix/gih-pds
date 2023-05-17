@@ -17,6 +17,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class EffectuerRevisionController implements Initializable {
+
+
+    @FXML
+    private Button bttnAnnuler;
+
+    @FXML
+    private Button bttnValider;
     @FXML
     private DatePicker dateEntreePicker;
 
@@ -89,31 +96,31 @@ public class EffectuerRevisionController implements Initializable {
         revision.setDescription(description);
         revision.setTypeRev(typeRev);
         revision.setKilometrage(kilometrage);
-        ObjectMapper mapper=new ObjectMapper();
-        RequestBody body= RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(revision));
-        Request request = new Request.Builder()
-                .url("http://localhost:9998/revision/save")
-                .post(body)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        Response response = call.execute();
-
-  /*      String responseBody = response.body().string();
-        ObjectMapper mapper1=new ObjectMapper();
-        // Check if a revision with the same date already exists
-        Revision[] existingRevisions = mapper1.readValue(responseBody, Revision[].class);
-        for (Revision existingRevision : existingRevisions) {
-            if (existingRevision.getDateRevision().isEqual(dateEntree)) {
-                showAlert("A revision is already scheduled for this date.");
-                return; // Exit the method if a revision is found
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String requestBody = mapper.writeValueAsString(revision);
+            RequestBody body = RequestBody.create(MediaType.parse("application/json"), requestBody);
+            Request request = new Request.Builder()
+                    .url("http://localhost:9998/revision/save")
+                    .post(body)
+                    .build();
+            Call call = okHttpClient.newCall(request);
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                // Success
+                initialize(null, null);
+                annuler(null);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Révision enregistrée !");
+                alert.showAndWait();
+            } else {
+                // Handle error response
+                String errorMessage = response.body() != null ? response.body().string() : "Unknown error occurred.";
+                showAlert("Failed to save the revision. ");
             }
-        }*/
-        initialize(null,null);
-        annuler(null);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Révision enregistrée !");
-        alert.showAndWait();
-
+        } catch (IOException e) {
+            showAlert("An error occurred while processing the request.");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -123,6 +130,7 @@ public class EffectuerRevisionController implements Initializable {
         typeSimpleButton.setToggleGroup(revisionTypeGroup);
         typeApprofondieButton.setToggleGroup(revisionTypeGroup);
         numeroField.setText(EffectuerRevisionController.ambulance.getImmatriculation());
+        numeroField.setDisable(true);
         System.out.println("initialize");
 
         LocalDate minDate=LocalDate.now();
