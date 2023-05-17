@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
@@ -42,9 +43,11 @@ public class ConsulterAmbulancesController implements Initializable {
     @FXML
     private TableView<Ambulance> tblAmbulances;
     @FXML
+    private TableColumn<Ambulance,Void> action;
+    @FXML
     private TableColumn<Ambulance, String> immatriculCol;
     @FXML
-    private TableColumn<Ambulance,Void> action;
+    private TableColumn<Ambulance, TypeAmbulance> type;
 
     @FXML
     private TableColumn<Ambulance,Integer> km;
@@ -62,6 +65,7 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        type.setCellValueFactory(new PropertyValueFactory<>("typeAmbulance"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("kilometrage"));
@@ -139,10 +143,6 @@ public class ConsulterAmbulancesController implements Initializable {
 
     }
 
-
-
-
-
     @FXML
     void onRevisions(ActionEvent event) {
         ConsulterRevisionsController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
@@ -164,8 +164,6 @@ public class ConsulterAmbulancesController implements Initializable {
         });
     }
 
-
-
     public List<Ambulance> getAmbulance(){
         Request request = new Request.Builder().url("http://localhost:9998/ambulance/getambulances").build();
         ObjectMapper mapper = new ObjectMapper();
@@ -179,9 +177,6 @@ public class ConsulterAmbulancesController implements Initializable {
         }
         return ambulances;
     }
-
-
-
     public void deleteAmbulance(int id) throws IOException{
         Request request = new Request.Builder()
                 .url("http://localhost:9998/ambulance/delete/"+ id)
