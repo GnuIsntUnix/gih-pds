@@ -2,6 +2,8 @@ package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -14,17 +16,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.State;
+import ma.uiass.eia.pds.gihBackEnd.model.TypeAmbulance;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,13 +43,14 @@ public class ConsulterAmbulancesController implements Initializable {
     private TableView<Ambulance> tblAmbulances;
     @FXML
     private TableColumn<Ambulance, String> immatriculCol;
+    @FXML
+    private TableColumn<Ambulance,Void> action;
 
     @FXML
     private TableColumn<Ambulance,Integer> km;
 
     @FXML
     private Button btnRevisions;
-
     @FXML
     TableColumn<Ambulance, State> state;
 
@@ -101,6 +103,39 @@ public class ConsulterAmbulancesController implements Initializable {
                 }
             }
         });
+        action.setCellFactory(col -> new TableCell<>() {
+            private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+
+            private final Button deleteBtn = new Button("", deleteIcon);
+
+            private final HBox hBox = new HBox(deleteBtn);
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+
+                }
+                else {
+                    deleteBtn.setOnAction(event -> {
+                        int row = getIndex();
+                        try {
+                            deleteAmbulance(tblAmbulances.getItems().get(row).getId());
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        initialize(null, null);
+
+                    });
+                    hBox.setSpacing(5);
+                    setGraphic(hBox);
+
+                }
+            }
+
+
+        });
 
     }
 
@@ -147,4 +182,12 @@ public class ConsulterAmbulancesController implements Initializable {
 
 
 
+    public void deleteAmbulance(int id) throws IOException{
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/delete/"+ id)
+                .delete()
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+    }
 }

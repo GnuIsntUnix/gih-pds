@@ -21,6 +21,7 @@ public class Ambulance {
 
     @Column(unique = true)
     private String immatriculation;
+
     @Column(name = "miseEnCirculation")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -29,7 +30,8 @@ public class Ambulance {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDeCreation = LocalDate.now();
-
+    @Column(name = "typeAmbulance")
+    private TypeAmbulance typeAmbulance;
 
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
@@ -38,27 +40,15 @@ public class Ambulance {
     @ManyToOne
     @JoinColumn(name = "idState", referencedColumnName = "id")
     private State state;
-
-    @Column(name= "kilometrage")
+    @Column
     private String kilometrage;
 
-    public String getKilometrage() {
-        return kilometrage;
-    }
+
 
     public void setKilometrage(String kilometrage) {
         this.kilometrage = kilometrage;
     }
 
-    public Ambulance(int id, String immatriculation, LocalDate dateMiseEnCirculation, LocalDate dateDeCreation, List<Revision> revisions, State state, String kilometrage) {
-        this.id = id;
-        this.immatriculation = immatriculation;
-        this.dateMiseEnCirculation = dateMiseEnCirculation;
-        this.dateDeCreation = dateDeCreation;
-        this.revisions = revisions;
-        this.state = state;
-        this.kilometrage = kilometrage;
-    }
 
     public Ambulance() {
     }
@@ -117,4 +107,12 @@ public class Ambulance {
         this.dateDeCreation = dateDeCreation;
     }
 
+
+    public TypeAmbulance getTypeAmbulance() {
+        return typeAmbulance;
+    }
+
+    public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
+        this.typeAmbulance = typeAmbulance;
+    }
 }
