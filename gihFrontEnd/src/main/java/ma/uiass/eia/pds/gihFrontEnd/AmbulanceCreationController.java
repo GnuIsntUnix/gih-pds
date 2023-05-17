@@ -1,6 +1,7 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.util.converter.NumberStringConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -37,6 +38,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class AmbulanceCreationController implements Initializable {
+
+
     @FXML
     TableView<Ambulance> table;
     @FXML
@@ -111,19 +114,32 @@ public class AmbulanceCreationController implements Initializable {
                 ambulance.setKm(event.getNewValue());
                 lesAmbulances.add(ambulance);
             }*/
-            lesAmbulances.remove(ambulance);
-            ambulance.setKilometrage(event.getNewValue());
-            lesAmbulances.add(ambulance);
+            if(!event.getNewValue().matches("\\d*") || event.getNewValue()==null) {
+                event.getTableView().getItems().get(row).setKilometrage(event.getOldValue());
+                table.refresh();
+                showAlert("Veuillez saisir des chiffres");
+            } else {
+                lesAmbulances.remove(ambulance);
+                ambulance.setKilometrage(event.getNewValue());
+                lesAmbulances.add(ambulance);
+            }
         });
+
         immatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
         immatriculation.setCellFactory(TextFieldTableCell.forTableColumn());
         immatriculation.setOnEditCommit(event -> {
             TablePosition<Ambulance, String> pos = event.getTablePosition();
             int row = pos.getRow();
             Ambulance ambulance = event.getTableView().getItems().get(row);
-            lesAmbulances.remove(ambulance);
-            ambulance.setImmatriculation(event.getNewValue());
-            lesAmbulances.add(ambulance);
+            if (event.getNewValue()==null){
+                table.refresh();
+                showAlert("Veuillez remplir tous les champs");
+            }
+            else{
+                lesAmbulances.remove(ambulance);
+                ambulance.setImmatriculation(event.getNewValue());
+                lesAmbulances.add(ambulance);
+            }
         });
 
         action.setCellFactory(col -> new TableCell<>() {
@@ -172,7 +188,6 @@ public class AmbulanceCreationController implements Initializable {
         table.setItems(FXCollections.observableArrayList(lesAmbulances));
         table.getSelectionModel().selectFirst();
         table.requestLayout();
-
         kmText.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue!=null){
                 if (!newValue.matches("\\d*")) {
@@ -307,6 +322,15 @@ public class AmbulanceCreationController implements Initializable {
     int i = 0;
     public void onCreate(ActionEvent event) throws IOException{
         if (immText.getText()!=null && kmText.getText()!=null && date.getValue()!=null && typeCombo.getValue()!=null){
+            for (Ambulance a:getAmbulance()) {
+                if (immText.getText().equals(a.getImmatriculation())) {
+                    showAlert("L'immatriculation saisie est déjà assignée à une autre ambulance, veuillez saisir une nouvelle immatriculation");
+                    immText.setText(null);
+                    table.refresh();
+                    return;
+                }
+
+            }
             if(Integer.parseInt(kmText.getText())<=0){
                 Notifications.create()
                         .title("warning")
@@ -319,6 +343,7 @@ public class AmbulanceCreationController implements Initializable {
                 typeCombo.setValue(null);
                 return;
             }
+
             Alert confirmationDialog = new Alert(Alert.AlertType.NONE);
             confirmationDialog.setTitle("Confirmation");
             confirmationDialog.setHeaderText("Please confirm your choices:");
@@ -380,6 +405,13 @@ public class AmbulanceCreationController implements Initializable {
     }
     public void onConfirm(ActionEvent event)throws IOException{
         System.out.println(lesAmbulances.size());
+        for (Ambulance ambulance:lesAmbulances){
+            System.out.println(ambulance);
+            if (ambulance.getImmatriculation().equals("")||ambulance.getKilometrage().equals("")){
+                showAlert("Veuillez remplir tous les champs avant de confirmer");
+                return;
+            }
+        }
         for(Ambulance ambulance:lesAmbulances){
             ObjectMapper mapper = new ObjectMapper();
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
@@ -394,6 +426,11 @@ public class AmbulanceCreationController implements Initializable {
         lesAmbulances=new ArrayList<>();
         table.setItems(FXCollections.observableArrayList(lesAmbulances));
         table.refresh();
+        Notifications.create()
+                .title("")
+                .position(Pos.CENTER)
+                .text("Ambulances crées avec succès")
+                .showInformation();
         System.out.println(lesAmbulances.size());
     }
     private void clearFields() {

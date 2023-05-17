@@ -122,4 +122,9 @@ public class Ambulance {
     public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
         this.typeAmbulance = typeAmbulance;
     }
+
+    @Override
+    public String toString() {
+        return this.id+" "+this.immatriculation+" "+this.dateMiseEnCirculation+" "+this.kilometrage+" "+this.revisions;
+    }
 }
