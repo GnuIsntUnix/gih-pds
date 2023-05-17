@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AmbulanceCreationController">
    <children>
       <Button fx:id="create" layoutX="714.0" layoutY="68.0" mnemonicParsing="false" onAction="#onCreate" prefHeight="25.0" prefWidth="77.0" text="ajouter" />
-      <TableView fx:id="table" layoutY="111.0" prefHeight="289.0" prefWidth="800.0">
+      <TableView fx:id="table" layoutY="111.0" prefHeight="340.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="immatriculation" minWidth="0.0" prefWidth="129.33328247070312" text="Immatriculation" />
             <TableColumn fx:id="dateDeMiseEnCirculation" prefWidth="242.6666717529297" text="date de mise en circulation" />
@@ -46,5 +46,7 @@
          </font>
       </Label>
       <ComboBox fx:id="typeCombo" layoutX="550.0" layoutY="66.0" prefWidth="150.0" />
+      <Button fx:id="confirmB" layoutX="688.0" layoutY="461.0" mnemonicParsing="false" onAction="#onConfirm" prefHeight="25.0" prefWidth="77.0" text="Confirmer" />
+      <Button fx:id="open" layoutX="42.0" layoutY="461.0" mnemonicParsing="false" onAction="#onConfirm" prefHeight="25.0" prefWidth="169.0" text="Consulter les ambulances" />
    </children>
 </Pane>
