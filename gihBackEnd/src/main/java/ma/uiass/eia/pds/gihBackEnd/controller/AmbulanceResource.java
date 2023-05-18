@@ -25,7 +25,7 @@ public class AmbulanceResource {
         serviceAmbulance.add(ambulance);
         return "created";
     }
-    @POST
+    @PUT
     @Path("/merge")
     @Consumes(MediaType.APPLICATION_JSON)
     public void mergeAmbulance(Ambulance ambulance){

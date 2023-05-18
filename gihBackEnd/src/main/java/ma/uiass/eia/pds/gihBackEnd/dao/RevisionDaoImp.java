@@ -12,7 +12,6 @@ import java.util.List;
 
 public class RevisionDaoImp implements IRevisionDao{
     private EntityManager entityManager= HibernateUtil.getEntityManager();
-    private AmbulanceDaoImp ambulanceDao = new AmbulanceDaoImp();
     private StateDaoImp stateDaoImp = new StateDaoImp();
 
     public RevisionDaoImp() {
@@ -21,8 +20,6 @@ public class RevisionDaoImp implements IRevisionDao{
 
     @Override
     public void create(Revision revision) {
-        State state = revision.getState();
-        stateDaoImp.create(state);
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();

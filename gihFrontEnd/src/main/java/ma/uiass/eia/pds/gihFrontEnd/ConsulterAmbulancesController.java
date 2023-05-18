@@ -17,16 +17,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.State;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeAmbulance;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
+import ma.uiass.eia.pds.gihBackEnd.prediction.PredictionAmbulance;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -35,6 +34,8 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -57,6 +58,7 @@ public class ConsulterAmbulancesController implements Initializable {
     @FXML
     TableColumn<Ambulance, State> state;
 
+
     @FXML
     private TableColumn<Ambulance, LocalDate> dateCol;
 
@@ -69,35 +71,36 @@ public class ConsulterAmbulancesController implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("dateMiseEnCirculation"));
         immatriculCol.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         km.setCellValueFactory(new PropertyValueFactory<Ambulance,Integer>("kilometrage"));
-        tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
+
         tblAmbulances.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 
-                    System.out.println("double");
-                    Parent fxmlLoader = null;
-                    EffectuerRevisionController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
-                    try {
-                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popUpEffectuerRevision.fxml"));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Scene scene = new Scene(fxmlLoader);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent windowEvent) {
-                            initialize(null, null);
-                            stage.close();
+                        Parent fxmlLoader = null;
+                        EffectuerRevisionController.setAmbulance(tblAmbulances.getSelectionModel().getSelectedItem());
+                        try {
+                            fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popUpEffectuerRevision.fxml"));
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
                         }
-                    });
-                    stage.showAndWait();
-                }
+                        Scene scene = new Scene(fxmlLoader);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent windowEvent) {
+                                initialize(null, null);
+                                stage.close();
+                            }
+                        });
+                        stage.showAndWait();
+                    }
+
             }
         });
         state.setCellValueFactory(new PropertyValueFactory<Ambulance,State>("state"));
+        state.setCellFactory(ComboBoxTableCell.forTableColumn(new F(), new NFCD(), new NFLD()));
 
         tblAmbulances.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -109,10 +112,13 @@ public class ConsulterAmbulancesController implements Initializable {
         });
         action.setCellFactory(col -> new TableCell<>() {
             private final FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            private final FontAwesomeIconView modifyIcon = new FontAwesomeIconView(FontAwesomeIcon.EDIT);
+
 
             private final Button deleteBtn = new Button("", deleteIcon);
+            private final Button updateBtn = new Button("", modifyIcon);
 
-            private final HBox hBox = new HBox(deleteBtn);
+            private final HBox hBox = new HBox(deleteBtn, updateBtn);
 
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -132,6 +138,7 @@ public class ConsulterAmbulancesController implements Initializable {
                         initialize(null, null);
 
                     });
+                    updateBtn.setOnAction(event -> {tblAmbulances.setEditable(true);});
                     hBox.setSpacing(5);
                     setGraphic(hBox);
 
@@ -140,6 +147,7 @@ public class ConsulterAmbulancesController implements Initializable {
 
 
         });
+        tblAmbulances.setItems(FXCollections.observableList(getAmbulance()));
 
     }
 
@@ -154,14 +162,14 @@ public class ConsulterAmbulancesController implements Initializable {
         }
         Scene scene = new Scene(fxmlLoader);
         Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.showAndWait();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
             @Override
-            public void handle(WindowEvent windowEvent) {
+            public void handle(WindowEvent event) {
                 initialize(null, null);
             }
         });
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     public List<Ambulance> getAmbulance(){

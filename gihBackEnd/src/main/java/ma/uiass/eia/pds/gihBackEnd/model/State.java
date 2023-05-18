@@ -27,6 +27,7 @@ public abstract class State {
     private String stateName;
 
     @OneToOne
+    @JsonIgnore
     private Revision revision;
 
     @OneToOne(mappedBy = "state")

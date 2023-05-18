@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
+import ma.uiass.eia.pds.gihBackEnd.model.F;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import okhttp3.*;
@@ -52,8 +53,6 @@ public class ConsulterRevisionsController implements Initializable {
     private TableColumn<Revision, String> typeRevisionCol;
 
 
-    @FXML
-    private TableColumn<Revision, LocalDate> datePrevueCol;
 
     @FXML
     private Label immatriculationLabel;
@@ -73,13 +72,6 @@ public class ConsulterRevisionsController implements Initializable {
         kilometrageCol.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
         immatriculationLabel.setText(ambulance.getImmatriculation());
 
-        datePrevueCol.setCellValueFactory(cellData -> {
-            LocalDate newDate = cellData.getValue().getDateRevision().plusDays(Math.round(cellData.getValue().getState().getY()));
-            return new SimpleObjectProperty<>(newDate);
-        });
-        System.out.println();
-
-
 
         actionCol.setCellFactory(col -> {
             TableCell<Revision, Void> cell = new TableCell<Revision, Void>() {
@@ -90,16 +82,24 @@ public class ConsulterRevisionsController implements Initializable {
                     sortirBtn.setOnAction(event -> {
                         Revision revision = getTableView().getItems().get(getIndex());
                         LocalDate currentDate = LocalDate.now();
+                        try {
+                            revision.setAmbulance(ambulance);
+                            update(revision);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         if (currentDate.isAfter(revision.getDateRevision())) {
                             revision.setDateSortie(currentDate);
+                            ambulance.setState(new F());
                             try {
                                 update(revision);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            initialize(null, null);
-                        } else {
+                            updateAmbulance(ambulance);
+                        }
+                        else {
                             // Handle error: Date sortie should be greater than date entree
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Invalid Date");
@@ -107,6 +107,7 @@ public class ConsulterRevisionsController implements Initializable {
                             alert.setContentText("Date sortie faut etre plus grande que date entree.");
                             alert.showAndWait();
                         }
+                        initialize(null, null);
                     });
 
 
@@ -150,8 +151,12 @@ public class ConsulterRevisionsController implements Initializable {
     }
  public void update(Revision rev) throws IOException {
      ObjectMapper mapper = new ObjectMapper();
+     int len = mapper.writeValueAsString(rev).length();
+     String json = mapper.writeValueAsString(rev);
+     String json1 = mapper.writeValueAsString(rev).substring(0, len - 1) + """
+             , "ambulance" :""" + mapper.writeValueAsString(ambulance) + "}";
      RequestBody body = RequestBody.create(
-             MediaType.parse("application/json"), mapper.writeValueAsString(rev));
+             MediaType.parse("application/json"), json);
 
      Request request = new Request.Builder()
              .url("http://localhost:9998/revision/update")
@@ -160,6 +165,7 @@ public class ConsulterRevisionsController implements Initializable {
 
      Call call = okHttpClient.newCall(request);
      Response response = call.execute();
+     System.out.println(json1);
  }
 
 
@@ -169,6 +175,30 @@ public class ConsulterRevisionsController implements Initializable {
 
     public static void setAmbulance(Ambulance ambulance) {
         ConsulterRevisionsController.ambulance = ambulance;
+    }
+
+    public  void updateAmbulance(Ambulance ambulance){
+        ObjectMapper mapper = new ObjectMapper();
+
+        RequestBody body = null;
+        try {
+            body = RequestBody.create(
+                    MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/merge")
+                .put(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -22,10 +22,20 @@
       <TextField fx:id="numeroField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
       <Label text="Date d'entrée:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      <DatePicker fx:id="dateEntreePicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <HBox spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <DatePicker fx:id="dateEntreePicker" />
+            <Label fx:id="lblDateEntreePrevue" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="185.0" />
+         </children>
+      </HBox>
 
       <Label text="Date de sortie:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-      <DatePicker fx:id="dateSortiePicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <HBox spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <DatePicker fx:id="dateSortiePicker" />
+            <Label fx:id="lblDateSortiePrevue" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="185.0" />
+         </children>
+      </HBox>
 
       <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       <TextArea fx:id="descriptionArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -43,6 +53,15 @@
       <HBox prefHeight="47.0" prefWidth="478.0" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <Button fx:id="bttnValider" onAction="#valider" style="-fx-background-color: #63E87C; -fx-text-fill: white;" text="Valider" />
          <Button fx:id="bttnAnnuler" onAction="#annuler" style="-fx-background-color: #FF7F7F; -fx-text-fill: white;" text="Annuler" />
+         <VBox prefHeight="47.0" prefWidth="340.0">
+            <children>
+               <Label fx:id="lblNFCD" prefHeight="25.0" prefWidth="342.0" />
+               <Label fx:id="lblNFLD" prefHeight="27.0" prefWidth="342.0" />
+            </children>
+            <HBox.margin>
+               <Insets left="10.0" />
+            </HBox.margin>
+         </VBox>
       </HBox>
       <columnConstraints>
          <ColumnConstraints />

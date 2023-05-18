@@ -59,6 +59,12 @@ public class MenuControllerLogistique {
         centerPane.setCenter(fxmlLoader);
     }
 
+    @FXML
+    void onAmbulancesClick(ActionEvent event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("AmbulanceCreation.fxml"));
+        centerPane.setCenter(fxmlLoader);
+    }
+
     class SceneChangeEventHandler implements EventHandler<ActionEvent> {
         private final String fxmlResourceName;
 

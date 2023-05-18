@@ -43,7 +43,7 @@ public class AccueilController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         btnAdmin.setOnAction( new SceneChangeEventHandler("menuDashboard.fxml"));
         btnLogistique.setOnAction( new SceneChangeEventHandler( "menu(Logistique).fxml" ));
-        btnAmbulances.setOnAction(new SceneChangeEventHandler(""));
+        btnAmbulances.setOnAction(new SceneChangeEventHandler("consulterAmbulances.fxml"));
         cboxServices.setItems(FXCollections.observableArrayList(getServices()));
     }
 

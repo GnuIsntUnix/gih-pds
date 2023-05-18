@@ -59,6 +59,7 @@ public class Ambulance {
         this.kilometrage=km;
     }
 
+
     public State getState() {
         return state;
     }

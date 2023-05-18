@@ -173,16 +173,16 @@ public class AmbulanceCreationController implements Initializable {
 
         });
 
-        LocalDate minDate=LocalDate.now();
-        date.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
-                if (date.isBefore(minDate)) {
-                    setStyle("-fx-background-color: #ffc0cb;");
-                }
-         }});
+//        LocalDate minDate=LocalDate.now();
+//        date.setDayCellFactory(picker -> new DateCell() {
+//            @Override
+//            public void updateItem(LocalDate date, boolean empty) {
+//                super.updateItem(date, empty);
+//                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
+//                if (date.isBefore(minDate)) {
+//                    setStyle("-fx-background-color: #ffc0cb;");
+//                }
+//         }});
 
 
         table.setItems(FXCollections.observableArrayList(lesAmbulances));

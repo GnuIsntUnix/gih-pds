@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="800.0" style="-fx-background-color: #F0FBEC;" stylesheets="@css/menuAdmin.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.MenuControllerLogistique">
+<AnchorPane fx:id="anchorRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="940.0" style="-fx-background-color: #F0FBEC;" stylesheets="@css/menuAdmin.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.MenuControllerLogistique">
    <children>
       <Pane layoutX="-1.0" layoutY="48.0" prefHeight="552.0" prefWidth="134.0" style="-fx-border-color: transparent  #7edc56;">
          <children>
@@ -72,13 +72,13 @@
             </VBox>
          </children>
       </Pane>
-      <Pane layoutX="-1.0" prefHeight="49.0" prefWidth="800.0" style="-fx-border-color: #7edc56;">
+      <Pane layoutX="-1.0" prefHeight="50.0" prefWidth="940.0" style="-fx-border-color: #7edc56;">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="800.0" spacing="40.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="940.0" spacing="40.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="51.0" prefWidth="271.0">
                      <children>
-                        <Label prefHeight="51.0" prefWidth="245.0" text="Agent Logistique" textAlignment="CENTER" textFill="#478f76">
+                        <Label prefHeight="51.0" prefWidth="184.0" text="Agent Logistique" textAlignment="CENTER" textFill="#478f76">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>

@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihFrontEnd;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -45,14 +46,34 @@ public class EffectuerRevisionController implements Initializable {
 
     @FXML
     private RadioButton typeSimpleButton;
+    @FXML
+    private Label lblDateEntreePrevue;
+
+    @FXML
+    private Label lblDateSortiePrevue;
 
     @FXML
     private RadioButton typeUrgenteButton;
 
+    @FXML
+    private Label lblNFCD;
+
+    @FXML
+    private Label lblNFLD;
+
 
     private ToggleGroup revisionTypeGroup;
     private static  Ambulance ambulance;
+
     OkHttpClient okHttpClient = new OkHttpClient();
+
+    private double x = ChronoUnit.DAYS.between(ambulance.getDateMiseEnCirculation(), LocalDate.now());
+    private double [][] m = PredictionAmbulance.getMat(x);
+    private long m_0_1 = Math.round(PredictionAmbulance.getM(m, 0, 1)); //NFLD
+    private long m_0_2 = Math.round(PredictionAmbulance.getM(m, 0, 2)); //NFCD
+    private long y1 = Math.round(PredictionAmbulance.getM(m, 2, 0)); // NFCD
+
+    private long y2 = Math.round(PredictionAmbulance.getM(m, 1, 0)); // NFLD
 
     public static Ambulance getAmbulance() {
         return ambulance;
@@ -88,14 +109,19 @@ public class EffectuerRevisionController implements Initializable {
 
         String description = descriptionArea.getText();
         String kilometrage = kilometrageField.getText();
-
+        State state = ambulance.getState();
         TypeRevision typeRev = TypeRevision.SIMPLE;
         if (typeUrgenteButton.isSelected()) {
             typeRev = TypeRevision.URGENTE;
+            state = new NFCD();
+
         } else if (typeApprofondieButton.isSelected()) {
             typeRev = TypeRevision.APPROFONDIE;
+            state = new NFLD();
+
         }
 
+        ambulance.setState(state);
         Revision revision = new Revision();
         revision.setAmbulance(ambulance);
         revision.setDateRevision(dateEntree);
@@ -103,11 +129,6 @@ public class EffectuerRevisionController implements Initializable {
         revision.setDescription(description);
         revision.setTypeRev(typeRev);
         revision.setKilometrage(kilometrage);
-        double x = ChronoUnit.DAYS.between(ambulance.getDateMiseEnCirculation(), LocalDate.now());
-        State state = ambulance.getState();
-        PredictionAmbulance.setY(PredictionAmbulance.getMat(x), state);
-        updateState(state);
-        revision.setState(state);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String requestBody = mapper.writeValueAsString(revision);
@@ -133,11 +154,16 @@ public class EffectuerRevisionController implements Initializable {
             showAlert("An error occurred while processing the request.");
             e.printStackTrace();
         }
-        System.out.println(mapper.writeValueAsString(revision));
+        updateAmbulance(ambulance);
+        //System.out.println(mapper.writeValueAsString(revision));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        lblNFCD.setText("Temps avant NFCD : " + m_0_2);
+        lblNFLD.setText("Temps avant NFLD : " + m_0_1);
+
         revisionTypeGroup = new ToggleGroup();
         typeUrgenteButton.setToggleGroup(revisionTypeGroup);
         typeSimpleButton.setToggleGroup(revisionTypeGroup);
@@ -146,33 +172,50 @@ public class EffectuerRevisionController implements Initializable {
         numeroField.setDisable(true);
         System.out.println("initialize");
 
-        LocalDate minDate=LocalDate.now();
-        dateEntreePicker.setDayCellFactory(picker -> new DateCell() {
+        typeUrgenteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
-                if (date.isBefore(minDate)) {
-                    setStyle("-fx-background-color: #ffc0cb;");
-                }
-            }});
-        dateSortiePicker.setDisable(true);
-        dateEntreePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate minDate2 = newValue; // Update minDate2 with the new value
-                dateSortiePicker.setDisable(false);
-                dateSortiePicker.setDayCellFactory(picker -> new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate date, boolean empty) {
-                        super.updateItem(date, empty);
-                        setDisable(date.isBefore(minDate2)); // désactiver les dates antérieures
-                        if (date.isBefore(minDate2)) {
-                            setStyle("-fx-background-color: #ffc0cb;");
-                        }
-                    }
-                });
+            public void handle(ActionEvent event) {
+                LocalDate entreePrevue = LocalDate.now().plusDays(m_0_2 - 1);
+                lblDateEntreePrevue.setText("(Date predite : " + entreePrevue + " )");
+                lblDateSortiePrevue.setText("(Date predite : " + entreePrevue.plusDays(y1)+ " )");
             }
         });
+        typeApprofondieButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                LocalDate entreePrevue = LocalDate.now().plusDays(m_0_1 - 1);
+                lblDateEntreePrevue.setText("(Date predite : " + entreePrevue + " )");
+                lblDateSortiePrevue.setText("(Date predite : " + entreePrevue.plusDays(y2)+ " )");
+            }
+        });
+
+//        LocalDate minDate=LocalDate.now();
+//        dateEntreePicker.setDayCellFactory(picker -> new DateCell() {
+//            @Override
+//            public void updateItem(LocalDate date, boolean empty) {
+//                super.updateItem(date, empty);
+//                setDisable(date.isBefore(minDate)); // désactiver les dates antérieures
+//                if (date.isBefore(minDate)) {
+//                    setStyle("-fx-background-color: #ffc0cb;");
+//                }
+//            }});
+//        dateSortiePicker.setDisable(true);
+//        dateEntreePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null) {
+//                LocalDate minDate2 = newValue; // Update minDate2 with the new value
+//                dateSortiePicker.setDisable(false);
+//                dateSortiePicker.setDayCellFactory(picker -> new DateCell() {
+//                    @Override
+//                    public void updateItem(LocalDate date, boolean empty) {
+//                        super.updateItem(date, empty);
+//                        setDisable(date.isBefore(minDate2)); // désactiver les dates antérieures
+//                        if (date.isBefore(minDate2)) {
+//                            setStyle("-fx-background-color: #ffc0cb;");
+//                        }
+//                    }
+//                });
+//            }
+//        });
 //        kilometrageField.textProperty().addListener((observable, oldValue, newValue) -> {
 //            if (!newValue.matches("\\d*")) {
 //                kilometrageField.setText(newValue.replaceAll("[^\\d]", ""));
@@ -225,5 +268,29 @@ public class EffectuerRevisionController implements Initializable {
         }
     }
 
+    public  void updateAmbulance(Ambulance ambulance) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        RequestBody body = null;
+        try {
+            body = RequestBody.create(
+                    MediaType.parse("application/json"), mapper.writeValueAsString(ambulance));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/ambulance/merge")
+                .put(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        Response response;
+        try {
+            response = call.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
