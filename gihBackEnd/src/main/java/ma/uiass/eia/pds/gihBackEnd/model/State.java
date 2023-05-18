@@ -20,12 +20,12 @@ public abstract class State {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
-    private static double A=0, B=0;
+    private static double A=100, B=100;
     private double x=0, y=0;
-    @Column(unique = true)
+    @Column
     private String stateName;
 
-    @OneToOne(mappedBy = "state")
+    @OneToOne
     private Revision revision;
 
     @OneToOne(mappedBy = "state")
@@ -61,19 +61,19 @@ public abstract class State {
         this.id = id;
     }
 
-    public double getA() {
+    public static double getA() {
         return A;
     }
 
-    public void setA(double a) {
+    public static void setA(double a) {
         A = a;
     }
 
-    public double getB() {
+    public static double getB() {
         return B;
     }
 
-    public void setB(double b) {
+    public static void setB(double b) {
         B = b;
     }
 

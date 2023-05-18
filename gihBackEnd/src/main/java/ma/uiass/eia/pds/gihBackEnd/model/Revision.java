@@ -24,8 +24,12 @@ public class Revision {
     private Ambulance ambulance;
 
     @OneToOne
-    @JoinColumn(name = "idState", referencedColumnName = "id")
-    private State state;
+    @JoinColumn(name = "idInState", referencedColumnName = "id")
+    private State inState;
+
+    @OneToOne
+    @JoinColumn(name = "idOutState", referencedColumnName = "id")
+    private State outState;
 
     public Revision() {
     }
@@ -39,12 +43,27 @@ public class Revision {
         this.setAmbulance(ambulance);
     }
 
-    public State getState() {
-        return state;
+    public Revision(LocalDate dateRevision, Ambulance ambulance, State inState, State outState) {
+        this.dateRevision = dateRevision;
+        this.ambulance = ambulance;
+        this.inState = inState;
+        this.outState = outState;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public State getInState() {
+        return inState;
+    }
+
+    public void setInState(State inState) {
+        this.inState = inState;
+    }
+
+    public State getOutState() {
+        return outState;
+    }
+
+    public void setOutState(State outState) {
+        this.outState = outState;
     }
 
     public int getId() {
