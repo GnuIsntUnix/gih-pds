@@ -1,20 +1,20 @@
 package ma.uiass.eia.pds.gihFrontEnd;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
-import ma.uiass.eia.pds.gihBackEnd.model.F;
-import ma.uiass.eia.pds.gihBackEnd.model.Revision;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeRevision;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
+import ma.uiass.eia.pds.gihBackEnd.prediction.PredictionAmbulance;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class EffectuerRevisionController implements Initializable {
@@ -103,7 +103,11 @@ public class EffectuerRevisionController implements Initializable {
         revision.setDescription(description);
         revision.setTypeRev(typeRev);
         revision.setKilometrage(kilometrage);
-        revision.setState(new F());
+        double x = ChronoUnit.DAYS.between(ambulance.getDateMiseEnCirculation(), LocalDate.now());
+        State state = ambulance.getState();
+        PredictionAmbulance.setY(PredictionAmbulance.getMat(x), state);
+        updateState(state);
+        revision.setState(state);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String requestBody = mapper.writeValueAsString(revision);
@@ -195,6 +199,29 @@ public class EffectuerRevisionController implements Initializable {
             return selectedButton.getText();
         } else {
             return null;
+        }
+    }
+    public  void updateState(State state){
+        ObjectMapper mapper = new ObjectMapper();
+
+        RequestBody body = null;
+        try {
+            body = RequestBody.create(
+                    MediaType.parse("application/json"), mapper.writeValueAsString(state));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        Request request = new Request.Builder()
+                .url("http://localhost:9998/state/update")
+                .put(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

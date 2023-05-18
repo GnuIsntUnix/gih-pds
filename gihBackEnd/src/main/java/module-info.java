@@ -38,4 +38,5 @@ module gihBackEnd {
     exports ma.uiass.eia.pds.gihBackEnd.model;
     exports ma.uiass.eia.pds.gihBackEnd.util;
     exports ma.uiass.eia.pds.gihBackEnd.services;
+    exports ma.uiass.eia.pds.gihBackEnd.prediction;
 }

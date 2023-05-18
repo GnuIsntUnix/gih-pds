@@ -3,6 +3,7 @@ package ma.uiass.eia.pds.gihFrontEnd;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -50,6 +52,13 @@ public class ConsulterRevisionsController implements Initializable {
     private TableColumn<Revision, String> typeRevisionCol;
 
 
+    @FXML
+    private TableColumn<Revision, LocalDate> datePrevueCol;
+
+    @FXML
+    private Label immatriculationLabel;
+
+
 
     private OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -62,6 +71,15 @@ public class ConsulterRevisionsController implements Initializable {
         typeRevisionCol.setCellValueFactory(new PropertyValueFactory<>("typeRev"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         kilometrageCol.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
+        immatriculationLabel.setText(ambulance.getImmatriculation());
+
+        datePrevueCol.setCellValueFactory(cellData -> {
+            LocalDate newDate = cellData.getValue().getDateRevision().plusDays(Math.round(cellData.getValue().getState().getY()));
+            return new SimpleObjectProperty<>(newDate);
+        });
+        System.out.println();
+
+
 
         actionCol.setCellFactory(col -> {
             TableCell<Revision, Void> cell = new TableCell<Revision, Void>() {
