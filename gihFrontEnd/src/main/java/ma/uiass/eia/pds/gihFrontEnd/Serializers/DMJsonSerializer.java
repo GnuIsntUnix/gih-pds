@@ -38,4 +38,7 @@ public class DMJsonSerializer extends StdSerializer<DM> {
 
         gen.writeEndObject();
     }
+
+    public static class AffecterDmEspaceController {
+    }
 }

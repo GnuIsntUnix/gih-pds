@@ -21,22 +21,51 @@ public class Ambulance {
 
     @Column(unique = true)
     private String immatriculation;
+    @Column(name="kilométrage")
+    private String kilometrage;
     @Column(name = "miseEnCirculation")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateMiseEnCirculation;
+    @Column(name = "dateDeCreation")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dateDeCreation = LocalDate.now();
+    @Column(name = "typeAmbulance")
+    private TypeAmbulance typeAmbulance;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
-    private List<Historique> historiques = new ArrayList<>();
-    @JsonIgnore
-    @OneToMany(mappedBy = "ambulance")
+    @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "idState", referencedColumnName = "id")
+    private State state;
+
+
     public Ambulance() {
     }
 
-    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation) {
+    public Ambulance(String immatriculation,LocalDate dateMiseEnCirculation, String km, TypeAmbulance typeAmbulance) {
+        this.immatriculation = immatriculation;
+        this.kilometrage = km;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.typeAmbulance = typeAmbulance;
+    }
+
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, String km) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.kilometrage=km;
+    }
+
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public String getImmatriculation() {
@@ -63,19 +92,35 @@ public class Ambulance {
         this.dateMiseEnCirculation = dateMiseEnCirculation;
     }
 
-    public List<Historique> getHistoriques() {
-        return historiques;
-    }
-
-    public void setHistoriques(List<Historique> historiques) {
-        this.historiques = historiques;
-    }
-
     public List<Revision> getRevisions() {
         return revisions;
     }
 
     public void setRevisions(List<Revision> revisions) {
         this.revisions = revisions;
+    }
+
+    public LocalDate getDateDeCreation() {
+        return dateDeCreation;
+    }
+
+    public void setDateDeCreation(LocalDate dateDeCreation) {
+        this.dateDeCreation = dateDeCreation;
+    }
+
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String km) {
+        this.kilometrage = km;
+    }
+
+    public TypeAmbulance getTypeAmbulance() {
+        return typeAmbulance;
+    }
+
+    public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
+        this.typeAmbulance = typeAmbulance;
     }
 }

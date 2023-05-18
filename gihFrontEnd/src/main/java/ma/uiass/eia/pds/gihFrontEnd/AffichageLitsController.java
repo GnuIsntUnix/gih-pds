@@ -3,6 +3,8 @@ package ma.uiass.eia.pds.gihFrontEnd;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -18,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
@@ -25,6 +28,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -123,6 +127,33 @@ public class AffichageLitsController implements Initializable {
         );
 
 
+        tblLits.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+
+                    System.out.println("double");
+                    ConsulterAdmission.setLit(tblLits.getSelectionModel().getSelectedItem());
+                    Parent fxmlLoader = null;
+                    try {
+                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("ConsulterAdmission.fxml"));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Scene scene = new Scene(fxmlLoader);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
+                            initialize(null, null);
+                            stage.close();
+                        }
+                    });
+                    stage.showAndWait();
+                }
+            }
+        });
 
     }
 

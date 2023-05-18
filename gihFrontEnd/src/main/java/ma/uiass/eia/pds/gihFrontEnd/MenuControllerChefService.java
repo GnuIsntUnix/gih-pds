@@ -38,6 +38,9 @@ public class MenuControllerChefService implements Initializable {
     private Button btnRetour;
 
     @FXML
+    private Button btnAmbulances;
+
+    @FXML
     private Label lblService;
 
 
@@ -133,5 +136,10 @@ public class MenuControllerChefService implements Initializable {
                 .getScene()
                 .getWindow();
         changeScene(stage,"accueil.fxml");
+    }
+
+    public void onBtnAmbulances(ActionEvent event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("AmbulanceCreation.fxml"));
+        centerPane.setCenter(fxmlLoader);
     }
 }

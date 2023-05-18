@@ -21,6 +21,11 @@
                   <Font size="14.0" />
                </font>
             </Button>
+            <Button fx:id="btnAmbulances" mnemonicParsing="false" text="Chef de Service Ambulances">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </center>

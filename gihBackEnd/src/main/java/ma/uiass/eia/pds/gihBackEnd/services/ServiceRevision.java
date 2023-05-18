@@ -1,9 +1,11 @@
 package ma.uiass.eia.pds.gihBackEnd.services;
 
 import ma.uiass.eia.pds.gihBackEnd.dao.*;
-import ma.uiass.eia.pds.gihBackEnd.model.Historique;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
+import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class ServiceRevision {
     private IRevisionDao revisionDao = new RevisionDaoImp();
 
     private IAmbulanceDao ambulanceDao = new AmbulanceDaoImp();
+    private EntityManager entityManager= HibernateUtil.getEntityManager();
+
 
     public void deleteById(int id){
 
@@ -42,14 +46,8 @@ public class ServiceRevision {
     }
 
     public List<Revision> getOnAmbulance(int idAmbulance){
-        List<Revision> revisions = revisionDao.getAll();
-        List<Revision> rev = new ArrayList<>();
-        revisions.forEach(revision -> {
-            if (revision.getAmbulance().getId() == idAmbulance){
-                rev.add(revision);
-            }
-        });
-        return rev;
+        Query query = entityManager.createQuery("from Revision r where r.ambulance.id ="+idAmbulance);
+        return query.getResultList();
     }
 
 }
