@@ -21,7 +21,6 @@ public class Ambulance {
 
     @Column(unique = true)
     private String immatriculation;
-
     @Column(name="kilométrage")
     private String kilometrage;
     @Column(name = "miseEnCirculation")
@@ -39,16 +38,9 @@ public class Ambulance {
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
     private List<Revision> revisions = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idState", referencedColumnName = "id")
     private State state;
-
-
-
-
-    public void setKilometrage(String kilometrage) {
-        this.kilometrage = kilometrage;
-    }
 
 
     public Ambulance() {
@@ -115,29 +107,19 @@ public class Ambulance {
         this.dateDeCreation = dateDeCreation;
     }
 
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String km) {
+        this.kilometrage = km;
+    }
 
     public TypeAmbulance getTypeAmbulance() {
         return typeAmbulance;
     }
 
-
-
-
     public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
         this.typeAmbulance = typeAmbulance;
-    }
-
-    public String getKilometrage() {
-        return this.kilometrage;
-    }
-
-    @Override
-    public String toString() {
-        return "Ambulance{" +
-                "immatriculation='" + immatriculation + '\'' +
-                ", dateMiseEnCirculation=" + dateMiseEnCirculation +
-                ", kilometrage='" + kilometrage + '\'' +
-                ", typeAmbulance=" + typeAmbulance +
-                '}';
     }
 }

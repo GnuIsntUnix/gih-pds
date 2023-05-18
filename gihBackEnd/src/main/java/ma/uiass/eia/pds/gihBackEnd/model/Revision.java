@@ -48,7 +48,6 @@ public class Revision {
     public Revision() {
     }
 
-
     public Revision(LocalDate dateRevision) {
         this.dateRevision = dateRevision;
     }

@@ -21,16 +21,17 @@ public abstract class State {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
-    private double A=0, B=0, x=0, y=0;
+    private static double A=100, B=100;
+    private double x=0, y=0;
     @Column
     private String stateName;
 
-    @OneToOne(mappedBy = "state")
+    @OneToOne
     private Revision revision;
 
-    @OneToMany(mappedBy = "state")
+    @OneToOne(mappedBy = "state")
     @JsonIgnore
-    private List<Ambulance> ambulances;
+    private Ambulance ambulance;
 
     public State(double a, double b, double x, double y, String stateName, Revision revision) {
         A = a;
@@ -42,12 +43,12 @@ public abstract class State {
     }
 
 
-    public List<Ambulance> getAmbulances() {
-        return ambulances;
+    public Ambulance getAmbulance() {
+        return ambulance;
     }
 
-    public void setAmbulances(List<Ambulance> ambulances) {
-        this.ambulances = ambulances;
+    public void setAmbulance(Ambulance ambulances) {
+        this.ambulance = ambulances;
     }
 
     public State() {
@@ -61,19 +62,19 @@ public abstract class State {
         this.id = id;
     }
 
-    public double getA() {
+    public static double getA() {
         return A;
     }
 
-    public void setA(double a) {
+    public static void setA(double a) {
         A = a;
     }
 
-    public double getB() {
+    public static double getB() {
         return B;
     }
 
-    public void setB(double b) {
+    public static void setB(double b) {
         B = b;
     }
 
