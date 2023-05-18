@@ -22,7 +22,7 @@ public class Ambulance {
     @Column(unique = true)
     private String immatriculation;
     @Column(name="kilométrage")
-    private int km;
+    private String kilometrage;
     @Column(name = "miseEnCirculation")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -31,7 +31,8 @@ public class Ambulance {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateDeCreation = LocalDate.now();
-
+    @Column(name = "typeAmbulance")
+    private TypeAmbulance typeAmbulance;
 
     @JsonIgnore
     @OneToMany(mappedBy = "ambulance",cascade = CascadeType.ALL)
@@ -45,10 +46,17 @@ public class Ambulance {
     public Ambulance() {
     }
 
-    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation,int km) {
+    public Ambulance(String immatriculation,LocalDate dateMiseEnCirculation, String km, TypeAmbulance typeAmbulance) {
+        this.immatriculation = immatriculation;
+        this.kilometrage = km;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
+        this.typeAmbulance = typeAmbulance;
+    }
+
+    public Ambulance(String immatriculation, LocalDate dateMiseEnCirculation, String km) {
         this.immatriculation = immatriculation;
         this.dateMiseEnCirculation = dateMiseEnCirculation;
-        this.km=km;
+        this.kilometrage=km;
     }
 
     public State getState() {
@@ -99,11 +107,24 @@ public class Ambulance {
         this.dateDeCreation = dateDeCreation;
     }
 
-    public int getKm() {
-        return km;
+    public String getKilometrage() {
+        return kilometrage;
     }
 
-    public void setKm(int km) {
-        this.km = km;
+    public void setKilometrage(String km) {
+        this.kilometrage = km;
+    }
+
+    public TypeAmbulance getTypeAmbulance() {
+        return typeAmbulance;
+    }
+
+    public void setTypeAmbulance(TypeAmbulance typeAmbulance) {
+        this.typeAmbulance = typeAmbulance;
+    }
+
+    @Override
+    public String toString() {
+        return this.id+" "+this.immatriculation+" "+this.dateMiseEnCirculation+" "+this.kilometrage+" "+this.revisions;
     }
 }
