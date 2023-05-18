@@ -4,11 +4,13 @@ package ma.uiass.eia.pds.gihBackEnd;
 import jakarta.ws.rs.core.UriBuilder;
 import ma.uiass.eia.pds.gihBackEnd.dao.*;
 import ma.uiass.eia.pds.gihBackEnd.model.*;
+import ma.uiass.eia.pds.gihBackEnd.prediction.DistributionStationnaire;
 import ma.uiass.eia.pds.gihBackEnd.services.ServiceDM;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +53,10 @@ public class App
         Dao<DetailLivraison> detailLivraisonDao = new DetailLivraisonDaoImp();
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
         Dao<Ambulance> ambulanceDao = new AmbulanceDaoImp();
+        double[] pi = {1,0,0};
+        double[][] P = {{0.6,0.3,0.1},{0.95,0.05,0},{0.5,0,0.5}};
+
+        System.out.println(Arrays.toString(DistributionStationnaire.getMat(pi, P)));
 
 
 //        fournisseurDao.create(new Fournisseur("F1","F1@gmail.com","Rabat","0661789534"));

@@ -11,12 +11,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.EtatAmbulance;
@@ -54,6 +57,9 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @FXML
     private TableColumn<Ambulance, Integer> idCol;
+
+    @FXML
+    private Button btnEffectRevision;
 
     private OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -98,6 +104,62 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @FXML
     void onRevisions(ActionEvent event) {
+
+
+
+    }
+    @FXML
+    void onEffectRevisions(ActionEvent event) {
+
+        Popup popup = new Popup();
+
+
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll("Court durée", "Longe durée");
+
+        Button confirmBtn = new Button("Valider");
+        confirmBtn.setOnAction(even -> {
+            popup.hide();
+            showConfirmation();
+        });
+
+        VBox popupContent = new VBox(10, new Label("Selectionner un type de revision:"), comboBox, confirmBtn);
+        popupContent.setAlignment(Pos.CENTER);
+        popupContent.setPadding(new Insets(10));
+
+        // Create a custom Region as the background
+        Region background = new Region();
+        background.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(5), Insets.EMPTY)));
+        background.setEffect(new javafx.scene.effect.DropShadow(10, Color.GRAY));
+        background.setPadding(new Insets(20));
+
+        // Add the popup content as a child of the background
+        StackPane stackPane = new StackPane(background, popupContent);
+
+
+        popup.getContent().add(stackPane);
+        popup.setAutoHide(true);
+        popup.show(getPrimaryStage());
+
+    }
+
+    private Stage getPrimaryStage() {
+        return (Stage) btnRevisions.getScene().getWindow();
+    }
+
+    private void showConfirmation() {
+        Popup confirmationPopup = new Popup();
+
+        Label label = new Label("Revision Confirmée !");
+
+        VBox popupContent = new VBox(label);
+        popupContent.setAlignment(Pos.CENTER);
+        popupContent.setPadding(new Insets(10));
+
+        confirmationPopup.getContent().add(popupContent);
+        confirmationPopup.setAutoHide(true);
+        confirmationPopup.show(getPrimaryStage());
+
 
     }
 

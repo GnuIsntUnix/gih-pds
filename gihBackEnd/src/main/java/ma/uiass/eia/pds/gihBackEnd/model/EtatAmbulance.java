@@ -12,7 +12,7 @@ public class EtatAmbulance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
-    @Column(name = "nomEtat")
+    @Column(name = "nomEtat", unique = true)
     private String nom;
     @JsonIgnore
     @OneToMany(mappedBy = "etatAmbulance")
