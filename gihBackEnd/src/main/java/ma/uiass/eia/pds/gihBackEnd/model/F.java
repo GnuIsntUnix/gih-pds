@@ -8,24 +8,24 @@ import javax.persistence.Entity;
 @DiscriminatorValue("F")
 public class F extends State{
     @Column
-    private double q=0;
+    private static double q=7./9;
 
-    public F(double a, double b, double x, double y, Revision revision, double q) {
+    public F(double a, double b, double x, double y, Revision revision) {
         super(a, b, x, y, "F", revision);
-        this.q = q;
     }
 
     public F() {
         this.setStateName("F");
     }
 
-    public double getQ() {
+    public static double getQ() {
         return q;
     }
 
-    public void setQ(double q) {
-        this.q = q;
+    public static void setQ(double q) {
+        F.q = q;
     }
+
     public  String toString(){
         return "Fonctionnelle";
     }

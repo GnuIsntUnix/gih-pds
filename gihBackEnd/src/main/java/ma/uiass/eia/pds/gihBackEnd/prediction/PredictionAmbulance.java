@@ -1,14 +1,16 @@
 package ma.uiass.eia.pds.gihBackEnd.prediction;
 
+import ma.uiass.eia.pds.gihBackEnd.model.F;
 import ma.uiass.eia.pds.gihBackEnd.model.State;
 
 public class PredictionAmbulance {
 
-    public static double[][] getMat(double x, double q){
+    public static double[][] getMat(double x){
 //        double A = State.getA();
 //        double B = State.getB();
-        double A = 100;
-        double B = 100;
+        double q = F.getQ();
+        double A = State.getA();
+        double B = State.getB();
         double alpha0 = (A - x) / B;
         double alpha1 = (A - x) / B;
         double alpha2 = (A - x) / B;
@@ -19,5 +21,14 @@ public class PredictionAmbulance {
 
     public static double getM(double[][] P, int i, int j){
         return (P[i][i] + P[i][j] - (P[i][i] * P[j][j]) + (P[i][j] * P[j][i]))/(1 - P[i][i] - P[j][j]+ (P[i][i] * P[j][j]) - (P[i][j] * P[j][i]));
+    }
+
+    public static void setY(double[][] P, State state){
+        if (state.getStateName().equalsIgnoreCase("nfcd")){
+            state.setY(getM(P, 1, 0) - state.getX());
+        }
+        if (state.getStateName().equalsIgnoreCase("nfld")){
+            state.setY(getM(P, 2, 0) - state.getX());
+        }
     }
 }

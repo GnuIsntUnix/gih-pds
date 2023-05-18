@@ -31,6 +31,8 @@ public class AccueilController implements Initializable {
 
     @FXML
     private Button btnLogistique;
+    @FXML
+    private Button btnAmbulances;
 
     @FXML
     private ComboBox<Service> cboxServices;
@@ -41,6 +43,7 @@ public class AccueilController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         btnAdmin.setOnAction( new SceneChangeEventHandler("menuDashboard.fxml"));
         btnLogistique.setOnAction( new SceneChangeEventHandler( "menu(Logistique).fxml" ));
+        btnAmbulances.setOnAction(new SceneChangeEventHandler(""));
         cboxServices.setItems(FXCollections.observableArrayList(getServices()));
     }
 
@@ -59,7 +62,7 @@ public class AccueilController implements Initializable {
         }
         List<Service> servicesSansLogistique = new ArrayList<>();
         services.forEach(service -> {
-            if (!service.getCodeS().equalsIgnoreCase("logi"))
+            if (!service.getCodeS().equalsIgnoreCase("logi") || !service.getCodeS().equalsIgnoreCase("amb"))
                 servicesSansLogistique.add(service);
         });
         return servicesSansLogistique;
