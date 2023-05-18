@@ -16,13 +16,6 @@ public class Revision {
     @Column(name = "Id")
     private int id;
 
-    public String getKilometrage() {
-        return kilometrage;
-    }
-
-    public void setKilometrage(String kilometrage) {
-        this.kilometrage = kilometrage;
-    }
 
     @Column(name= "kilometrage")
     private String kilometrage;
@@ -55,6 +48,7 @@ public class Revision {
     public Revision() {
     }
 
+
     public Revision(LocalDate dateRevision) {
         this.dateRevision = dateRevision;
     }
@@ -62,6 +56,24 @@ public class Revision {
     public Revision(LocalDate dateRevision, Ambulance ambulance) {
         this.dateRevision = dateRevision;
         this.setAmbulance(ambulance);
+    }
+
+    public Revision(String kilometrage, LocalDate dateRevision, LocalDate dateSortie, String description, Ambulance ambulance, State state, TypeRevision typeRev) {
+        this.kilometrage = kilometrage;
+        this.dateRevision = dateRevision;
+        this.dateSortie = dateSortie;
+        this.description = description;
+        this.ambulance = ambulance;
+        this.state = state;
+        this.typeRev = typeRev;
+    }
+    public Revision(Ambulance ambulance, LocalDate dateRevision, LocalDate dateSortie, String description, TypeRevision typeRev, String kilometrage){
+        this.ambulance=ambulance;
+        this.dateRevision=dateRevision;
+        this.dateSortie=dateSortie;
+        this.description=description;
+        this.typeRev=typeRev;
+        this.kilometrage=kilometrage;
     }
 
 
@@ -86,6 +98,13 @@ public class Revision {
         this.ambulance = ambulance;
         this.state = state;
         this.kilometrage=kilometrage;
+    }
+    public String getKilometrage() {
+        return kilometrage;
+    }
+
+    public void setKilometrage(String kilometrage) {
+        this.kilometrage = kilometrage;
     }
 
     public String getDescription() {
@@ -127,5 +146,17 @@ public class Revision {
     public void setAmbulance(Ambulance ambulance) {
         this.ambulance = ambulance;
         ambulance.getRevisions().add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Revision{" +
+                ", ambulance=" + ambulance +
+                ", dateRevision=" + dateRevision +
+                ", dateSortie=" + dateSortie +
+                ", typeRev=" + typeRev +
+                ", description='" + description + '\'' +
+                "kilometrage='" + kilometrage + '\'' +
+                '}';
     }
 }

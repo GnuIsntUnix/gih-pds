@@ -130,4 +130,14 @@ public class Ambulance {
     public String getKilometrage() {
         return this.kilometrage;
     }
+
+    @Override
+    public String toString() {
+        return "Ambulance{" +
+                "immatriculation='" + immatriculation + '\'' +
+                ", dateMiseEnCirculation=" + dateMiseEnCirculation +
+                ", kilometrage='" + kilometrage + '\'' +
+                ", typeAmbulance=" + typeAmbulance +
+                '}';
+    }
 }

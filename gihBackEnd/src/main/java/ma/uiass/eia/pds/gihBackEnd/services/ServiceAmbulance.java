@@ -18,10 +18,10 @@ public class ServiceAmbulance {
 
     }
     public void add(Ambulance ambulance){
+        State state = new F();
+        stateDao.create(state);
+        ambulance.setState(state);
         ambulanceDao.create(ambulance);
-        ambulance.setState(stateDao.getById(1));
-        System.out.println(stateDao.getById(1));
-        ambulanceDao.update(ambulance);
     }
     public Ambulance searchById(int id){
         Ambulance ambulance = ambulanceDao.getById(id);

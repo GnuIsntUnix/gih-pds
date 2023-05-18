@@ -2,6 +2,7 @@ package ma.uiass.eia.pds.gihBackEnd.dao;
 
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
+import ma.uiass.eia.pds.gihBackEnd.model.State;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import java.util.List;
 public class RevisionDaoImp implements IRevisionDao{
     private EntityManager entityManager= HibernateUtil.getEntityManager();
     private AmbulanceDaoImp ambulanceDao = new AmbulanceDaoImp();
+    private StateDaoImp stateDaoImp = new StateDaoImp();
 
     public RevisionDaoImp() {
 
@@ -19,21 +21,23 @@ public class RevisionDaoImp implements IRevisionDao{
 
     @Override
     public void create(Revision revision) {
+        State state = revision.getState();
+        stateDaoImp.create(state);
         EntityTransaction transaction = entityManager.getTransaction();
-        Ambulance ambulance = ambulanceDao.getById(revision.getAmbulance().getId());
-        ambulance.setKilometrage(revision.getKilometrage());
-        ambulanceDao.update(ambulance);
         try {
+            transaction.begin();
             entityManager.persist(revision);
             transaction.commit();
-            System.out.println("commited and ended");
         }
         catch (Exception e) {
+            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
         }
+//        Ambulance ambulance = ambulanceDao.getById(revision.getAmbulance().getId());
+//        ambulance.setKilometrage(revision.getKilometrage());
+//        ambulanceDao.update(ambulance);
 
     }
 

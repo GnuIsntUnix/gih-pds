@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import ma.uiass.eia.pds.gihBackEnd.model.Ambulance;
+import ma.uiass.eia.pds.gihBackEnd.model.F;
 import ma.uiass.eia.pds.gihBackEnd.model.Revision;
 import ma.uiass.eia.pds.gihBackEnd.model.TypeRevision;
 import okhttp3.*;
@@ -75,6 +76,12 @@ public class EffectuerRevisionController implements Initializable {
 
     @FXML
     void valider(ActionEvent event) throws IOException {
+    /*    Ambulance ambulance = EffectuerRevisionController.getAmbulance();
+
+        if (ambulance == null || ambulance.getId() == 0) {
+            showAlert("Invalid ambulance selection.");
+            return;
+        }*/
 
         LocalDate dateEntree = dateEntreePicker.getValue();
         LocalDate dateSortie = dateSortiePicker.getValue();
@@ -96,6 +103,7 @@ public class EffectuerRevisionController implements Initializable {
         revision.setDescription(description);
         revision.setTypeRev(typeRev);
         revision.setKilometrage(kilometrage);
+        revision.setState(new F());
         ObjectMapper mapper = new ObjectMapper();
         try {
             String requestBody = mapper.writeValueAsString(revision);
@@ -121,6 +129,7 @@ public class EffectuerRevisionController implements Initializable {
             showAlert("An error occurred while processing the request.");
             e.printStackTrace();
         }
+        System.out.println(mapper.writeValueAsString(revision));
     }
 
     @Override

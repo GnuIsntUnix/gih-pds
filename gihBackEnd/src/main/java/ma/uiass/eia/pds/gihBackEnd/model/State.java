@@ -22,7 +22,7 @@ public abstract class State {
     private int id;
     @Column
     private double A=0, B=0, x=0, y=0;
-    @Column(unique = true)
+    @Column
     private String stateName;
 
     @OneToOne(mappedBy = "state")

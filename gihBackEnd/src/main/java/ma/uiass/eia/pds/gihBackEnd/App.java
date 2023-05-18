@@ -51,6 +51,7 @@ public class App
         Dao<Fournisseur> fournisseurDao = new FournisseurDaoImp();
         Dao<Ambulance> ambulanceDao = new AmbulanceDaoImp();
         Dao<State> stateDao = new StateDaoImp();
+        RevisionDaoImp revisionDaoImp=new RevisionDaoImp();
 
 
 //        stateDao.create(new F());
