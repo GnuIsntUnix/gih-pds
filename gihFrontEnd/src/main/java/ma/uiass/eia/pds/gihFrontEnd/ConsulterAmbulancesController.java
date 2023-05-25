@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -37,6 +38,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ConsulterAmbulancesController implements Initializable {
@@ -61,6 +63,9 @@ public class ConsulterAmbulancesController implements Initializable {
 
     @FXML
     private TableColumn<Ambulance, LocalDate> dateCol;
+
+    @FXML
+    private Button btnRetour;
 
 
     private OkHttpClient okHttpClient = new OkHttpClient();
@@ -192,5 +197,31 @@ public class ConsulterAmbulancesController implements Initializable {
                 .build();
 
         Response response = okHttpClient.newCall(request).execute();
+    }
+
+    public void onBtnRetour(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+        changeScene(stage,"accueil.fxml");
+    }
+
+    private void changeScene(
+            Stage stage,
+            String fxmlResourceName
+    ) throws IOException {
+        Parent parent = FXMLLoader.load(
+                Objects.requireNonNull(
+                        getClass().getClassLoader().getResource(
+                                fxmlResourceName
+                        )
+                )
+        );
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.setTitle(fxmlResourceName);
+        stage.show();
+        stage.centerOnScreen();
     }
 }

@@ -37,7 +37,7 @@
                   <Button fx:id="btnRevisions" disable="true" mnemonicParsing="false" onAction="#onRevisions" text="Revisions" />
                   <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#onBtnRetour" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black;">
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                        <FontAwesomeIconView fx:id="btn" glyphName="ARROW_LEFT" />
                      </graphic>
                   </Button>
                </children>

@@ -23,6 +23,7 @@ public class AmbulanceDaoImp implements IAmbulanceDao{
     @Override
     public void create(Ambulance ambulance) {
         EntityTransaction transaction = entityManager.getTransaction();
+
         try {
             transaction.begin();
             this.entityManager.persist(ambulance);
