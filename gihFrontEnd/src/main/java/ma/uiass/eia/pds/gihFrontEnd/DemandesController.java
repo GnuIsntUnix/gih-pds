@@ -239,6 +239,8 @@ public class DemandesController implements Initializable {
             DetailDemandeDm selectedItem = DemandesTable.getSelectionModel().getSelectedItem();
             DemandesTable.getItems().remove(selectedItem);
         });
+
+        initialize(null,null);
     }
 
 

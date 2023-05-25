@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterAmbulancesController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="407.5636197555165" minHeight="10.0" prefHeight="390.85453990589536" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="342.87273162337374" minHeight="10.0" prefHeight="66.19998962906777" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TableView fx:id="tblAmbulances" prefHeight="334.0" prefWidth="975.0">
+         <columns>
+            <TableColumn fx:id="immatriculCol" minWidth="0.0" prefWidth="114.6666488647461" text="Immatriculation" />
+            <TableColumn fx:id="dateCol" prefWidth="179.9999771118164" text="Date de mise en circulation" />
+            <TableColumn fx:id="km" prefWidth="99.3333740234375" text="Kilométrage" />
+            <TableColumn fx:id="type" prefWidth="232.66665649414062" text="Type d'ambulance" />
+            <TableColumn fx:id="state" prefWidth="271.3333740234375" text="Etat Actuelle" />
+            <TableColumn fx:id="action" prefWidth="75.0" text="action" />
+         </columns>
+      </TableView>
+      <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="975.0" spacing="20.0" GridPane.rowIndex="1">
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <Button fx:id="btnRevisions" disable="true" mnemonicParsing="false" onAction="#onRevisions" text="Revisions" />
+                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#onBtnRetour" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black;">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</GridPane>

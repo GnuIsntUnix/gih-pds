@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ma.uiass.eia.pds.gihBackEnd.model.Admission;
-import ma.uiass.eia.pds.gihBackEnd.model.Batiment;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,17 +29,18 @@ public class ConsulterAdmission implements Initializable {
     }
 
     @FXML
-    private TableColumn<Admission, LocalDate> colDateFin;
+    private TableColumn<Admission, Integer> colNumAdmission;
 
     @FXML
     private TableColumn<Admission, LocalDate> colDatedebut;
 
     @FXML
-    private TableColumn<Admission, Integer> colNumAdmission;
+    private TableColumn<Admission, LocalDate> colDateFin;
+
     @FXML
     private TableView<Admission> tblAdmissions;
-    OkHttpClient okHttpClient= new OkHttpClient();
 
+    OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,10 +48,10 @@ public class ConsulterAdmission implements Initializable {
         colNumAdmission.setCellValueFactory(new PropertyValueFactory<>("idAdmission"));
         colDatedebut.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
         colDateFin.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
-
     }
-    public List<Admission> getAdmissions(){
-        Request request = new Request.Builder().url("http://localhost:9998/admission/getadmissionsonlit/"+ConsulterAdmission.getLit().getN_lit()).build();
+
+    public List<Admission> getAdmissions() {
+        Request request = new Request.Builder().url("http://localhost:9998/admission/getadmissionsonlit/" + ConsulterAdmission.getLit().getN_lit()).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;
@@ -66,7 +66,7 @@ public class ConsulterAdmission implements Initializable {
         return admissions;
     }
 
-    public static void setLit(Lit lit) { ConsulterAdmission.lit=lit;
-
+    public static void setLit(Lit lit) {
+        ConsulterAdmission.lit = lit;
     }
 }
