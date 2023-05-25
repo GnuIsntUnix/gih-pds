@@ -1,11 +1,16 @@
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\App.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\ConsulterAmbulancesController.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\EffectuerRevisionController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\GererServicesController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\ConsulterStockLitsChefController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\FournisseurController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\MenuControllerLogistique.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\AmbulanceCreationController.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\ConsulterAdmission.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\PopupDetailsLivraisonController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\TraiterDemandes.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\TransitionDiagram.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\VisualisationAmbulancesController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\menuDashboardController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\AffichageLitsController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\VisualisationController.java
@@ -16,6 +21,7 @@ C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFro
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\affectationScene.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\InscriptionController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\ConsulterStockLitsController.java
+C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\ConsulterRevisionsController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\GererCommandesController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\LivraisonController.java
 C:\Users\med9h\Desktop\gih-pds\gihFrontEnd\src\main\java\ma\uiass\eia\pds\gihFrontEnd\MenuControllerAdmin.java
