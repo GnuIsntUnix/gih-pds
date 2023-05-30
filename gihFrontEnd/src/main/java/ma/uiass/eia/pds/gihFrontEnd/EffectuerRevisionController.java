@@ -69,11 +69,11 @@ public class EffectuerRevisionController implements Initializable {
 
     private double x = ChronoUnit.DAYS.between(ambulance.getDateMiseEnCirculation(), LocalDate.now());
     private double [][] m = PredictionAmbulance.getMat(x);
-    private long m_0_1 = Math.round(PredictionAmbulance.getM(m, 0, 1)); //NFLD
-    private long m_0_2 = Math.round(PredictionAmbulance.getM(m, 0, 2)); //NFCD
-    private long y1 = Math.round(PredictionAmbulance.getM(m, 2, 0)); // NFCD
+    private long m_0_1 = Math.round(PredictionAmbulance.getM(m, 0, 1)); //duree avant transition a NFLD
+    private long m_0_2 = Math.round(PredictionAmbulance.getM(m, 0, 2)); //duree avant transition a NFCD
+    private long y1 = Math.round(PredictionAmbulance.getM(m, 2, 0)); // duree restee a NFCD
 
-    private long y2 = Math.round(PredictionAmbulance.getM(m, 1, 0)); // NFLD
+    private long y2 = Math.round(PredictionAmbulance.getM(m, 1, 0)); // duree restee a NFLD
 
     public static Ambulance getAmbulance() {
         return ambulance;

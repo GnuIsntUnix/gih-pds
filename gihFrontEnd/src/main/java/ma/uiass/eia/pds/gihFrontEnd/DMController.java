@@ -200,7 +200,7 @@ public class DMController implements Initializable {
     }
 
     public Stock getStock(int idService){
-        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/"+idService).build();
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/"+idService).build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

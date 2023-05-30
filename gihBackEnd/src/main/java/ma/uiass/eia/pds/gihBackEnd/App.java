@@ -100,9 +100,9 @@ public class App
        typeDMDao.create(new TypeDM("Fourniture"));
        typeDMDao.create(new TypeDM("Instrument Leger"));
       typeDMDao.create(new TypeDM("Outil de Diagnostique"));
-     /* typeDMDao.create(new TypeDM("Mobilier"));
+     typeDMDao.create(new TypeDM("Mobilier"));
        typeDMDao.create(new TypeDM("Equipement Leger"));
-        typeDMDao.create(new TypeDM("dm connectés"));*/
+        typeDMDao.create(new TypeDM("dm connectés"));
         //-------------------------- Dm -------------------------------------
     dmDao.create(new DMwithQuantity(40,"BND","Bande", typeDMDao.getById(1),stockDao.getById(1)));
     dmDao.create(new DMwithQuantity(40,"PN", "Pensement", typeDMDao.getById(2),stockDao.getById(1)));
