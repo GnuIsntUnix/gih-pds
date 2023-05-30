@@ -16,7 +16,7 @@ public class DMwithQuantity extends DM {
 
     @Override
     public String toString() {
-        return "name : "+getNom()+" Quantité : "+quantite;
+        return getNom();
     }
 
     public DMwithQuantity() {

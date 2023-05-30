@@ -70,7 +70,7 @@ public class DemandesController implements Initializable {
                 cbDM.getItems().clear();
             }
         });
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
         qtteSpinner.setValueFactory(valueFactory);
         DemandesTable.setEditable(true);
 
@@ -95,6 +95,10 @@ public class DemandesController implements Initializable {
 
         DetailDemandeDm detailDemande = new DetailDemandeDm(dm, qte);
         DemandesTable.getItems().add(detailDemande);
+        cbTypeDm.valueProperty().set(null);
+        cbDM.valueProperty().set(null);
+        qtteSpinner.getValueFactory().setValue(1);
+
 
        // RequestBody body = RequestBody.create(
            //     MediaType.parse("application/json"), mapper.writeValueAsString(detailDemande));
@@ -107,6 +111,7 @@ public class DemandesController implements Initializable {
        // Call call = okHttpClient.newCall(request);
        // Response response = call.execute();
        // System.out.println(response.code());
+
 
     }
 
@@ -232,6 +237,8 @@ public class DemandesController implements Initializable {
                 response.close();
             }
         }
+        DemandesTable.setItems(null);
+        initialize(null, null);
     }
     @FXML
     public void deleteDetailList(ActionEvent event) {

@@ -8,45 +8,46 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DemandesController">
+<TabPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DemandesController" styleClass="tab-pane">
    <tabs>
       <Tab closable="false" text="Effectuer Demande">
          <content>
-            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F0FBEC;">
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-pane">
                <center>
-                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" spacing="10">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="197.0" style="-fx-background-color: #F0FBEC;">
+                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="197.0" styleClass="vbox">
                            <children>
-                              <ComboBox fx:id="cbTypeDm" prefWidth="150.0" promptText="typeDm" style="-fx-background-color: FFFACD;" />
+                              <ComboBox fx:id="cbTypeDm" prefWidth="150.0" promptText="Type de demande" styleClass="combo-box" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="213.0" style="-fx-background-color: #F0FBEC;">
+                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="213.0" styleClass="vbox">
                            <children>
-                              <ComboBox fx:id="cbDM" prefWidth="150.0" promptText="DM" style="-fx-background-color: FFFACD;" />
+                              <ComboBox fx:id="cbDM" prefWidth="150.0" promptText="DM" styleClass="combo-box" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="98.0" style="-fx-background-color: #F0FBEC;">
+                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="98.0" styleClass="vbox">
                            <opaqueInsets>
                               <Insets left="10.0" />
                            </opaqueInsets>
                            <children>
-                              <Spinner fx:id="qtteSpinner" style="-fx-background-color: FFFACD;" />
+                              <Spinner fx:id="qtteSpinner" styleClass="spinner" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="94.0" style="-fx-background-color: #F0FBEC;">
+                        <VBox alignment="CENTER" prefHeight="196.0" prefWidth="94.0" styleClass="vbox">
                            <children>
-                              <Button fx:id="bttnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" style="-fx-background-color: FFFACD;" text="ajouter" />
+                              <Button fx:id="bttnAjouter" mnemonicParsing="false" onAction="#onBtnAjouter" styleClass="button" text="Ajouter" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="96.0" style="-fx-background-color: #F0FBEC;">
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="96.0" styleClass="vbox">
                            <children>
-                              <Button fx:id="bttnsupprimer" mnemonicParsing="false" onAction="#deleteDetailList" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: FFFACD;" text="supprimer" />
+                              <Button fx:id="bttnsupprimer" mnemonicParsing="false" onAction="#deleteDetailList" prefHeight="26.0" prefWidth="113.0" styleClass="button" text="Supprimer" />
                            </children>
                         </VBox>
                      </children>
@@ -62,15 +63,15 @@
                   <HBox prefHeight="196.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                </right>
                <bottom>
-                  <VBox alignment="CENTER" prefHeight="242.0" prefWidth="585.0" spacing="20.0" style="-fx-background-color: #F0FBEC;" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="242.0" prefWidth="585.0" spacing="20.0" styleClass="vbox" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="DemandesTable" prefHeight="91.0" prefWidth="600.0" style="-fx-background-color: FFFACD;" VBox.vgrow="SOMETIMES">
-                          <columns>
-                            <TableColumn fx:id="DMColumn" prefWidth="301.0" text="DM" />
-                              <TableColumn fx:id="qtteColumn" prefWidth="298.0" text="quantité" />
-                          </columns>
+                        <TableView fx:id="DemandesTable" prefHeight="91.0" prefWidth="600.0" styleClass="table-view" VBox.vgrow="SOMETIMES">
+                           <columns>
+                              <TableColumn fx:id="DMColumn" prefWidth="301.0" text="DM" />
+                              <TableColumn fx:id="qtteColumn" prefWidth="298.0" text="Quantité" />
+                           </columns>
                         </TableView>
-                        <Button fx:id="bttnvalider" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBtnValider" style="-fx-background-color: FFFACD;" text="valider" />
+                        <Button fx:id="bttnvalider" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onBtnValider" styleClass="button" text="Valider" />
                      </children>
                      <opaqueInsets>
                         <Insets bottom="40.0" />
@@ -84,9 +85,9 @@
          </content>
       </Tab>
       <Tab fx:id="tabConsulter" closable="false" onSelectionChanged="#onTabConsulter" text="Consulter Mes Demandes">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
       </Tab>
    </tabs>
 </TabPane>
