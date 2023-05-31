@@ -24,7 +24,7 @@ public class Batiment extends Instances {
     @ManyToOne
     private Service service;
 
-    @OneToMany(mappedBy = "batiment")
+    @OneToMany(mappedBy = "batiment", cascade = CascadeType.ALL)
     private List<Espace> espaces= new ArrayList<>();
 
 

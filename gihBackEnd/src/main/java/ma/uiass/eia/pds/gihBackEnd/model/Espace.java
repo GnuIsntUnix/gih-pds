@@ -38,7 +38,7 @@ public abstract class Espace {
     protected int etage;
 
     @JsonIgnore
-    @OneToMany(mappedBy="espace")
+    @OneToMany(mappedBy="espace", cascade = CascadeType.ALL)
     protected List<Lit> lits  = new ArrayList<>();
 
 

@@ -41,11 +41,11 @@ public class Service extends Instances implements Serializable {
         this.commandes = commandes;
     }
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Commande> commandes = new ArrayList<>();
 
-    @OneToOne(mappedBy = "service")
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
     @JsonIgnore
     private Stock stock;
 
