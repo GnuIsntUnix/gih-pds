@@ -45,6 +45,11 @@
                         <Button fx:id="bttnmodifier" mnemonicParsing="false" onAction="#onBtnLiberer" style="-fx-background-color: FFFACD;" text="Libérer" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="198.0" style="-fx-background-color: #F0FBEC;">
+                     <children>
+                        <Button fx:id="bttnHistorique" onAction="#onBtnHistorique" style="-fx-background-color: FFFACD;" text="Historique" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
@@ -61,11 +66,11 @@
    </right>
    <bottom>
       <TableView fx:id="tableLIts" prefHeight="271.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="idCol" prefWidth="160.0" text="id" />
-          <TableColumn fx:id="typeCol" prefWidth="197.0" text="type" />
+         <columns>
+            <TableColumn fx:id="idCol" prefWidth="160.0" text="id" />
+            <TableColumn fx:id="typeCol" prefWidth="197.0" text="type" />
             <TableColumn fx:id="admissionCol" prefWidth="242.0" text="admission" />
-        </columns>
+         </columns>
       </TableView>
    </bottom>
 </BorderPane>

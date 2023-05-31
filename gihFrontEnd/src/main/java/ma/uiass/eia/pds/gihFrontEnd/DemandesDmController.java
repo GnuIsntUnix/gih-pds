@@ -89,6 +89,7 @@ public class DemandesDmController implements Initializable {
                             //tableDemandes.getItems().remove(row);
                             try {
                                 deleteDemande(numdemande);
+                                tableDetail.setItems(null);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -99,7 +100,6 @@ public class DemandesDmController implements Initializable {
                                     .title("warning")
                                     .text("Demande déja" + demande.getEtatDemande())
                                     .showWarning();
-
                         }
                     });
                     hBox.setSpacing(5);
@@ -107,8 +107,6 @@ public class DemandesDmController implements Initializable {
 
                 }
             }
-
-
         });
         System.out.println(getDemandes());
         tableDemandes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

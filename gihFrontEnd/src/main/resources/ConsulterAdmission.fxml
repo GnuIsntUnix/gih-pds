@@ -2,16 +2,29 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<Pane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterAdmission">
-   <children>
-      <TableView fx:id="tblAdmissions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="450.0">
-        <columns>
-            <TableColumn fx:id="colNumAdmission" prefWidth="150.0" text="numAdmission" />
-            <TableColumn fx:id="colDatedebut" prefWidth="150.0" text="dateDebut" />
-            <TableColumn fx:id="colDateFin" prefWidth="150.0" text="dateFin" />
-        </columns>
-      </TableView>
-   </children>
-</Pane>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterAdmission">
+    <children>
+        <TableView fx:id="tblAdmissions" layoutX="56.0" layoutY="40.0" prefHeight="319.0" prefWidth="490.0">
+            <columns>
+                <TableColumn fx:id="colNumAdmission" prefWidth="75.0" text="Num Admission">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="idAdmission" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colDatedebut" prefWidth="125.0" text="Date Debut">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dateDebut" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="colDateFin" prefWidth="125.0" text="Date Fin">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dateFin" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

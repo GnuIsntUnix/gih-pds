@@ -1,10 +1,18 @@
 package ma.uiass.eia.pds.gihBackEnd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
+@DiscriminatorColumn(name = "Type", length = 255)
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME,include = JsonTypeInfo.As.PROPERTY,property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value=DMwithExemplaire.class,name="DMwithExemplaire"),
+        @JsonSubTypes.Type(value =DMwithQuantity.class,name="DMwithQuantity")
+})
 @Table(name = "TDm")
 public abstract class DM {
 

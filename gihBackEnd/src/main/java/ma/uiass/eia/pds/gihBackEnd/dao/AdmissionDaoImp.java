@@ -55,7 +55,7 @@ public class AdmissionDaoImp implements IAdmissionDao{
     public Admission getAdmissionByLit(int id){
         Admission admission = null;
         try{
-            Query query = entityManager.createQuery("select a from Admission a inner join a.lit l where l.admission.idAdmission = :id");
+            Query query = entityManager.createQuery("select a from Admission a inner join a.lit l where l.admission.idAdmission = a.idAdmission and l.n_lit=: id and a.dateFin = null");
             query.setParameter("id", id);
             admission = (Admission) query.getSingleResult();
         }
