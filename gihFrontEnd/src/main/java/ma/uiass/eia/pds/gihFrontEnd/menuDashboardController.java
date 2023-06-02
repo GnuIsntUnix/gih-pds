@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -26,13 +27,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import ma.uiass.eia.pds.gihBackEnd.model.DisponibiliteLit;
-import ma.uiass.eia.pds.gihBackEnd.model.Lit;
-import ma.uiass.eia.pds.gihBackEnd.model.Service;
-import ma.uiass.eia.pds.gihBackEnd.model.TypeDM;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.*;
 import org.controlsfx.control.PopOver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -46,6 +45,113 @@ public class menuDashboardController implements Initializable {
     private Button ajouterBtn;
     @FXML
     private Button btnRetour;
+
+    @FXML
+    private Button deleteBtn;
+
+    @FXML
+    private Button modifyBtn;
+
+
+    @FXML
+    void onDeleteBtn(ActionEvent event) {
+        Request request = new Request.Builder().url("http://localhost:9998/service/delete/"+menuDashboardController.getService().getIdService()).delete().build();
+        try {
+            Response response= okHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        initialize(null, null);
+    }
+
+    @FXML
+    void onModifyButton(ActionEvent event) {
+        // Get the selected Fournisseur object
+        Service service = menuDashboardController.getService();
+
+        // Check if a Fournisseur is selected before displaying the edit dialog
+        if (service == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No Service Selected");
+            alert.setContentText("Please select a Service to edit.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Create the edit dialog
+        Dialog<Service> dialog = new Dialog<>();
+        dialog.setTitle("Edit Service");
+
+        // Set the button types
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        // Set up the dialog fields (e.g. text fields for each property of the Fournisseur object)
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nomTextField = new TextField(service.getNomService());
+        TextField codeTextField = new TextField(service.getCodeS());
+
+        gridPane.add(new Label("Nom:"), 0, 0);
+        gridPane.add(nomTextField, 1, 0);
+        gridPane.add(new Label("Adresse:"), 0, 1);
+        gridPane.add(codeTextField, 1, 1);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        // Set the initial field values to the current values of the selected Fournisseur
+        nomTextField.setText(service.getNomService());
+        codeTextField.setText(service.getCodeS());
+
+        // Convert the result to a Fournisseur object when the save button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == saveButtonType) {
+                Service editedService = new Service(
+                        codeTextField.getText(),
+                        nomTextField.getText()
+                );
+                editedService.setIdService(service.getIdService());
+                return editedService;
+            }
+            return null;
+        });
+
+        // Display the edit dialog and handle the save button action
+        Optional<Service> result = dialog.showAndWait();
+        result.ifPresent(editedService -> {
+            // Set the properties of the editedFournisseur object from the dialog fields
+            // ...
+            ObjectMapper mapper = new ObjectMapper();
+
+            RequestBody body = null;
+            try {
+                body = RequestBody.create(
+                        MediaType.parse("application/json"), mapper.writeValueAsString(editedService));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+
+            Request request = new Request.Builder()
+                    .url("http://localhost:9998/service/update")
+                    .put(body)
+                    .build();
+
+            Call call = okHttpClient.newCall(request);
+            try {
+                Response response = call.execute();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            // Refresh the table view with the updated data
+            initialize(null, null);
+        });
+    }
+
+    private static Service service;
     OkHttpClient okHttpClient = new OkHttpClient();
 
 
@@ -60,7 +166,6 @@ public class menuDashboardController implements Initializable {
         gridPane.setHgap(40); // set the horizontal gap between columns
         gridPane.setVgap(10); // set the vertical gap between rows
         gridPane.setAlignment(Pos.CENTER);
-        System.out.println(services);
         int i = 0;
         for (Service s:services) {
             System.out.println(s);
@@ -76,17 +181,28 @@ public class menuDashboardController implements Initializable {
             hBox.setAlignment(Pos.CENTER);
             hBox.setSpacing(10);
             hBox.getChildren().addAll(lblDispo, lblOccup);
-            vBox.setStyle("-fx-border-color:black");
             vBox.setPadding(new Insets(10));
             vBox.setAlignment(Pos.CENTER);
             vBox.getChildren().addAll(lblService, hBox);
+            Button button = new Button();
+            button.setGraphic(vBox);
+            button.getStylesheets().clear();
+            File file = new File("gihFrontEnd/src/main/resources/css/services.css");
+            button.getStylesheets().add("file:///" + file.getAbsolutePath().replace("\\", "/"));
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    VBox vBox1 = (VBox) button.getGraphic();
+                    menuDashboardController.setService(s);
+                }
+            });
             // calculate the column and row indices of the cell
             int colIndex = i % numColumns;
             int rowIndex = i / numColumns;
 
             // add node to the cell
-            GridPane.setConstraints(vBox, colIndex, rowIndex);
-            gridPane.getChildren().add(vBox);
+            GridPane.setConstraints(button, colIndex, rowIndex);
+            gridPane.getChildren().add(button);
             i++;
         }
         borderPane.setCenter(gridPane);
@@ -98,6 +214,7 @@ public class menuDashboardController implements Initializable {
         //Create PopOver and add look and feel
         Popup popup = new Popup();
         popup.getContent().add(new Label("3"));
+
 
 
     }
@@ -248,5 +365,13 @@ public class menuDashboardController implements Initializable {
         stage.setTitle(fxmlResourceName);
         stage.show();
         stage.centerOnScreen();
+    }
+
+    public static Service getService() {
+        return service;
+    }
+
+    public static void setService(Service service) {
+        menuDashboardController.service = service;
     }
 }

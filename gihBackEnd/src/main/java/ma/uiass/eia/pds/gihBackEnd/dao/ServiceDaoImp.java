@@ -61,7 +61,18 @@ public class ServiceDaoImp implements IServiceDao {
 
     @Override
     public void update(Service service) {
-
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            this.entityManager.merge(service);
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override

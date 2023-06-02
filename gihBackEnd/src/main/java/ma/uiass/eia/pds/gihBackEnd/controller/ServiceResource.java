@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import ma.uiass.eia.pds.gihBackEnd.dao.Dao;
 import ma.uiass.eia.pds.gihBackEnd.dao.ServiceDaoImp;
+import ma.uiass.eia.pds.gihBackEnd.model.Lit;
 import ma.uiass.eia.pds.gihBackEnd.model.Service;
 
 import java.util.List;
@@ -43,6 +44,15 @@ public class ServiceResource {
     public String deleteLit(@PathParam("id") int id){
         serviceDaoImp.delete(id);
         return "Deleted !";
+    }
+
+    @PUT
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateLit(Service service){
+        serviceDaoImp.update(service);
+        return "Updated !";
     }
 
 }
