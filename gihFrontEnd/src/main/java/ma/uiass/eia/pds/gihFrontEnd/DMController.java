@@ -71,7 +71,7 @@ public class DMController implements Initializable {
         DM dm =null;
         if(typeDM.getNomType().equalsIgnoreCase("dm connectés")||typeDM.getNomType().equalsIgnoreCase("Equipement Leger")
                 ||typeDM.getNomType().equalsIgnoreCase("dm lourd")|| typeDM.getNomType().equalsIgnoreCase("Mobilier") ) {
-            dm=new DMwithExemplaire(code,nom,typeDM);
+            dm=new DMwithExemplaire(code,nom,typeDM,getStock(1));
 
         }else{
             dm = new DMwithQuantity(1, code, nom, typeDM, getStock(1));

@@ -41,7 +41,6 @@ public abstract class DM {
     private DetailLivraison detailLivraison;
     @JoinColumn(name = "idStock", referencedColumnName = "Id")
     @ManyToOne
-    @JsonIgnore
     private Stock stock;
 
     public DM() {
