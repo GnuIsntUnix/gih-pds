@@ -24,8 +24,8 @@ public class DMwithExemplaire extends DM{
         this.exemplaireDmList = exemplaireDmList;
     }
 
-    public DMwithExemplaire(String code, String nom, TypeDM typeDM) {
-        super(code, nom, typeDM);
+    public DMwithExemplaire(String code, String nom, TypeDM typeDM, Stock stock) {
+        super(code, nom, typeDM,stock);
     }
 
     public List<ExemplaireDm> getExemplaireDmList() {
