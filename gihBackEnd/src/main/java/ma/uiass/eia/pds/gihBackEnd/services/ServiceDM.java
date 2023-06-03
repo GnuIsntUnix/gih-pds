@@ -65,12 +65,20 @@ public class ServiceDM {
         });
         return byType;
     }
+    public List<DM> getDmByStock(int idStock){
+        List<DM> list = new ArrayList<>();
+        for (DM dm : dmDao.getAll()){
+            if (dm.getStock().getIdEspace()==idStock)
+                list.add(dm);
+        }
+        return list;
+    }
     public void affecterExemplaire(int id,int idStock){
         Stock stock=stockDao.getById(idStock);
         ExemplaireDm exemplaireDm=exemplaireDMDaoImp.getById(id);
         exemplaireDm.setStock(stock);
         exemplaireDMDaoImp.update(exemplaireDm);
-        System.out.println("Affectation d'exemplaire complete");
+        System.out.println("exec");
     }
 
     public int number(int stockId, int dmId){
@@ -81,9 +89,12 @@ public class ServiceDM {
     }
     public void affecterDm(int id,int idStock){
         Stock stock=stockDao.getById(idStock);
-        DM dm=dmDao.getById(id);
+        DMwithQuantity dm= (DMwithQuantity) dmDao.getById(id);
         ((DMwithQuantity)dm).setStock(stock);
         dmDao.update(dm);
-        System.out.println("Affectation de DM complete");
+        System.out.println("Affectation de DM complete xdd");
+    }
+    public void up(DM dm){
+        dmDao.update(dm);
     }
 }

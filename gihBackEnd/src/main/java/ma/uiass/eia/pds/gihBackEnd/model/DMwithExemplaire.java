@@ -23,6 +23,10 @@ public class DMwithExemplaire extends DM{
         super(code, nom, typeDM);
         this.exemplaireDmList = exemplaireDmList;
     }
+    public DMwithExemplaire(String code, String nom, TypeDM typeDM, List<ExemplaireDm> exemplaireDmList,Stock stock) {
+        super(code, nom, typeDM,stock);
+        this.exemplaireDmList = exemplaireDmList;
+    }
 
     public DMwithExemplaire(String code, String nom, TypeDM typeDM, Stock stock) {
         super(code, nom, typeDM,stock);
@@ -34,5 +38,9 @@ public class DMwithExemplaire extends DM{
 
     public void setExemplaireDmList(List<ExemplaireDm> exemplaireDmList) {
         this.exemplaireDmList = exemplaireDmList;
+    }
+    @Override
+    public String toString() {
+        return getNom();
     }
 }

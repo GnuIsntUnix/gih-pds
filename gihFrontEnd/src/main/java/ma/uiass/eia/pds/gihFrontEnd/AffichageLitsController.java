@@ -62,6 +62,8 @@ public class AffichageLitsController implements Initializable {
 
     @FXML
     private Tab tabCommandes;
+    @FXML
+    private Tab tabAffectation;
 
     @FXML
     private Tab tabLits;
@@ -221,5 +223,10 @@ public class AffichageLitsController implements Initializable {
     void onCommandes(Event event) throws IOException {
         Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("commandes.fxml"));
         tabCommandes.setContent(fxmlLoader);
+    }
+    @FXML
+    void onAffectation(Event event) throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("affecterLitsAuxChambres.fxml"));
+        tabAffectation.setContent(fxmlLoader);
     }
 }

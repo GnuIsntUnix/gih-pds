@@ -5,12 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import ma.uiass.eia.pds.gihBackEnd.model.Commande;
 import ma.uiass.eia.pds.gihBackEnd.model.DemandeDm;
 import ma.uiass.eia.pds.gihBackEnd.model.Lit;
@@ -27,8 +32,8 @@ import java.util.ResourceBundle;
 public class TraiterDemandes implements Initializable {
     @FXML
     private Button traiter;
-    //@FXML
-    //private ListView<DemandeDm> demandes;
+    @FXML
+    private Button consulter;
     @FXML
     private TableView<DemandeDm> table;
     @FXML
@@ -51,10 +56,26 @@ public class TraiterDemandes implements Initializable {
         table.setItems(FXCollections.observableArrayList(getDemandes()));
         table.getSelectionModel().selectFirst();
         table.requestLayout();
+        consulter.setOnAction(event -> {
+            Parent loader;
+            try {
+                loader = FXMLLoader.load(getClass().getClassLoader().getResource("quantiteEnStock.fxml"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = new Stage();
+            Scene scene = new Scene(loader);
+            stage.setTitle("Quantité en Stock");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            loader.requestFocus();
+        });
         //demandes;
     }
     public void onDemande(ActionEvent event)throws IOException {
         DemandeDm dm=table.getSelectionModel().getSelectedItem();
+        System.out.println(dm);
         ObjectMapper mapper = new ObjectMapper();
 
         RequestBody body = RequestBody.create(
@@ -83,5 +104,8 @@ public class TraiterDemandes implements Initializable {
             throw new RuntimeException(e);
         }
         return dms;
+    }
+    public void onConsulter(ActionEvent event)throws IOException{
+
     }
 }

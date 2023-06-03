@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.QuantiteEnStock">
+   <children>
+      <TableView fx:id="table" layoutY="81.0" prefHeight="320.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="131.99996948242188" text="Id" />
+          <TableColumn fx:id="code" prefWidth="151.3333740234375" text="Code" />
+            <TableColumn fx:id="nom" prefWidth="152.66665649414062" text="Nom" />
+            <TableColumn fx:id="quan" prefWidth="163.33331298828125" text="Quantité en Stock" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="type" layoutX="85.0" layoutY="31.0" prefWidth="150.0" promptText="Type DM" />
+      <Button fx:id="consulter" layoutX="376.0" layoutY="31.0" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="96.0" text="consulter" />
+   </children>
+</Pane>

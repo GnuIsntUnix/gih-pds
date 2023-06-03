@@ -26,4 +26,7 @@ public class ServiceStock {
         }
         return stock;
     }
+    public Stock getStockLog(){
+        return stockDao.getById(1);
+    }
 }
