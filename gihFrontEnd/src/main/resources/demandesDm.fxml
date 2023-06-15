@@ -8,19 +8,18 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DemandesController" styleClass="tab-pane">
+<TabPane styleClass="tab-pane" stylesheets="@css/tabpane.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.DemandesController">
    <tabs>
       <Tab closable="false" text="Effectuer Demande">
          <content>
             <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-pane">
                <center>
-                  <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" spacing="10">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10" BorderPane.alignment="CENTER">
                      <children>
                         <VBox alignment="CENTER" prefHeight="196.0" prefWidth="197.0" styleClass="vbox">
                            <children>

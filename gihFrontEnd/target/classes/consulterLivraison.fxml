@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterLivraisonController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.ConsulterLivraisonController">
    <children>
-      <TableView fx:id="tableLivraison" maxWidth="300.0" prefHeight="266.0" prefWidth="294.0">
-        <columns>
-          <TableColumn fx:id="colLivraison" prefWidth="150.0" text="Livraison" />
-          <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
-        </columns>
-      </TableView>
+      <HBox>
+         <children>
+            <TableView fx:id="tableLivraison" maxWidth="300.0" prefHeight="410.0" prefWidth="220.0">
+              <columns>
+                <TableColumn fx:id="colLivraison" maxWidth="110.0" prefWidth="150.0" text="Livraison" />
+                <TableColumn fx:id="colDate" maxWidth="110.0" prefWidth="150.0" text="Date" />
+              </columns>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </TableView>
+            <TableView fx:id="tableDetailLivraison" prefHeight="410.0" prefWidth="330.0">
+              <columns>
+                <TableColumn fx:id="colDM" maxWidth="110.0" prefWidth="125.0" text="DM" />
+                <TableColumn fx:id="colQte" prefWidth="110.0" text="Qte" />
+                  <TableColumn fx:id="colFournisseur" prefWidth="110.0" text="Fournisseur" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
    </children>
 </VBox>

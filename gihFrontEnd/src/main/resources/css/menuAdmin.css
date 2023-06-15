@@ -3,7 +3,6 @@
 }
 .button:hover{
     -fx-background-color: #D4F3C6;
-}
 .button:focused{
     -fx-background-color: #FFFFFF;
 }

@@ -19,14 +19,6 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="188.0" prefWidth="133.0">
                      <children>
-                        <Button fx:id="btnDashboard" alignment="CENTER" mnemonicParsing="false" onAction="#onDashboardClick" prefHeight="52.0" prefWidth="133.0" text="Dashboard">
-                           <graphic>
-                              <FontAwesomeIconView fill="#7edc56" glyphName="DASHBOARD" size="17" wrappingWidth="17.0" />
-                           </graphic>
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Button>
                         <Button fx:id="btnLits" alignment="CENTER" mnemonicParsing="false" onAction="#onLitClick" prefHeight="41.0" prefWidth="133.0" text="Lits" textAlignment="CENTER">
                            <graphic>
                               <FontAwesomeIconView fill="#7edc56" glyphName="BED" size="17" wrappingWidth="17.0" />

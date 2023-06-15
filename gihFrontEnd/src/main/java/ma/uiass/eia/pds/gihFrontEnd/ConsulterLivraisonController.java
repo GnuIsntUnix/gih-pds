@@ -16,9 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import ma.uiass.eia.pds.gihBackEnd.model.Admission;
-import ma.uiass.eia.pds.gihBackEnd.model.Fournisseur;
-import ma.uiass.eia.pds.gihBackEnd.model.Livraison;
+import ma.uiass.eia.pds.gihBackEnd.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -39,6 +37,19 @@ public class ConsulterLivraisonController implements Initializable {
     private TableColumn<Livraison, Integer> colLivraison;
 
     @FXML
+    private TableColumn<DetailLivraison, DM> colDM;
+
+
+    @FXML
+    private TableColumn<DetailLivraison, Fournisseur> colFournisseur;
+
+
+    @FXML
+    private TableColumn<DetailLivraison, Integer> colQte;
+
+    @FXML
+    private TableView<DetailLivraison> tableDetailLivraison;
+    @FXML
     private TableView<Livraison> tableLivraison;
 
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -46,37 +57,23 @@ public class ConsulterLivraisonController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         tableLivraison.setItems(FXCollections.observableArrayList(getLivraison()));
+
         tableLivraison.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-
-                    System.out.println("double");
-                    Parent fxmlLoader = null;
-                    try {
-                        fxmlLoader = FXMLLoader.load(getClass().getClassLoader().getResource("popupDetailsLivraison.fxml"));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    PopupDetailsLivraisonController.setLivraison(tableLivraison.getSelectionModel().getSelectedItem());
-                    Scene scene = new Scene(fxmlLoader);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent windowEvent) {
-                            initialize(null, null);
-                            stage.close();
-                        }
-                    });
-                    stage.showAndWait();
+                    tableDetailLivraison.setItems(FXCollections.observableList(tableLivraison.getSelectionModel().getSelectedItem().getDetailLivraisonList()));
                 }
             }
         });
 
         colDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
         colLivraison.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colDM.setCellValueFactory(new PropertyValueFactory<>("dm"));
+        colQte.setCellValueFactory(new PropertyValueFactory<>("Qte"));
+        colFournisseur.setCellValueFactory(new PropertyValueFactory<>("Fournisseur"));
 
     }
     public List<Livraison> getLivraison(){
