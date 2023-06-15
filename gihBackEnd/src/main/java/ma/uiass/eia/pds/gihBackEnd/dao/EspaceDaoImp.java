@@ -7,6 +7,7 @@ import ma.uiass.eia.pds.gihBackEnd.model.Chambre;
 import ma.uiass.eia.pds.gihBackEnd.model.Espace;
 import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EspaceDaoImp implements IEspaceDao{
@@ -83,7 +84,15 @@ public class EspaceDaoImp implements IEspaceDao{
     }
 
     public List<Espace> getAllBatiment(int id) {
-        Batiment batiment = batimentDaoImp.getById(id);
-        return batiment.getEspaces();
+        Query query=entityManager.createQuery("from Espace e where e.batiment.idBatiment="+ id,Espace.class);
+        return query.getResultList();
+    }
+    public List<Espace> getSemiAll(int id){
+        List<Espace> list = new ArrayList<>();
+        for (Espace e:getAll()){
+            if(e.getBatiment()!=null && e.getBatiment().getIdBatiment()==id)
+                list.add(e);
+        }
+        return list;
     }
 }

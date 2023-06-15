@@ -16,5 +16,6 @@
             <TableColumn fx:id="valide" prefWidth="156.66665649414062" text="validation" />
         </columns>
       </TableView>
+      <Button fx:id="consulter" layoutX="30.0" layoutY="467.0" mnemonicParsing="false" onAction="#onConsulter" prefHeight="32.0" prefWidth="135.0" text="Quantité en Stock" />
    </children>
 </Pane>

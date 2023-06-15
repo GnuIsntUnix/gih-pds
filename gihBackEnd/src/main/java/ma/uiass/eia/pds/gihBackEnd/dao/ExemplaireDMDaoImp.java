@@ -59,7 +59,6 @@ public class ExemplaireDMDaoImp implements IExemplaireDMDao{
             transaction.begin();
             this.entityManager.merge(exemplaireDm);
             transaction.commit();
-            System.out.println("i got called out");
         }
         catch (Exception e) {
             if (transaction != null) {

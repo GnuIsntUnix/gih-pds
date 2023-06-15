@@ -30,4 +30,10 @@ public class StockResource {
         return stockDao.getStockByService(id);
     }
 
+    @GET
+    @Path("/getstockLog")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Stock getStockLog() {
+        return stockDao.getStockLog();
+    }
 }

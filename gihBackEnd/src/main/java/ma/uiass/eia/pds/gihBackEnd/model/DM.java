@@ -41,7 +41,6 @@ public abstract class DM {
     private DetailLivraison detailLivraison;
     @JoinColumn(name = "idStock", referencedColumnName = "Id")
     @ManyToOne
-    @JsonIgnore
     private Stock stock;
 
     public DM() {
@@ -127,6 +126,5 @@ public abstract class DM {
     public void setStock(Stock stock) {
         this.stock = stock;
     }
-
 
 }

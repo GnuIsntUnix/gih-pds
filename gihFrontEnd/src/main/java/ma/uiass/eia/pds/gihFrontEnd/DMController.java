@@ -20,10 +20,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DMController implements Initializable {
 
@@ -69,10 +66,9 @@ public class DMController implements Initializable {
         simpleModule.addSerializer(DM.class, new DMJsonSerializer());
         mapper.registerModule(simpleModule);*/
         DM dm =null;
-        if(typeDM.getNomType().equalsIgnoreCase("dm connectés")||typeDM.getNomType().equalsIgnoreCase("Equipement Leger")
+        if(typeDM.getNomType().equalsIgnoreCase("dm connectés")||typeDM.getNomType().equalsIgnoreCase("Equipement lourd")
                 ||typeDM.getNomType().equalsIgnoreCase("dm lourd")|| typeDM.getNomType().equalsIgnoreCase("Mobilier") ) {
-            dm=new DMwithExemplaire(code,nom,typeDM);
-
+            dm=new DMwithExemplaire(code,nom,typeDM,getStockLog());
         }else{
             dm = new DMwithQuantity(1, code, nom, typeDM, getStock(1));
         }
@@ -201,6 +197,20 @@ public class DMController implements Initializable {
 
     public Stock getStock(int idService){
         Request request = new Request.Builder().url("http://localhost:9998/stock/getstock/byservice/"+idService).build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        Response response = null;
+        Stock stock = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            stock = mapper.readValue(response.body().charStream(), new TypeReference<Stock>() {});
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return stock;
+    }
+    public Stock getStockLog(){
+        Request request = new Request.Builder().url("http://localhost:9998/stock/getstockLog").build();
         ObjectMapper mapper = new ObjectMapper();
 
         Response response = null;

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/19" stylesheets="@css/tabpane.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AffichageLitsController">
+<TabPane fx:id="tabPane" stylesheets="@css/tabpane.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.uiass.eia.pds.gihFrontEnd.AffichageLitsController">
    <tabs>
       <Tab fx:id="tabLits" closable="false" text="Lits">
          <content>
@@ -76,6 +76,11 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
+      </Tab>
+      <Tab fx:id="tabAffectation" closable="false" onSelectionChanged="#onAffectation" text="Affectation">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
       </Tab>
    </tabs>
 </TabPane>

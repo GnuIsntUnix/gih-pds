@@ -27,6 +27,13 @@ public class EspaceResource {
     @Path("/getespaces/batiment/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Espace> getEspacesBatiment(@PathParam("id") int id) {
+        System.out.println("i am here");
         return espaceDao.getAllBatiment(id);
+    }
+    @GET
+    @Path("/getespaces/semiall/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Espace> getEsp(@PathParam("id") int id) {
+        return espaceDao.getSemiAll(id);
     }
 }

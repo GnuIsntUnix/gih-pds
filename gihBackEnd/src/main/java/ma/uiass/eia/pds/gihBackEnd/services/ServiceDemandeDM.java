@@ -34,9 +34,11 @@ public class ServiceDemandeDM {
     public void deleteById(int id) {
         demandeDao.delete(id);
     }
+
     public void traiter(DemandeDm demandeDm){
         Service service=serviceDaoImp.getById(demandeDm.getService().getIdService());
         boolean valide=true;
+        System.out.println(demandeDm.getDetailDemandeDms());
         for(DetailDemandeDm detailDemandeDm:demandeDm.getDetailDemandeDms()){
             int i=1;
             if(detailDemandeDm.getDm() instanceof DMwithExemplaire){
@@ -49,14 +51,22 @@ public class ServiceDemandeDM {
                     }
                 }
                 else{
+                    System.out.println("quantité est grand");
                     valide=false;
                 }
             }
             else{
                 if(((DMwithQuantity)detailDemandeDm.getDm()).getQuantite()>=detailDemandeDm.getQte()){
+                    System.out.println("hello baby");
+                    System.out.println(stockDao.getById(1).getDms());
                     for(int j=1;j<=detailDemandeDm.getQte();j++){
-                        int id= stockDao.getById(1).getDms().get(j).getId();
-                        serviceDM.affecterDm(id,service.getStock().getIdEspace());
+                        serviceDM.affecterDm(((DMwithQuantity)detailDemandeDm.getDm()).getId(),service.getStock().getIdEspace());
+                        DMwithQuantity xd= (DMwithQuantity) serviceDM.searchById(((DMwithQuantity)detailDemandeDm.getDm()).getId());
+                        xd.setQuantite(((DMwithQuantity)detailDemandeDm.getDm()).getQuantite()-detailDemandeDm.getQte());
+                        System.out.println(xd.getQuantite());
+                        serviceDM.up(xd);
+                        System.out.println(xd.getQuantite());
+                        System.out.println("updated");
                     }
                 }
                 else{

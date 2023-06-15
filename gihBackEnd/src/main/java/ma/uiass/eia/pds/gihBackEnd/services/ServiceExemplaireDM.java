@@ -8,6 +8,7 @@ import ma.uiass.eia.pds.gihBackEnd.model.DM;
 import ma.uiass.eia.pds.gihBackEnd.model.DMwithExemplaire;
 import ma.uiass.eia.pds.gihBackEnd.model.ExemplaireDm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceExemplaireDM {
@@ -28,5 +29,16 @@ public class ServiceExemplaireDM {
     public List<ExemplaireDm> getByDm(int idDm){
         DM dm = dmDao.getById(idDm);
         return ((DMwithExemplaire)dm).getExemplaireDmList();
+    }
+
+    public List<ExemplaireDm> getBySockAndDm(int id) {
+        List<ExemplaireDm> list=new ArrayList<>();
+        if (dmDao.getById(id) instanceof DMwithExemplaire){
+            for(ExemplaireDm exemplaireDm:((DMwithExemplaire) dmDao.getById(id)).getExemplaireDmList()){
+                if (exemplaireDm.getStock().getIdEspace()==1)
+                    list.add(exemplaireDm);
+            }
+        }
+        return list;
     }
 }

@@ -59,4 +59,9 @@ public class ExemplaireDm {
     public void setDm(DM dm) {
         this.dm = dm;
     }
+
+    @Override
+    public String toString() {
+        return this.getDm()+" -> "+this.getStock().getIdEspace();
+    }
 }

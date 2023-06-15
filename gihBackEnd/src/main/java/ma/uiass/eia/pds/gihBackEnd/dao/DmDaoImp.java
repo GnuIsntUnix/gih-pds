@@ -9,6 +9,7 @@ import ma.uiass.eia.pds.gihBackEnd.util.HibernateUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import java.util.Arrays;
 import java.util.List;
 
 public class DmDaoImp implements IDmDao{
@@ -21,10 +22,19 @@ public class DmDaoImp implements IDmDao{
 
     @Override
     public void create(DM dm) {
+        IStockDao stockDao=new StockDaoImp();
         EntityTransaction transaction = entityManager.getTransaction();
         List<ExemplaireDm> exemplaireDms = null;
-        if(dm instanceof DMwithExemplaire)
+        if(dm instanceof DMwithExemplaire) {
+            ExemplaireDm e1 = new ExemplaireDm(dm, stockDao.getById(1));
+            ExemplaireDm e2 = new ExemplaireDm(dm, stockDao.getById(1));
+            ExemplaireDm e3 = new ExemplaireDm(dm, stockDao.getById(1));
+            ExemplaireDm e4 = new ExemplaireDm(dm, stockDao.getById(1));
+            ExemplaireDm e5 = new ExemplaireDm(dm, stockDao.getById(1));
+            List<ExemplaireDm> list = Arrays.asList(e1, e2, e3, e4, e5);
+            ((DMwithExemplaire) dm).setExemplaireDmList(list);
             exemplaireDms = ((DMwithExemplaire) dm).getExemplaireDmList();
+        }
         ExemplaireDMDaoImp exemplaireDMDaoImp = new ExemplaireDMDaoImp();
         try {
             transaction.begin();
@@ -40,6 +50,7 @@ public class DmDaoImp implements IDmDao{
         if(dm instanceof DMwithExemplaire){
             exemplaireDms.forEach(exemplaireDm -> {
                 exemplaireDm.setDm(dm);
+//                exemplaireDm.setStock(stockDao.getById(1));
                 exemplaireDMDaoImp.create(exemplaireDm);
             });
         }
