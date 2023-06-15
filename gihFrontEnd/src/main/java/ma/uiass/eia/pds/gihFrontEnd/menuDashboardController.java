@@ -168,7 +168,6 @@ public class menuDashboardController implements Initializable {
         gridPane.setAlignment(Pos.CENTER);
         int i = 0;
         for (Service s:services) {
-            System.out.println(s);
             VBox vBox = new VBox();
             HBox hBox = new HBox();
             Label lblService = new Label(s.getNomService());

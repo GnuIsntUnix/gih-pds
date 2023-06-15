@@ -17,7 +17,7 @@ public class Stock extends Espace{
     private  List<DM> dms = new ArrayList<>();
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "idService", referencedColumnName = "Id")
     private Service service;
 

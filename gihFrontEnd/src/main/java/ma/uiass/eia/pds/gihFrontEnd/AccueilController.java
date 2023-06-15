@@ -62,8 +62,9 @@ public class AccueilController implements Initializable {
         }
         List<Service> servicesSansLogistique = new ArrayList<>();
         services.forEach(service -> {
-            if (!service.getNomService().equalsIgnoreCase("logistique") || !service.getCodeS().equalsIgnoreCase("amb"))
-                servicesSansLogistique.add(service);
+            if (!service.getNomService().equalsIgnoreCase("logistique"))
+                if ( !service.getCodeS().equalsIgnoreCase("amb"))
+                    servicesSansLogistique.add(service);
         });
         return servicesSansLogistique;
     }
